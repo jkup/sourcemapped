@@ -14,11 +14,11 @@ Earlier local verification (RM-03, 2026-10-10): **96 tests passed**, strict sour
 
 No npm release is recorded in the project history. The RM-04 implementation was committed and pushed to `origin/main`. Its 131-test suite, typechecks, and build passed on GitHub for Node 22 and 24; see RM-04 for the exact run and revision. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
 
-Latest investigation: [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; the study itself changes no production behavior. Its opt-in asset-limit recommendation is implemented and accepted under RM-04. See the study review below for historical local checks versus remote production CI.
+Latest investigation: [RM-06a](research/report-comparison-2026-10-10.md) defines a hypothetical repeat-deployment workflow and conservative comparison semantics using 26 offline before/after pairs. Its local investigation is complete; independent review/delivery remain pending. RM-06 production comparison remains unimplemented pending owner-workflow evidence. Earlier [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; its selected recommendation is implemented under RM-04.
 
 ## Active work
 
-None. RM-04 was accepted unchanged, committed/pushed, and verified on both supported Node CI jobs. No subsequent task started.
+None. RM-06a local investigation is complete and handed off for independent review. RM-06 implementation has not started; no subsequent task started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -45,7 +45,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-04 | done | Improve bounded asset sampling | Opt-in `--max-assets`; [remote CI](https://github.com/jkup/sourcemapped/actions/runs/38096210967), [run review](docs/agent-runs/0005-asset-limit.md) |
 | RM-04a | done | Investigate bounded sampling on controlled fixtures | [Offline study](research/sampling-2026-10-10.md); accepted implementation recorded under RM-04 |
 | RM-05 | done | Group repeated failure evidence in terminal output | [110 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38095190779); [run review](docs/agent-runs/0003-failure-presentation.md) |
-| RM-06 | needs-evidence | Compare saved metadata reports | Validate a repeat deployment-checking workflow |
+| RM-06 | needs-evidence | Compare saved metadata reports | Investigation/design under RM-06a; no production implementation authorized |
+| RM-06a | done | Investigate conservative saved-report comparison | [Offline study](research/report-comparison-2026-10-10.md); 26 asserted pairs, production work remains under RM-06 |
 | RM-07 | needs-evidence | Extend standards coverage and validation | Concrete unsupported case and fixture strategy |
 | RM-08 | needs-evidence | Support owner-provided local bundle/map pairs | Confirm demand and define explicit input semantics |
 | RM-09 | needs-evidence | Improve source metadata summaries | Useful directory/non-code grouping examples |
@@ -113,6 +114,20 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 **Acceptance to start implementation:** document at least one concrete repeated deployment workflow and a small before/after fixture. Define stable identity across URL hashes, sampling differences, and schema versions before claiming regressions. A changed sample must not be reported as a disappeared map. Keep any implementation local and metadata-only.
 
+**Investigation outcome (2026-10-10):** RM-06a completes the hypothetical workflow, fixture, and identity-design portion. This is not evidence of repeat use or approval to implement. Exact URL observations are possible, but hashes remain unmatched and aggregate changes are not regressions. Production implementation is deliberately deferred while this item remains `needs-evidence`.
+
+**Next action:** obtain an authorized owner workflow and paired reports with capture/scanner provenance and intended publication policy; determine whether exact-URL observations answer the decision. Then select scope and specify input validation/bounds, comparison-output compatibility, provenance handling, terminal/exit semantics, and tests. No comparison CLI/API/schema has been implemented.
+
+### RM-06a — Controlled report-comparison investigation
+
+**Acceptance:** document a hypothetical repeated deployment-checking workflow, reproduce small offline before/after reports from current scanner behavior, define conservative identity/scope/schema/outcome semantics, demonstrate useful changes plus false-regression counterexamples, and recommend whether to implement. Preserve unfinished RM-06 and historical evidence.
+
+**Evidence (2026-10-10):** [Study](research/report-comparison-2026-10-10.md), [harness](scripts/report-comparison-study.mjs), and [metadata evidence](research/report-comparison-2026-10-10.json) contain 23 synthetic scanner captures plus four labeled reader controls and 26 asserted comparison pairs against source `dc55ac9`. Cases include content-slot loss, no-reference/invalid/unavailable/unsupported/limited transitions, retrieval recovery, skipped/failed JavaScript, changed selection, hashed URLs, target/scope/schema incompatibility, redirects, inline linkage, and shared-map relationship counts. All fetches are injected; no external requests or source bodies are persisted.
+
+**Recommendation:** defer production RM-06 pending owner-workflow evidence. Exact URL equality identifies a requested location, not content or lineage; a changed sample and aggregate decline must not be called a disappeared map. The workflow is hypothetical, with no adoption or owner-feedback claims. This is a research proposal, not a changed product/report contract or accepted ADR.
+
+**Local verification:** Node 26.10.0/npm 11.19.1; build and all harness assertions passed; two runs reproduced byte-for-byte. Changed-document relative links and `git diff --check` passed. No full production suite rerun, CLI/API/dependency/schema changes, external scan, outreach, historical refresh, commit or push. The harness is not part of CI; independent reviewer assessment/delivery and remote verification remain pending. No subsequent task started.
+
 ### RM-07 — Standards and validation
 
 **Acceptance to start implementation:** identify a real unsupported input, choose a bounded slice (for example indexed maps or inline-script origins), and list applicable TC39/independent fixtures. Reuse maintained decoding/validation libraries where appropriate. Acceptance for each slice includes precise count semantics, resource limits, and updated claims; “full conformance” cannot follow from a few unit tests.
@@ -143,6 +158,7 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-04 | 2026-10-10 | Opt-in asset-limit CLI, 21 regression cases and unchanged shared budgets/schema; [131 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38096210967); [run review](docs/agent-runs/0005-asset-limit.md) |
 | RM-04a | 2026-10-10 | Controlled offline sampling comparison; [method/results](research/sampling-2026-10-10.md), [harness](scripts/sampling-study.mjs), and [metadata](research/sampling-2026-10-10.json); no production change |
 | RM-05 | 2026-10-10 | Bounded request-outcome groups and 14 regression cases; [renderer tests](test/render.test.ts), 110 tests passed remotely; [agent review](docs/agent-runs/0003-failure-presentation.md); implementation `7c2ee0e` |
+| RM-06a | 2026-10-10 | Offline comparison investigation; [hypothetical workflow, results and limits](research/report-comparison-2026-10-10.md), [harness](scripts/report-comparison-study.mjs), [metadata](research/report-comparison-2026-10-10.json); RM-06 unimplemented |
 | RM-11 | 2026-10-10 | Agent onboarding, running work queue, architecture/report docs, and three accepted ADRs; [AGENTS.md](AGENTS.md), [docs index](docs/README.md) |
 
 ## Deliberately deferred
@@ -156,6 +172,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Completed RM-06a local investigation: hypothetical deployment workflow, conservative comparison design and 26 asserted offline pairs. Build, deterministic reproduction, relative links and whitespace checks passed. Recommend deferring RM-06 production implementation pending owner-workflow evidence; no user demand claimed. Independent review/delivery pending; no subsequent task started.
 
 - **2026-10-10:** Accepted RM-04 unchanged; committed/pushed and all 131 tests passed on Node 22/24 CI. Recorded grade 9.5/10 and added limit-testing guidance. No subsequent task started.
 

@@ -1,0 +1,2835 @@
+{
+  "study": "RM-06a offline report comparison, 2026-10-10",
+  "scannerRevision": "dc55ac9",
+  "timestampNormalization": "All scannedAt values fixed; synthetic captures are not deployment dates.",
+  "readerControls": [
+    "futureSchema",
+    "additive",
+    "changedScope",
+    "changedDestination"
+  ],
+  "reports": {
+    "checked": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "noContent": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 0,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 91,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 0,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 221
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "no-reference": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "no-reference",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 25
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 25,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 1,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 71
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "unavailable": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "unavailable",
+            "retrieved": false,
+            "httpStatus": 404,
+            "error": "HTTP 404"
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 0,
+          "status": 404,
+          "error": "HTTP 404",
+          "code": "http"
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 1,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 130
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "invalid": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "invalid",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "invalid",
+              "errors": [
+                "Response is not valid JSON."
+              ],
+              "warnings": [],
+              "sourceEntries": 0,
+              "uniqueSourcePaths": 0,
+              "embeddedSources": 0,
+              "languages": {},
+              "extensions": {},
+              "packages": [],
+              "pathSamples": [],
+              "extensionFields": [],
+              "mappingCount": 0
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 8,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 0,
+        "mapsInvalid": 1,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 138
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "unsupported": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "unsupported",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "unsupported",
+              "errors": [],
+              "warnings": [
+                "Indexed source maps are not analyzed by this version."
+              ],
+              "sourceEntries": 0,
+              "uniqueSourcePaths": 0,
+              "embeddedSources": 0,
+              "languages": {},
+              "extensions": {},
+              "packages": [],
+              "pathSamples": [],
+              "extensionFields": [],
+              "mappingCount": 0
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 27,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 1,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 157
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "fetch-failed": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "fetch-failed",
+          "error": "HTTP 403"
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 0,
+          "status": 403,
+          "error": "HTTP 403",
+          "code": "http"
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 0,
+        "skipped": 0,
+        "scriptFailures": 1,
+        "noReference": 0,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 46
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "limited": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 2,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "limited",
+            "retrieved": false,
+            "error": "Request limit reached"
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 1,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 130
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "skipped": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 1,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "skipped",
+          "error": "Request limit reached"
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 0,
+        "skipped": 1,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 46
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "hashBefore": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.aaa.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.aaa.js",
+          "bytes": 88,
+          "map": {
+            "url": "https://deployment.example/app.aaa.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.aaa.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 50,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.aaa.js",
+          "bytes": 88,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.aaa.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 275
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "hashAfter": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.bbb.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.bbb.js",
+          "bytes": 88,
+          "map": {
+            "url": "https://deployment.example/app.bbb.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.bbb.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 50,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.bbb.js",
+          "bytes": 88,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.bbb.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 275
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "sampleBefore": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 1,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Asset limit: inspecting the first 1 of 2 static references.",
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        },
+        {
+          "url": "https://deployment.example/vendor.js",
+          "kind": "script",
+          "status": "skipped"
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 80,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 2,
+        "inspected": 1,
+        "skipped": 1,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 301
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "sampleAfter": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 1,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Asset limit: inspecting the first 1 of 2 static references.",
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/vendor.js",
+          "kind": "script",
+          "status": "no-reference",
+          "finalUrl": "https://deployment.example/vendor.js",
+          "bytes": 25
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "skipped"
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 80,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/vendor.js",
+          "bytes": 25,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 2,
+        "inspected": 1,
+        "skipped": 1,
+        "scriptFailures": 0,
+        "noReference": 1,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 105
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "expanded": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 2,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/vendor.js",
+          "kind": "script",
+          "status": "no-reference",
+          "finalUrl": "https://deployment.example/vendor.js",
+          "bytes": 25
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 80,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/vendor.js",
+          "bytes": 25,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 2,
+        "inspected": 2,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 1,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 326
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "absent": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute.",
+        "No external JavaScript references found. This may be a script-free page, a challenge, or a page requiring browser execution."
+      ],
+      "inlineScripts": 0,
+      "bundles": [],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 15,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 0,
+        "inspected": 0,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 15
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "otherTarget": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/other",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/other",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/other"
+    },
+    "direct": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/app.js",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "direct-javascript",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "direct",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 221
+      },
+      "finalUrl": "https://deployment.example/app.js"
+    },
+    "failedTarget": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [],
+      "inlineScripts": 0,
+      "bundles": [],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 0,
+          "status": 503,
+          "error": "HTTP 503",
+          "code": "http"
+        }
+      ],
+      "summary": {
+        "discovered": 0,
+        "inspected": 0,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 0,
+        "mapsChecked": 0,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 0,
+        "embeddedSources": 0,
+        "languages": {},
+        "downloadedBytes": 0
+      },
+      "error": "HTTP 503"
+    },
+    "redirected": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.bbb.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 0,
+          "status": 302
+        },
+        {
+          "url": "https://deployment.example/app.bbb.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "mapMoved": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 85,
+          "map": {
+            "url": "https://deployment.example/app.bbb.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.bbb.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 85,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.bbb.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 268
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "inline": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 278,
+          "map": {
+            "url": "(inline data URL)",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 278,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 324
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "shared": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/shared.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/shared.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        },
+        {
+          "url": "https://deployment.example/vendor.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/vendor.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/shared.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/shared.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 80,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/shared.map",
+          "bytes": 137,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/vendor.js",
+          "bytes": 84,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 2,
+        "inspected": 2,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 2,
+        "mapsChecked": 2,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 2,
+        "embeddedSources": 2,
+        "languages": {
+          "TypeScript": 2
+        },
+        "downloadedBytes": 385
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "sharedOne": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/shared.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/shared.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/shared.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "futureSchema": {
+      "schemaVersion": 2,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "additive": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/",
+      "futureOptionalField": "ignored"
+    },
+    "changedScope": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "direct-javascript",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/"
+    },
+    "changedDestination": {
+      "schemaVersion": 1,
+      "target": "https://deployment.example/",
+      "scannedAt": "2026-10-10T00:00:00.000Z",
+      "scope": "static-html",
+      "limits": {
+        "maxRequests": 60,
+        "maxScripts": 24,
+        "concurrency": 1,
+        "timeoutMs": 8000,
+        "scanTimeoutMs": 90000,
+        "maxResponseBytes": 8388608,
+        "maxTotalBytes": 67108864,
+        "maxRedirects": 5
+      },
+      "warnings": [
+        "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+      ],
+      "inlineScripts": 0,
+      "bundles": [
+        {
+          "url": "https://deployment.example/app.js",
+          "kind": "script",
+          "status": "map-found",
+          "finalUrl": "https://deployment.example/app.js",
+          "bytes": 84,
+          "map": {
+            "url": "https://deployment.example/app.js.map",
+            "referenceKind": "annotation",
+            "status": "checked",
+            "retrieved": true,
+            "finalUrl": "https://deployment.example/app.js.map",
+            "httpStatus": 200,
+            "analysis": {
+              "status": "checked",
+              "errors": [],
+              "warnings": [],
+              "sourceEntries": 1,
+              "uniqueSourcePaths": 1,
+              "embeddedSources": 1,
+              "languages": {
+                "TypeScript": 1
+              },
+              "extensions": {
+                ".ts": 1
+              },
+              "packages": [],
+              "pathSamples": [
+                "src/app.ts"
+              ],
+              "extensionFields": [],
+              "mappingCount": 1
+            }
+          }
+        }
+      ],
+      "requests": [
+        {
+          "url": "https://deployment.example/",
+          "bytes": 46,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js",
+          "bytes": 84,
+          "status": 200
+        },
+        {
+          "url": "https://deployment.example/app.js.map",
+          "bytes": 137,
+          "status": 200
+        }
+      ],
+      "summary": {
+        "discovered": 1,
+        "inspected": 1,
+        "skipped": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapsRetrieved": 1,
+        "mapsChecked": 1,
+        "mapsInvalid": 0,
+        "mapsUnsupported": 0,
+        "mapsUnavailable": 0,
+        "mapsLimited": 0,
+        "sourceEntries": 1,
+        "embeddedSources": 1,
+        "languages": {
+          "TypeScript": 1
+        },
+        "downloadedBytes": 267
+      },
+      "finalUrl": "https://deployment.example/other"
+    }
+  },
+  "rows": [
+    {
+      "id": "unchanged-control",
+      "before": "checked",
+      "after": "checked",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "delta": {
+              "sourceEntries": 0,
+              "embeddedSources": 0
+            },
+            "result": "selected-metadata-equal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "embedded-content-change",
+      "before": "checked",
+      "after": "noContent",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "delta": {
+              "sourceEntries": 0,
+              "embeddedSources": -1
+            },
+            "result": "checked-metadata-changed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "linkage-no-longer-found",
+      "before": "checked",
+      "after": "no-reference",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "no-reference",
+            "result": "observed-status-transition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checked-to-unavailable",
+      "before": "checked",
+      "after": "unavailable",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "unavailable",
+            "result": "observed-status-transition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checked-to-invalid",
+      "before": "checked",
+      "after": "invalid",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "invalid",
+            "result": "observed-status-transition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checked-to-unsupported",
+      "before": "checked",
+      "after": "unsupported",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "unsupported",
+            "result": "observed-status-transition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "checked-to-limited",
+      "before": "checked",
+      "after": "limited",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [
+          "limits-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "limited",
+            "result": "observed-status-transition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "recovered-retrieval",
+      "before": "unavailable",
+      "after": "checked",
+      "checkedTotals": [
+        0,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "unavailable",
+            "after": "checked",
+            "result": "observed-status-transition"
+          }
+        ]
+      }
+    },
+    {
+      "id": "javascript-failed",
+      "before": "checked",
+      "after": "fetch-failed",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "fetch-failed",
+            "result": "unobserved-javascript"
+          }
+        ]
+      }
+    },
+    {
+      "id": "budget-skipped",
+      "before": "checked",
+      "after": "skipped",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [
+          "limits-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "skipped",
+            "result": "unobserved-skipped"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hashed-replacement",
+      "before": "hashBefore",
+      "after": "hashAfter",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [
+          "selection-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.aaa.js",
+            "result": "not-in-later-discovery"
+          },
+          {
+            "url": "https://deployment.example/app.bbb.js",
+            "result": "new-in-later-discovery"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sample-reordered",
+      "before": "sampleBefore",
+      "after": "sampleAfter",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [
+          "selection-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "skipped",
+            "result": "unobserved-skipped"
+          },
+          {
+            "url": "https://deployment.example/vendor.js",
+            "before": "skipped",
+            "after": "no-reference",
+            "result": "unobserved-skipped"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sample-expanded",
+      "before": "sampleAfter",
+      "after": "expanded",
+      "checkedTotals": [
+        0,
+        1
+      ],
+      "comparison": {
+        "context": [
+          "limits-changed",
+          "selection-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "skipped",
+            "after": "checked",
+            "result": "unobserved-skipped"
+          },
+          {
+            "url": "https://deployment.example/vendor.js",
+            "before": "no-reference",
+            "after": "no-reference",
+            "result": "same-observed-status"
+          }
+        ]
+      }
+    },
+    {
+      "id": "absent-reference",
+      "before": "checked",
+      "after": "absent",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "context": [
+          "selection-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "result": "not-in-later-discovery"
+          }
+        ]
+      }
+    },
+    {
+      "id": "target-mismatch",
+      "before": "checked",
+      "after": "otherTarget",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "blocked": [
+          "target-changed",
+          "target-destination-changed"
+        ]
+      }
+    },
+    {
+      "id": "page-versus-direct",
+      "before": "checked",
+      "after": "direct",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "blocked": [
+          "target-changed",
+          "scope-changed",
+          "target-destination-changed"
+        ]
+      }
+    },
+    {
+      "id": "scope-reader-control",
+      "before": "checked",
+      "after": "changedScope",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "blocked": [
+          "scope-changed"
+        ]
+      }
+    },
+    {
+      "id": "destination-reader-control",
+      "before": "checked",
+      "after": "changedDestination",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "blocked": [
+          "target-destination-changed"
+        ]
+      }
+    },
+    {
+      "id": "target-failed",
+      "before": "checked",
+      "after": "failedTarget",
+      "checkedTotals": [
+        1,
+        0
+      ],
+      "comparison": {
+        "blocked": [
+          "target-error",
+          "target-destination-changed"
+        ]
+      }
+    },
+    {
+      "id": "unknown-schema",
+      "before": "checked",
+      "after": "futureSchema",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "blocked": [
+          "unsupported-schema"
+        ]
+      }
+    },
+    {
+      "id": "unknown-schema-both",
+      "before": "futureSchema",
+      "after": "futureSchema",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "blocked": [
+          "unsupported-schema"
+        ]
+      }
+    },
+    {
+      "id": "additive-reader-control",
+      "before": "checked",
+      "after": "additive",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "delta": {
+              "sourceEntries": 0,
+              "embeddedSources": 0
+            },
+            "result": "selected-metadata-equal"
+          }
+        ]
+      }
+    },
+    {
+      "id": "redirected-bundle",
+      "before": "checked",
+      "after": "redirected",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "result": "bundle-destination-changed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "map-url-changed",
+      "before": "checked",
+      "after": "mapMoved",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "result": "map-linkage-changed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "inline-linkage",
+      "before": "checked",
+      "after": "inline",
+      "checkedTotals": [
+        1,
+        1
+      ],
+      "comparison": {
+        "context": [],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "result": "map-linkage-changed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shared-relationship-removed",
+      "before": "shared",
+      "after": "sharedOne",
+      "checkedTotals": [
+        2,
+        1
+      ],
+      "comparison": {
+        "context": [
+          "selection-changed"
+        ],
+        "observations": [
+          {
+            "url": "https://deployment.example/app.js",
+            "before": "checked",
+            "after": "checked",
+            "delta": {
+              "sourceEntries": 0,
+              "embeddedSources": 0
+            },
+            "result": "selected-metadata-equal"
+          },
+          {
+            "url": "https://deployment.example/vendor.js",
+            "result": "not-in-later-discovery"
+          }
+        ]
+      }
+    }
+  ]
+}

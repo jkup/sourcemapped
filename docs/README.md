@@ -16,6 +16,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 | Why was this scope chosen? | [Decision records](decisions/README.md) |
 | Does the product idea hold up? | [Research](../RESEARCH.md) and [MVP evaluation](../EVALUATION.md) |
 | How do sampling policies compare on controlled fixtures? | [RM-04a offline study](../research/sampling-2026-10-10.md) |
+| What can saved-report comparisons safely establish? | [RM-06a offline study and proposed semantics](../research/report-comparison-2026-10-10.md) |
 | Where is the supporting evidence? | [Baseline snapshot](../research/baseline.json) and [MVP snapshot](../research/mvp.json) |
 
 ## Documentation ownership

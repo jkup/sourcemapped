@@ -22,9 +22,9 @@ Use npm and the committed lockfile. Node.js 22.12+ is required; there are no cre
 ```sh
 npm ci                       # when dependencies are absent or the lockfile changed
 npm run typecheck            # strict checks for source and tests
-npm test                     # offline Vitest tests
+npm test                     # build once, then offline Vitest tests
 npm run build                # compile src into dist
-npm run check                # typecheck + tests + build
+npm run check                # typecheck + build once + tests
 node dist/cli.js --help
 npx --no-install vitest run test/discover.test.ts  # example focused test
 ```
@@ -45,7 +45,7 @@ npx --no-install vitest run test/discover.test.ts  # example focused test
 | Map checks, source counts, path/package evidence | `src/analyze.ts` | `test/analyze.test.ts` |
 | Scan orchestration, map cache, report aggregation | `src/scan.ts` | `test/scan.test.ts` |
 | Terminal presentation and untrusted text | `src/render.ts` | `test/render.test.ts` |
-| CLI arguments, stdout/stderr, exit codes | `src/cli.ts` | Built CLI smoke checks; automated CLI tests are a roadmap item |
+| CLI arguments, stdout/stderr, exit codes | `src/cli.ts` | `test/cli.test.ts` (built subprocesses and packed entry point) |
 
 Keep TypeScript strict and ESM imports compatible with NodeNext (`.js` specifiers in source). Prefer Node APIs and the existing two production dependencies. Reuse `htmlparser2` and `@jridgewell/trace-mapping`; do not add a custom HTML parser or numeric VLQ decoder. Use simple modules rather than introducing a plugin or application framework.
 

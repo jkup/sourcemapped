@@ -92,7 +92,7 @@ Agents and contributors: start with [AGENTS.md](AGENTS.md), use the [running roa
 
 ```sh
 npm ci
-npm run check     # strict source/test typechecking, Vitest, build
+npm run check     # strict source/test typechecking, build once, then Vitest
 npm pack         # build a publishable tarball; does not publish
 ```
 
@@ -109,7 +109,7 @@ src/render.ts    readable terminal output
 src/cli.ts       arguments, progress, exit behavior
 ```
 
-Tests use synthetic maps and mocked native HTTP responses; no internet required. Research commands make public requests and save **metadata only**:
+Tests use synthetic maps, mocked native HTTP responses, and a loopback HTTP fixture for built-CLI subprocesses; no internet is required after dependency installation. `npm test` builds first, including for a focused run such as `npm test -- test/cli.test.ts`. See [test setup and coverage](docs/testing.md) for environment requirements and the packed-entry-point check. Research commands make public requests and save **metadata only**:
 
 ```sh
 node scripts/probe.mjs      # preliminary 16-site study with bounded guesses

@@ -1,6 +1,6 @@
 # Continuous integration
 
-[The workflow](../.github/workflows/ci.yml) runs on pushes and pull requests with GitHub-hosted Ubuntu runners. Each Node matrix entry installs the committed lockfile with `npm ci`, then runs `npm run check` (source/test typechecking, offline Vitest tests, and build). It does not invoke either research script or scan public websites. Installation still requires network access to download dependencies and actions.
+[The workflow](../.github/workflows/ci.yml) runs on pushes and pull requests with GitHub-hosted Ubuntu runners. Each Node matrix entry installs the committed lockfile with `npm ci`, then runs `npm run check` (source/test typechecking, one build, then offline Vitest tests). It does not invoke either research script or scan public websites. Installation still requires network access to download dependencies and actions. The CLI tests require loopback listening, subprocesses, temporary-directory writes, npm, and tar; see [test setup](testing.md).
 
 The workflow grants only `contents: read`, does not persist checkout credentials, and requires no configured secrets. Package-manager caching is disabled to keep this small workflow simple. Both matrix jobs can finish even when one fails; each has a ten-minute timeout.
 

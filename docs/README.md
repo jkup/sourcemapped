@@ -9,6 +9,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 | How do I install and run it? | [README](../README.md) |
 | What should I work on, and what is already done? | [Running roadmap](../ROADMAP.md) |
 | Where does a behavior belong? | [Architecture](architecture.md) |
+| How do executable/package tests run locally? | [Test setup and coverage](testing.md) |
 | What does CI run and how are its versions maintained? | [CI maintenance](ci.md) |
 | How did observed agent tasks perform? | [Agent run reviews](agent-runs/README.md) |
 | What do JSON fields and statuses mean? | [Report contract](report-contract.md) |

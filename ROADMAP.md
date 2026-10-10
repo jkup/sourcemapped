@@ -6,13 +6,13 @@ Last updated: **2026-10-10**. This is the single work queue and durable handoff 
 
 The working MVP inspects page/direct JavaScript URLs and reports bounded source-map metadata through terminal, verbose, and JSON output. Research found useful maps on only two of sixteen sampled sites; deployment diagnostics are promising, broad website archaeology is unproven. See [RESEARCH.md](RESEARCH.md) and [EVALUATION.md](EVALUATION.md).
 
-Last verified runtime baseline: **80 tests passed**, strict source/test typechecks, build, package inspection, isolated installed-CLI smoke checks, and a live MDN check on 2026-10-10. Later documentation changes were checked against source and for valid links. This is dated evidence, not a substitute for checking the current revision.
+Latest local verification (RM-03, 2026-10-10): **96 tests passed**, strict source/test typechecks, one build, and dry-run package inspection on Node 26.10.0/npm 11.19.1. This includes built-CLI and unpacked-package entry-point checks against synthetic loopback HTTP. The earlier MVP baseline included manual installed-CLI and live MDN smoke checks; those were not rerun for RM-03. This is dated evidence, not a substitute for checking the current revision.
 
-No npm release has been made. Project commits have been pushed to `origin/main`. CI passed on GitHub for Node 22 and 24; see RM-02 for the exact run and revision. Automated CLI subprocess tests are not implemented. The package has two production dependencies; no services or credentials are required.
+No npm release is recorded in the project history. Commits through the RM-02 review were pushed to `origin/main`; the RM-03 changes are local and awaiting reviewer delivery. CI passed on GitHub for Node 22 and 24 at the RM-02 revision; see RM-02 for the exact run. Remote CI has not yet verified RM-03. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
 
 ## Active work
 
-None. RM-02 and its observed-run review are complete; the next task has not been started.
+None. RM-03 implementation and local verification are complete; reviewer assessment, commit/push, and remote CI remain delivery steps. No subsequent roadmap task has been started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -29,13 +29,13 @@ Update the affected item and the change log in the same change as the work. Keep
 
 ## Prioritized queue
 
-Order reflects product priority. Follow the user's task first. RM-01 is the main product question; RM-03 and RM-05 are the next bounded engineering candidates when implementation work is requested.
+Order reflects product priority. Follow the user's task first. RM-01 is the main product question; RM-05 is the next bounded engineering candidate when implementation work is requested.
 
 | ID | Status | Work | Dependency / completion evidence |
 | --- | --- | --- | --- |
 | RM-01 | needs-evidence | Validate repeat usefulness on developers' own deployments | Real feedback; no outreach without authorization |
 | RM-02 | done | Add CI for supported Node LTS versions | [Both remote jobs passed](https://github.com/jkup/sourcemapped/actions/runs/38094230079); [run review](docs/agent-runs/0001-ci.md) |
-| RM-03 | ready | Automate CLI and package smoke coverage | Existing manual MVP smoke procedure |
+| RM-03 | done | Automate CLI and package smoke coverage | [Executable tests](test/cli.test.ts), [setup/limits](docs/testing.md); 96 local tests passed |
 | RM-04 | needs-evidence | Improve bounded asset sampling | Compare strategies without silently expanding scope |
 | RM-05 | ready | Group repeated failure evidence in terminal output | Preserve per-bundle JSON and existing statuses |
 | RM-06 | needs-evidence | Compare saved metadata reports | Validate a repeat deployment-checking workflow |
@@ -61,6 +61,12 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 ### RM-03 — Automated CLI and package smoke checks
 
 **Acceptance:** deterministic tests run the built executable, covering help/version, bad flags, JSON stdout/stderr separation, verbose output, target failure exits, and omission of original content. Include a package-entry-point check with an isolated synthetic HTTP fixture or equivalent. No third-party websites. Keep build/test ordering explicit and avoid redundant rebuilds. Document any additional test-environment requirement.
+
+**Implementation/evidence (2026-10-10):** [CLI tests](test/cli.test.ts) add 16 deterministic subprocess cases for help/version aliases, bad flags/arity/scheme, clean JSON streams, default/verbose output, target HTTP failure exits, successful partial-map reports, and omission of original/generated contents, names, and inline payloads. An ephemeral loopback fixture records requests, including the absence of original-source retrieval. The package check packs without rebuilding, extracts outside the checkout, and executes the declared entry point using existing installed dependencies. [Test setup](docs/testing.md) documents requirements and limits: no clean registry installation, npm bin-shim/permission, or TTY-progress claim. No runtime/report-contract/dependency changes.
+
+**Local verification:** Node **26.10.0**, npm **11.19.1**. Focused CLI suite: 16 passed; final `npm run check`: 96 tests across six files, strict source/test typechecks, and one build passed. `npm pack --dry-run --ignore-scripts --offline` inspected 15 expected files (compiled modules/declarations, manifest, README, LICENSE); `git diff --check` and changed-document relative-link checks passed. `--ignore-scripts` reused the verified build rather than rerunning prepack. Initial sandbox execution failed with `listen EPERM` on `127.0.0.1`; allowing the local fixture listener resolved it. No external website or research script ran. Local Node 26 results do not establish the supported Node 22/24 matrix result.
+
+**Handoff/next action:** reviewer inspects the local diff, records the observed trial independently in `docs/agent-runs/`, and performs authorized commit/push and remote CI. No commit, push, or publication performed by the implementation agent. No remaining RM-03 acceptance work; delivery and remote evidence are pending reviewer action.
 
 ### RM-04 — Bounded sampling
 
@@ -102,6 +108,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | RM-00b | 2026-10-10 | Bounded TypeScript CLI, metadata reports, tests; [README](README.md), [source](src/scan.ts), commit `2bba76e` |
 | RM-00c | 2026-10-10 | Same-site MVP evaluation and initial priorities; [evaluation](EVALUATION.md), commit `c12454c` |
 | RM-02 | 2026-10-10 | Supported Node LTS CI, verified [remote run](https://github.com/jkup/sourcemapped/actions/runs/38094230079), and [agent review](docs/agent-runs/0001-ci.md); implementation commit `3584580` |
+| RM-03 | 2026-10-10 | 16 built-CLI/packed-entry-point tests, 96 total local tests; [coverage and limits](docs/testing.md) |
 | RM-11 | 2026-10-10 | Agent onboarding, running work queue, architecture/report docs, and three accepted ADRs; [AGENTS.md](AGENTS.md), [docs index](docs/README.md) |
 
 ## Deliberately deferred
@@ -115,6 +122,8 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Completed RM-03 executable/package smoke automation and explicit single-build test ordering. All 96 local tests/typechecks/build and package inspection passed; documented loopback permissions and package/TTY coverage limits. Reviewer delivery, remote CI, and observed-run assessment remain pending; no subsequent task started.
 
 - **2026-10-10:** Completed RM-02 after both remote matrix jobs passed. Recorded observed-run grade 9/10 and clarified current-state checks and CI evidence in AGENTS.md. No subsequent task started.
 

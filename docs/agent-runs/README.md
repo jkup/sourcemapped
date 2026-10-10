@@ -10,3 +10,4 @@ Update [AGENTS.md](../../AGENTS.md) only for reusable lessons. Successful behavi
 | --- | --- | --- | --- |
 | 001 | RM-02: continuous integration | 9/10 | [CI trial](0001-ci.md) |
 | 002 | RM-03: CLI and package smoke tests | 9.5/10 | [Executable-test trial](0002-cli-tests.md) |
+| 003 | RM-05: failure presentation | 9/10 | [Failure-presentation trial](0003-failure-presentation.md) |

@@ -30,6 +30,7 @@ npx --no-install vitest run test/discover.test.ts  # example focused test
 ```
 
 - For behavior changes, add a regression test that proves the user-visible behavior, run focused tests during iteration, and run `npm run check` before handoff.
+- For terminal presentation changes, inspect actual rendered examples, including relevant zero/one/many counts and truncation. Assertions should preserve clear wording, not freeze obvious display mistakes.
 - For documentation-only changes, verify claims against source, relative links, commands, and `git diff --check`; a full test rerun is unnecessary unless runtime behavior changed.
 - For packaging changes, run `npm pack --dry-run` and inspect the file list. For entry-point changes, also exercise the built CLI and a locally installed tarball. Packing does not publish.
 - For executable/package tests, state the boundary actually exercised: built files, a packed artifact, or an installed command. Reusing checkout dependencies does not verify clean dependency installation or npm bin shims. Keep those limits explicit; use a small reversible negative check when useful to confirm the test catches its intended failure.

@@ -1,0 +1,1449 @@
+{
+  "generatedAt": "2026-10-10T22:52:14.387Z",
+  "method": "HTML script src + script/modulepreload links; first 12 unique assets in document order. Header before last sourceMappingURL comment; otherwise one sibling .map guess. No imports, hydration, interaction, source recovery, or crawling.",
+  "limits": {
+    "requestsPerSite": 30,
+    "bundlesPerSite": 12,
+    "concurrency": 2,
+    "timeoutMs": 10000,
+    "htmlBytes": 2000000,
+    "jsBytes": 4000000,
+    "mapBytes": 10000000
+  },
+  "sites": [
+    {
+      "host": "linear.app",
+      "category": "Developer SaaS",
+      "requests": 25,
+      "discoveredBundles": 250,
+      "bundles": [
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/index-D5z1rYm3.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/index-D5z1rYm3.js",
+          "status": 200,
+          "bytes": 80604,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/index-D5z1rYm3.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/C_JJxWoe.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/C_JJxWoe.js",
+          "status": 200,
+          "bytes": 1324,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/C_JJxWoe.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/Cy0QDSCL.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/Cy0QDSCL.js",
+          "status": 200,
+          "bytes": 563128,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/Cy0QDSCL.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/CErC6tpa.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/CErC6tpa.js",
+          "status": 200,
+          "bytes": 1011,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/CErC6tpa.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/ZaNFyEdh2.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/ZaNFyEdh2.js",
+          "status": 200,
+          "bytes": 444,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/ZaNFyEdh2.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/ChyxXR8K2.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/ChyxXR8K2.js",
+          "status": 200,
+          "bytes": 29894,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/ChyxXR8K2.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/7qvCd7hb2.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/7qvCd7hb2.js",
+          "status": 200,
+          "bytes": 320365,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/7qvCd7hb2.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/C26yVboy.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/C26yVboy.js",
+          "status": 200,
+          "bytes": 169,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/C26yVboy.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/CYhq9bbF.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/CYhq9bbF.js",
+          "status": 200,
+          "bytes": 887,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/CYhq9bbF.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/DHUhG9Vx.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/DHUhG9Vx.js",
+          "status": 200,
+          "bytes": 43849,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/DHUhG9Vx.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/BDvYTU79.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/BDvYTU79.js",
+          "status": 200,
+          "bytes": 172266,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/BDvYTU79.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.linear.app/web/_next/static/chunks/PPnH9BIT.js",
+          "finalUrl": "https://static.linear.app/web/_next/static/chunks/PPnH9BIT.js",
+          "status": 200,
+          "bytes": 370,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.linear.app/web/_next/static/chunks/PPnH9BIT.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://linear.app/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "sentry.io",
+      "category": "Developer SaaS",
+      "requests": 16,
+      "discoveredBundles": 7,
+      "bundles": [
+        {
+          "url": "https://plausible.io/js/script.tagged-events.js",
+          "finalUrl": "https://plausible.io/js/script.tagged-events.js",
+          "status": 200,
+          "bytes": 4185,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://plausible.io/js/script.tagged-events.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://sentry.io/_astro/page.V5wkew9I.js",
+          "finalUrl": "https://sentry.io/_astro/page.V5wkew9I.js",
+          "status": 200,
+          "bytes": 113160,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://sentry.io/_astro/page.V5wkew9I.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://sentry.io/_astro/Link.astro_astro_type_script_index_0_lang.Bz2c72T7.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "finalUrl": "https://sentry.io/_astro/Link.astro_astro_type_script_index_0_lang.Bz2c72T7.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "status": 200,
+          "bytes": 557,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://sentry.io/_astro/Link.astro_astro_type_script_index_0_lang.Bz2c72T7.js.map?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://sentry.io/_astro/FeatureCarousel.astro_astro_type_script_index_0_lang.BWUIr5n-.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "finalUrl": "https://sentry.io/_astro/FeatureCarousel.astro_astro_type_script_index_0_lang.BWUIr5n-.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "status": 200,
+          "bytes": 4695,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://sentry.io/_astro/FeatureCarousel.astro_astro_type_script_index_0_lang.BWUIr5n-.js.map?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://sentry.io/_astro/GettingStarted.astro_astro_type_script_index_0_lang.SVvZtfft.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "finalUrl": "https://sentry.io/_astro/GettingStarted.astro_astro_type_script_index_0_lang.SVvZtfft.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "status": 200,
+          "bytes": 579,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://sentry.io/_astro/GettingStarted.astro_astro_type_script_index_0_lang.SVvZtfft.js.map?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://sentry.io/_astro/Welcome.astro_astro_type_script_index_0_lang.DotLSKFO.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "finalUrl": "https://sentry.io/_astro/Welcome.astro_astro_type_script_index_0_lang.DotLSKFO.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "status": 200,
+          "bytes": 1051,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://sentry.io/_astro/Welcome.astro_astro_type_script_index_0_lang.DotLSKFO.js.map?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://sentry.io/_astro/Layout.astro_astro_type_script_index_1_lang.mn-zi1-m.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "finalUrl": "https://sentry.io/_astro/Layout.astro_astro_type_script_index_1_lang.mn-zi1-m.js?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "status": 200,
+          "bytes": 497,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://sentry.io/_astro/Layout.astro_astro_type_script_index_1_lang.mn-zi1-m.js.map?dpl=dpl_J4u7zCG3Y6nhZu8bGKy88RVNRDuS",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://sentry.io/welcome/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "vercel.com",
+      "category": "Developer platform",
+      "requests": 25,
+      "discoveredBundles": 44,
+      "bundles": [
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3f7_iw1-1efto.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3f7_iw1-1efto.js",
+          "status": 200,
+          "bytes": 19187,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/01f8dxy5bxdab.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/21yer-xxcbbru.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/21yer-xxcbbru.js",
+          "status": 200,
+          "bytes": 34742,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3fokamtz2lstu.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2wemyi-uev_4e.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2wemyi-uev_4e.js",
+          "status": 200,
+          "bytes": 27088,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/12u0bqiyjqq02.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/05bnz0u-olh7k.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/05bnz0u-olh7k.js",
+          "status": 200,
+          "bytes": 131779,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0gjiwl1m_jd9m.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2pd7ta2cv_k4c.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2pd7ta2cv_k4c.js",
+          "status": 200,
+          "bytes": 39228,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2lnhi-950p8p1.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/05j9u7anyeqnh.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/05j9u7anyeqnh.js",
+          "status": 200,
+          "bytes": 207703,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/00u7kp-4m18g3.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3g320s1i3-vmf.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3g320s1i3-vmf.js",
+          "status": 200,
+          "bytes": 32540,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0rbsaav3hvgso.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/turbopack-27d4vhbmd2ea3.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/turbopack-27d4vhbmd2ea3.js",
+          "status": 200,
+          "bytes": 13363,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/248vwrk51a508.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/24nu6htb0fgmj.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/24nu6htb0fgmj.js",
+          "status": 200,
+          "bytes": 14322,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0304kmcetfspy.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0-ryltxcbjn__.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0-ryltxcbjn__.js",
+          "status": 200,
+          "bytes": 11919,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1s-__x3z3hk3s.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0b-pvnq1yacr0.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0b-pvnq1yacr0.js",
+          "status": 200,
+          "bytes": 31587,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/26boigqvzxh51.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1usx6ax9sqw9n.js",
+          "finalUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1usx6ax9sqw9n.js",
+          "status": 200,
+          "bytes": 26367,
+          "discovery": "comment",
+          "mapUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0c2g1x6d62d9c.js.map",
+          "mapStatus": 403
+        }
+      ],
+      "errors": [],
+      "url": "https://vercel.com/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "github.com",
+      "category": "Developer platform",
+      "requests": 25,
+      "discoveredBundles": 92,
+      "bundles": [
+        {
+          "url": "https://github.githubassets.com/assets/react-e27d1b3e03961e68.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-e27d1b3e03961e68.js",
+          "status": 200,
+          "bytes": 10195,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-e27d1b3e03961e68.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/react-compiler-runtime-4610bd6d3de9c049.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-compiler-runtime-4610bd6d3de9c049.js",
+          "status": 200,
+          "bytes": 644,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-compiler-runtime-4610bd6d3de9c049.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/scheduler-58b860b049ca307c.js",
+          "finalUrl": "https://github.githubassets.com/assets/scheduler-58b860b049ca307c.js",
+          "status": 200,
+          "bytes": 4925,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/scheduler-58b860b049ca307c.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/react-dom-e5fd46a22d5c4058.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-dom-e5fd46a22d5c4058.js",
+          "status": 200,
+          "bytes": 5006,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-dom-e5fd46a22d5c4058.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/react-dom-client-1b4a3ee065998cea.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-dom-client-1b4a3ee065998cea.js",
+          "status": 200,
+          "bytes": 204064,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-dom-client-1b4a3ee065998cea.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/react-is-e0b593954b4706d8.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-is-e0b593954b4706d8.js",
+          "status": 200,
+          "bytes": 3257,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-is-e0b593954b4706d8.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/react-jsx-runtime-4915cb0f5b3aff04.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-jsx-runtime-4915cb0f5b3aff04.js",
+          "status": 200,
+          "bytes": 865,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-jsx-runtime-4915cb0f5b3aff04.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/react-reconciler-8e99e505c4429605.js",
+          "finalUrl": "https://github.githubassets.com/assets/react-reconciler-8e99e505c4429605.js",
+          "status": 200,
+          "bytes": 129035,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://github.githubassets.com/assets/react-reconciler-8e99e505c4429605.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://github.githubassets.com/assets/global-banner-disable-07e06ad24cb3381c.js",
+          "finalUrl": "https://github.githubassets.com/assets/global-banner-disable-07e06ad24cb3381c.js",
+          "status": 200,
+          "bytes": 596,
+          "discovery": "comment",
+          "mapUrl": "https://github.githubassets.com/assets/global-banner-disable-07e06ad24cb3381c-0dc299c43bdd42ac.js.map",
+          "mapStatus": 200,
+          "mapBytes": 2087,
+          "map": {
+            "sources": 1,
+            "embedded": 1,
+            "extensions": {
+              "js": 1
+            },
+            "sourcesContentLength": 1,
+            "mappingsChars": 480,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://github.githubassets.com/assets/high-contrast-cookie-3663bcaacc724f4c.js",
+          "finalUrl": "https://github.githubassets.com/assets/high-contrast-cookie-3663bcaacc724f4c.js",
+          "status": 200,
+          "bytes": 1097,
+          "discovery": "comment",
+          "mapUrl": "https://github.githubassets.com/assets/high-contrast-cookie-3663bcaacc724f4c-f6f846ecbc1fa78f.js.map",
+          "mapStatus": 200,
+          "mapBytes": 8182,
+          "map": {
+            "sources": 4,
+            "embedded": 4,
+            "extensions": {
+              "ts": 4
+            },
+            "sourcesContentLength": 4,
+            "mappingsChars": 886,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://github.githubassets.com/assets/wp-runtime-721126455a2225e3.js",
+          "finalUrl": "https://github.githubassets.com/assets/wp-runtime-721126455a2225e3.js",
+          "status": 200,
+          "bytes": 86891,
+          "discovery": "comment",
+          "mapUrl": "https://github.githubassets.com/assets/wp-runtime-721126455a2225e3-e6f85eb0e9a1b449.js.map",
+          "mapStatus": 200,
+          "mapBytes": 175036,
+          "map": {
+            "sources": 18,
+            "embedded": 18,
+            "extensions": {
+              "(none)": 18
+            },
+            "sourcesContentLength": 18,
+            "mappingsChars": 52333,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://github.githubassets.com/assets/app-foundation-156c6259e31cc551.js",
+          "finalUrl": "https://github.githubassets.com/assets/app-foundation-156c6259e31cc551.js",
+          "status": 200,
+          "bytes": 4713,
+          "discovery": "comment",
+          "mapUrl": "https://github.githubassets.com/assets/app-foundation-156c6259e31cc551-5cb2e9ba456561d6.js.map",
+          "mapStatus": 200,
+          "mapBytes": 26274,
+          "map": {
+            "sources": 13,
+            "embedded": 13,
+            "extensions": {
+              "ts": 13
+            },
+            "sourcesContentLength": 13,
+            "mappingsChars": 4443,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        }
+      ],
+      "errors": [],
+      "url": "https://github.com/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "vite.dev",
+      "category": "Documentation",
+      "requests": 15,
+      "discoveredBundles": 7,
+      "bundles": [
+        {
+          "url": "https://vite.dev/assets/chunks/metadata.6b94e949.js",
+          "finalUrl": "https://vite.dev/assets/chunks/metadata.6b94e949.js",
+          "status": 200,
+          "bytes": 10334,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/chunks/metadata.6b94e949.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vite.dev/assets/app.DNrex1zO.js",
+          "finalUrl": "https://vite.dev/assets/app.DNrex1zO.js",
+          "status": 200,
+          "bytes": 1382,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/app.DNrex1zO.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vite.dev/assets/chunks/framework.B29EMeTV.js",
+          "finalUrl": "https://vite.dev/assets/chunks/framework.B29EMeTV.js",
+          "status": 200,
+          "bytes": 114339,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/chunks/framework.B29EMeTV.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vite.dev/assets/chunks/theme.fhmbth10.js",
+          "finalUrl": "https://vite.dev/assets/chunks/theme.fhmbth10.js",
+          "status": 200,
+          "bytes": 139948,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/chunks/theme.fhmbth10.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vite.dev/assets/chunks/assets.DxlRNK2L.js",
+          "finalUrl": "https://vite.dev/assets/chunks/assets.DxlRNK2L.js",
+          "status": 200,
+          "bytes": 18969,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/chunks/assets.DxlRNK2L.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vite.dev/assets/chunks/Footer.C1CKKpni.js",
+          "finalUrl": "https://vite.dev/assets/chunks/Footer.C1CKKpni.js",
+          "status": 200,
+          "bytes": 1169,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/chunks/Footer.C1CKKpni.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vite.dev/assets/index.md.DNpnSOya.lean.js",
+          "finalUrl": "https://vite.dev/assets/index.md.DNpnSOya.lean.js",
+          "status": 200,
+          "bytes": 139412,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vite.dev/assets/index.md.DNpnSOya.lean.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://vite.dev/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "svelte.dev",
+      "category": "Documentation",
+      "requests": 25,
+      "discoveredBundles": 24,
+      "bundles": [
+        {
+          "url": "https://svelte.dev/_app/immutable/entry/start.BbyJB1oN.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/entry/start.BbyJB1oN.js",
+          "status": 200,
+          "bytes": 600,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/entry/start.BbyJB1oN.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/entry/payload.DSmR2FwN.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/entry/payload.DSmR2FwN.js",
+          "status": 200,
+          "bytes": 65,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/entry/payload.DSmR2FwN.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/uBIymjUX.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/uBIymjUX.js",
+          "status": 200,
+          "bytes": 1233,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/uBIymjUX.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/CvXM-SkU.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/CvXM-SkU.js",
+          "status": 200,
+          "bytes": 74,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/CvXM-SkU.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/DHFLKPNG.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/DHFLKPNG.js",
+          "status": 200,
+          "bytes": 44730,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/DHFLKPNG.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/Ci4k6KcV.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/Ci4k6KcV.js",
+          "status": 200,
+          "bytes": 60539,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/Ci4k6KcV.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/CKd3Mn-X.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/CKd3Mn-X.js",
+          "status": 200,
+          "bytes": 4119,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/CKd3Mn-X.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/DYrviY11.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/DYrviY11.js",
+          "status": 200,
+          "bytes": 81,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/DYrviY11.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/CV8VO5Jt.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/CV8VO5Jt.js",
+          "status": 200,
+          "bytes": 1362,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/CV8VO5Jt.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/entry/app.B95-cVEE.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/entry/app.B95-cVEE.js",
+          "status": 200,
+          "bytes": 7290,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/entry/app.B95-cVEE.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/chunks/C6WuQBXR.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/chunks/C6WuQBXR.js",
+          "status": 200,
+          "bytes": 224,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/chunks/C6WuQBXR.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://svelte.dev/_app/immutable/nodes/0.B_EfrhRj.js",
+          "finalUrl": "https://svelte.dev/_app/immutable/nodes/0.B_EfrhRj.js",
+          "status": 200,
+          "bytes": 15870,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://svelte.dev/_app/immutable/nodes/0.B_EfrhRj.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://svelte.dev/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "react.dev",
+      "category": "Documentation",
+      "requests": 23,
+      "discoveredBundles": 11,
+      "bundles": [
+        {
+          "url": "https://www.googletagmanager.com/gtag/js?id=G-B1E83PJ3RT",
+          "finalUrl": "https://www.googletagmanager.com/gtag/js?id=G-B1E83PJ3RT",
+          "status": 200,
+          "bytes": 482637,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.googletagmanager.com/gtag/js.map?id=G-B1E83PJ3RT",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/polyfills-42372ed130431b0a.js",
+          "status": 200,
+          "bytes": 112594,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/polyfills-42372ed130431b0a.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/webpack-95fc1f1713249e81.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/webpack-95fc1f1713249e81.js",
+          "status": 200,
+          "bytes": 4077,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/webpack-95fc1f1713249e81.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/framework-76ad44d61c11f057.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/framework-76ad44d61c11f057.js",
+          "status": 200,
+          "bytes": 181788,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/framework-76ad44d61c11f057.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/main-8bc660a98b463b2d.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/main-8bc660a98b463b2d.js",
+          "status": 200,
+          "bytes": 130717,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/main-8bc660a98b463b2d.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/pages/_app-6d7b64b3b21a9551.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/pages/_app-6d7b64b3b21a9551.js",
+          "status": 200,
+          "bytes": 1235,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/pages/_app-6d7b64b3b21a9551.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/668-9be9de6fa7660277.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/668-9be9de6fa7660277.js",
+          "status": 200,
+          "bytes": 101632,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/668-9be9de6fa7660277.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/928-132eeb57d328ee63.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/928-132eeb57d328ee63.js",
+          "status": 200,
+          "bytes": 307314,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/928-132eeb57d328ee63.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/chunks/pages/%5B%5B...markdownPath%5D%5D-5093e36719d692c5.js",
+          "finalUrl": "https://react.dev/_next/static/chunks/pages/%5B%5B...markdownPath%5D%5D-5093e36719d692c5.js",
+          "status": 200,
+          "bytes": 14029,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/chunks/pages/%5B%5B...markdownPath%5D%5D-5093e36719d692c5.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/GqElElY447YALnqZIMkuo/_buildManifest.js",
+          "finalUrl": "https://react.dev/_next/static/GqElElY447YALnqZIMkuo/_buildManifest.js",
+          "status": 200,
+          "bytes": 1201,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/GqElElY447YALnqZIMkuo/_buildManifest.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://react.dev/_next/static/GqElElY447YALnqZIMkuo/_ssgManifest.js",
+          "finalUrl": "https://react.dev/_next/static/GqElElY447YALnqZIMkuo/_ssgManifest.js",
+          "status": 200,
+          "bytes": 154,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://react.dev/_next/static/GqElElY447YALnqZIMkuo/_ssgManifest.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://react.dev/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "developer.mozilla.org",
+      "category": "Documentation",
+      "requests": 12,
+      "discoveredBundles": 5,
+      "bundles": [
+        {
+          "url": "https://developer.mozilla.org/static/client/runtime.e716cc07ebc6ee8d.js",
+          "finalUrl": "https://developer.mozilla.org/static/client/runtime.e716cc07ebc6ee8d.js",
+          "status": 200,
+          "bytes": 19662,
+          "discovery": "comment",
+          "mapUrl": "https://developer.mozilla.org/static/client/runtime.e716cc07ebc6ee8d.js.map",
+          "mapStatus": 200,
+          "mapBytes": 43380,
+          "map": {
+            "sources": 13,
+            "embedded": 13,
+            "extensions": {
+              "(none)": 13
+            },
+            "sourcesContentLength": 13,
+            "mappingsChars": 14138,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://developer.mozilla.org/static/client/5909.489e266d049aa182.js",
+          "finalUrl": "https://developer.mozilla.org/static/client/5909.489e266d049aa182.js",
+          "status": 200,
+          "bytes": 23977,
+          "discovery": "comment",
+          "mapUrl": "https://developer.mozilla.org/static/client/5909.489e266d049aa182.js.map",
+          "mapStatus": 200,
+          "mapBytes": 193949,
+          "map": {
+            "sources": 21,
+            "embedded": 21,
+            "extensions": {
+              "js": 21
+            },
+            "sourcesContentLength": 21,
+            "mappingsChars": 38734,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://developer.mozilla.org/static/client/4585.e30f706b333273cd.js",
+          "finalUrl": "https://developer.mozilla.org/static/client/4585.e30f706b333273cd.js",
+          "status": 200,
+          "bytes": 78260,
+          "discovery": "comment",
+          "mapUrl": "https://developer.mozilla.org/static/client/4585.e30f706b333273cd.js.map",
+          "mapStatus": 200,
+          "mapBytes": 258100,
+          "map": {
+            "sources": 57,
+            "embedded": 57,
+            "extensions": {
+              "js": 57
+            },
+            "sourcesContentLength": 57,
+            "mappingsChars": 90976,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://developer.mozilla.org/static/client/1216.2fdb44f0bb574bc2.js",
+          "finalUrl": "https://developer.mozilla.org/static/client/1216.2fdb44f0bb574bc2.js",
+          "status": 200,
+          "bytes": 915,
+          "discovery": "comment",
+          "mapUrl": "https://developer.mozilla.org/static/client/1216.2fdb44f0bb574bc2.js.map",
+          "mapStatus": 200,
+          "mapBytes": 4082,
+          "map": {
+            "sources": 3,
+            "embedded": 3,
+            "extensions": {
+              "js": 3
+            },
+            "sourcesContentLength": 3,
+            "mappingsChars": 1564,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        },
+        {
+          "url": "https://developer.mozilla.org/static/client/index.32b42b4f976b8500.js",
+          "finalUrl": "https://developer.mozilla.org/static/client/index.32b42b4f976b8500.js",
+          "status": 200,
+          "bytes": 47964,
+          "discovery": "comment",
+          "mapUrl": "https://developer.mozilla.org/static/client/index.32b42b4f976b8500.js.map",
+          "mapStatus": 200,
+          "mapBytes": 113845,
+          "map": {
+            "sources": 36,
+            "embedded": 36,
+            "extensions": {
+              "ftl": 1,
+              "css": 4,
+              "svg": 1,
+              "(none)": 2,
+              "js": 28
+            },
+            "sourcesContentLength": 36,
+            "mappingsChars": 28343,
+            "validation": "Required JSON fields only; VLQ mappings not validated"
+          }
+        }
+      ],
+      "errors": [],
+      "url": "https://developer.mozilla.org/en-US/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "www.notion.com",
+      "category": "SaaS",
+      "requests": 25,
+      "discoveredBundles": 41,
+      "bundles": [
+        {
+          "url": "https://www.notion.com/_next/static/chunks/0cz1d0mv5g_q7.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/0cz1d0mv5g_q7.js",
+          "status": 200,
+          "bytes": 112594,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/0cz1d0mv5g_q7.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/07hobc8nlh77_.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/07hobc8nlh77_.js",
+          "status": 200,
+          "bytes": 8479,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/1fxahdgy1em96.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/15_zuu0-jsrva.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/15_zuu0-jsrva.js",
+          "status": 200,
+          "bytes": 6208,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/1a1o2p7waz8-d.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/3zd-_btff5taa.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/3zd-_btff5taa.js",
+          "status": 200,
+          "bytes": 127911,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/01x20mh-emofy.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/11wgrakpg19--.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/11wgrakpg19--.js",
+          "status": 200,
+          "bytes": 7230,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/3w1tvaedyf1a5.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/0q2r7sa6zdepf.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/0q2r7sa6zdepf.js",
+          "status": 200,
+          "bytes": 1615,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/2c4qxkb8syopy.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/097ucyz13wscf.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/097ucyz13wscf.js",
+          "status": 200,
+          "bytes": 23896,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/3dbakscfp8hpz.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/191ea9njm2489.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/191ea9njm2489.js",
+          "status": 200,
+          "bytes": 29694,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/1prr4iz97mecf.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/0kwqx2obzkpaa.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/0kwqx2obzkpaa.js",
+          "status": 200,
+          "bytes": 35119,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/39frt61cj1-f2.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/0je7-toljo-ku.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/0je7-toljo-ku.js",
+          "status": 200,
+          "bytes": 21050,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/3ygsa08z_bipv.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/2ch1t5b_c-uiu.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/2ch1t5b_c-uiu.js",
+          "status": 200,
+          "bytes": 50268,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/0-k0zo-e1a-jk.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.notion.com/_next/static/chunks/00b9h45o9lnvm.js",
+          "finalUrl": "https://www.notion.com/_next/static/chunks/00b9h45o9lnvm.js",
+          "status": 200,
+          "bytes": 24687,
+          "discovery": "comment",
+          "mapUrl": "https://www.notion.com/_next/static/chunks/34yqphd-8lwig.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://www.notion.com/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "www.figma.com",
+      "category": "SaaS",
+      "requests": 25,
+      "discoveredBundles": 27,
+      "bundles": [
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/webpack-ecb2ebfce4d40c55.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/webpack-ecb2ebfce4d40c55.js",
+          "status": 200,
+          "bytes": 4871,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/webpack-ecb2ebfce4d40c55.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/4bd1b696-fb67203d6bed212d.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/4bd1b696-fb67203d6bed212d.js",
+          "status": 200,
+          "bytes": 173408,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/4bd1b696-fb67203d6bed212d.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/3914-19949d395fc3396e.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/3914-19949d395fc3396e.js",
+          "status": 200,
+          "bytes": 402626,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/3914-19949d395fc3396e.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/main-app-73e550b7b99873de.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/main-app-73e550b7b99873de.js",
+          "status": 200,
+          "bytes": 12478,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/main-app-73e550b7b99873de.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/bf76e631-047ac0aae52ca139.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/bf76e631-047ac0aae52ca139.js",
+          "status": 200,
+          "bytes": 134137,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/bf76e631-047ac0aae52ca139.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/9104-5a18d21ea507af9e.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/9104-5a18d21ea507af9e.js",
+          "status": 200,
+          "bytes": 27449,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/9104-5a18d21ea507af9e.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/1293-68a7bf42937c27de.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/1293-68a7bf42937c27de.js",
+          "status": 200,
+          "bytes": 158045,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/1293-68a7bf42937c27de.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/829-dbbbfe9d89a509ef.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/829-dbbbfe9d89a509ef.js",
+          "status": 200,
+          "bytes": 106241,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/829-dbbbfe9d89a509ef.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/5640-16f37ed96d007393.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/5640-16f37ed96d007393.js",
+          "status": 200,
+          "bytes": 127305,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/5640-16f37ed96d007393.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/7217-0bd98367a7829fc5.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/7217-0bd98367a7829fc5.js",
+          "status": 200,
+          "bytes": 48314,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/7217-0bd98367a7829fc5.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/6416-5438a2f1b22175e5.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/6416-5438a2f1b22175e5.js",
+          "status": 200,
+          "bytes": 19420,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/6416-5438a2f1b22175e5.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.figma.com/_netlify/_next/static/chunks/5880-09a97277176c4bb8.js",
+          "finalUrl": "https://www.figma.com/_netlify/_next/static/chunks/5880-09a97277176c4bb8.js",
+          "status": 200,
+          "bytes": 95162,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.figma.com/_netlify/_next/static/chunks/5880-09a97277176c4bb8.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://www.figma.com/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "www.wikipedia.org",
+      "category": "Consumer",
+      "requests": 5,
+      "discoveredBundles": 2,
+      "bundles": [
+        {
+          "url": "https://www.wikipedia.org/portal/wikipedia.org/assets/js/index-43aa8c7b47.js",
+          "finalUrl": "https://www.wikipedia.org/portal/wikipedia.org/assets/js/index-43aa8c7b47.js",
+          "status": 200,
+          "bytes": 27732,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.wikipedia.org/portal/wikipedia.org/assets/js/index-43aa8c7b47.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://www.wikipedia.org/portal/wikipedia.org/assets/js/gt-ie9-507b16b6be.js",
+          "finalUrl": "https://www.wikipedia.org/portal/wikipedia.org/assets/js/gt-ie9-507b16b6be.js",
+          "status": 200,
+          "bytes": 580,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://www.wikipedia.org/portal/wikipedia.org/assets/js/gt-ie9-507b16b6be.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://www.wikipedia.org/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "www.reddit.com",
+      "category": "Consumer",
+      "requests": 1,
+      "discoveredBundles": 0,
+      "bundles": [],
+      "errors": [],
+      "url": "https://www.reddit.com/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "www.nytimes.com",
+      "category": "News",
+      "requests": 1,
+      "discoveredBundles": 0,
+      "bundles": [],
+      "errors": [],
+      "url": "https://www.nytimes.com/",
+      "htmlStatus": 403
+    },
+    {
+      "host": "www.bbc.com",
+      "category": "News",
+      "requests": 24,
+      "discoveredBundles": 60,
+      "bundles": [
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/03~yq9q893hmn.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/03~yq9q893hmn.js",
+          "status": 200,
+          "bytes": 112594,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/03~yq9q893hmn.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.bbci.co.uk/frameworks/requirejs/0.13.0/sharedmodules/require.js",
+          "finalUrl": "https://static.bbci.co.uk/frameworks/requirejs/0.13.0/sharedmodules/require.js",
+          "status": 200,
+          "bytes": 26631,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.bbci.co.uk/frameworks/requirejs/0.13.0/sharedmodules/require.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://cdn.optimizely.com/public/4621041136/s/bbcx_prod.js",
+          "finalUrl": "https://cdn.optimizely.com/public/4621041136/s/bbcx_prod.js",
+          "status": 200,
+          "bytes": 420822,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://cdn.optimizely.com/public/4621041136/s/bbcx_prod.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://cdn.tinypass.com/api/tinypass.min.js",
+          "finalUrl": "https://cdn.tinypass.com/api/tinypass.min.js",
+          "status": 200,
+          "bytes": 484606,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://cdn.tinypass.com/api/tinypass.min.js.map",
+          "mapStatus": 403
+        },
+        {
+          "url": "https://gn-web-assets.api.bbc.com/ngas/latest/dotcom-bootstrap.js",
+          "finalUrl": "https://gn-web-assets.api.bbc.com/ngas/latest/dotcom-bootstrap.js",
+          "status": 200,
+          "bytes": 75255,
+          "discovery": "comment",
+          "mapUrl": "(inline data URL)",
+          "mapStatus": "inline",
+          "mapError": "Research regex false positive: CSS-loader string literal, verified by follow-up request",
+          "falsePositive": true
+        },
+        {
+          "url": "https://emp.bbci.co.uk/emp/bump-4/bump-4.js",
+          "finalUrl": "https://emp.bbci.co.uk/emp/bump-4/bump-4.js",
+          "status": 200,
+          "bytes": 135569,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://emp.bbci.co.uk/emp/bump-4/bump-4.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0b-tgv1_m1uo9.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0b-tgv1_m1uo9.js",
+          "status": 200,
+          "bytes": 5926,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0b-tgv1_m1uo9.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0d9awe5d081.2.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0d9awe5d081.2.js",
+          "status": 200,
+          "bytes": 34454,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0d9awe5d081.2.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0s_kjwmep8yf2.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0s_kjwmep8yf2.js",
+          "status": 200,
+          "bytes": 25448,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0s_kjwmep8yf2.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0-a6nanpwqpag.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0-a6nanpwqpag.js",
+          "status": 200,
+          "bytes": 23644,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/0-a6nanpwqpag.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/178~uy1pz6ka4.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/178~uy1pz6ka4.js",
+          "status": 200,
+          "bytes": 1511,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/178~uy1pz6ka4.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/02w2j6a0szhem.js",
+          "finalUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/02w2j6a0szhem.js",
+          "status": 200,
+          "bytes": 25157,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://static.files.bbci.co.uk/bbcdotcom/web/20261005-153342-40cbc1e8b4-web-3.23.0-2/_next/static/chunks/02w2j6a0szhem.js.map",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://www.bbc.com/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "vuejs.org",
+      "category": "Documentation",
+      "requests": 25,
+      "discoveredBundles": 12,
+      "bundles": [
+        {
+          "url": "https://vuejs.org/assets/app.B91ytTIH.js",
+          "finalUrl": "https://vuejs.org/assets/app.B91ytTIH.js",
+          "status": 200,
+          "bytes": 7959,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/app.B91ytTIH.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/plugin-vue_export-helper.CHIaqsk5.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/plugin-vue_export-helper.CHIaqsk5.js",
+          "status": 200,
+          "bytes": 84,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/plugin-vue_export-helper.CHIaqsk5.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/preload-helper.DPeZQNDl.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/preload-helper.DPeZQNDl.js",
+          "status": 200,
+          "bytes": 1193,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/preload-helper.DPeZQNDl.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/client.Di6ffgQ0.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/client.Di6ffgQ0.js",
+          "status": 200,
+          "bytes": 17010,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/client.Di6ffgQ0.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/PreferenceSwitch.Xjf1us8F.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/PreferenceSwitch.Xjf1us8F.js",
+          "status": 200,
+          "bytes": 4637,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/PreferenceSwitch.Xjf1us8F.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/SponsorsGroup.DCKN6C6f.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/SponsorsGroup.DCKN6C6f.js",
+          "status": 200,
+          "bytes": 2010,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/SponsorsGroup.DCKN6C6f.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/src.BvVF4JYV.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/src.BvVF4JYV.js",
+          "status": 200,
+          "bytes": 51050,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/src.BvVF4JYV.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/runtime-core.esm-bundler.D9dvqvXF.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/runtime-core.esm-bundler.D9dvqvXF.js",
+          "status": 200,
+          "bytes": 69743,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/runtime-core.esm-bundler.D9dvqvXF.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/chunks/runtime-dom.esm-bundler.CWLNKmOD.js",
+          "finalUrl": "https://vuejs.org/assets/chunks/runtime-dom.esm-bundler.CWLNKmOD.js",
+          "status": 200,
+          "bytes": 15719,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/chunks/runtime-dom.esm-bundler.CWLNKmOD.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://vuejs.org/assets/index.md.DGgGtkgQ.lean.js",
+          "finalUrl": "https://vuejs.org/assets/index.md.DGgGtkgQ.lean.js",
+          "status": 200,
+          "bytes": 5501,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://vuejs.org/assets/index.md.DGgGtkgQ.lean.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://cdn.usefathom.com/script.js",
+          "finalUrl": "https://cdn.usefathom.com/script.js",
+          "status": 200,
+          "bytes": 6981,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://cdn.usefathom.com/script.js.map",
+          "mapStatus": 404
+        },
+        {
+          "url": "https://media.bitterbrains.com/main.js?from=vuejs&type=top",
+          "finalUrl": "https://media.bitterbrains.com/main.js?from=vuejs&type=top",
+          "status": 200,
+          "bytes": 18056,
+          "discovery": "guessed-sibling",
+          "mapUrl": "https://media.bitterbrains.com/main.js.map?from=vuejs&type=top",
+          "mapStatus": 404
+        }
+      ],
+      "errors": [],
+      "url": "https://vuejs.org/",
+      "htmlStatus": 200
+    },
+    {
+      "host": "www.npmjs.com",
+      "category": "Developer platform",
+      "requests": 1,
+      "discoveredBundles": 0,
+      "bundles": [],
+      "errors": [],
+      "url": "https://www.npmjs.com/",
+      "htmlStatus": 403
+    }
+  ],
+  "followUpRequests": 1,
+  "followUpNotes": [
+    "One BBC bundle re-fetched to inspect regex candidate context: sourceMappingURL was inside a CSS-loader JavaScript string, not a JavaScript comment. Exclude it from malformed-map counts."
+  ]
+}

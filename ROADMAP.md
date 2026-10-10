@@ -6,19 +6,19 @@ Last updated: **2026-10-10**. This is the single work queue and durable handoff 
 
 The working MVP inspects page/direct JavaScript URLs and reports bounded source-map metadata through terminal, verbose, and JSON output. Research found useful maps on only two of sixteen sampled sites; deployment diagnostics are promising, broad website archaeology is unproven. See [RESEARCH.md](RESEARCH.md) and [EVALUATION.md](EVALUATION.md).
 
-Latest local verification (RM-04, 2026-10-10): **131 tests passed**, strict source/test typechecks and build on Node 26.10.0/npm 11.19.1. Built help and a clean local tarball installation/bin command were exercised against synthetic loopback HTTP. Independent review, commit/push and remote CI for RM-04 remain pending.
+Latest local verification (RM-04, 2026-10-10): **131 tests passed**, strict source/test typechecks and build on Node 26.10.0/npm 11.19.1. Built help and a clean local tarball installation/bin command were exercised against synthetic loopback HTTP. RM-04 was accepted unchanged, committed/pushed, and passed both supported Node CI jobs; see exact evidence below.
 
 Earlier local verification (RM-05, 2026-10-10): **110 tests passed**, strict source/test typechecks, and build on Node 26.10.0/npm 11.19.1. Both supported Node CI jobs also passed for the implementation; see RM-05 for exact revision, run, and review evidence.
 
 Earlier local verification (RM-03, 2026-10-10): **96 tests passed**, strict source/test typechecks, one build, and dry-run package inspection on Node 26.10.0/npm 11.19.1. This includes built-CLI and unpacked-package entry-point checks against synthetic loopback HTTP. The earlier MVP baseline included manual installed-CLI and live MDN smoke checks; those were not rerun for RM-03. This is dated evidence, not a substitute for checking the current revision.
 
-No npm release is recorded in the project history. The RM-05 implementation was committed and pushed to `origin/main`. Its 110-test suite, typechecks, and build passed on GitHub for Node 22 and 24; see RM-05 for the exact run and revision. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
+No npm release is recorded in the project history. The RM-04 implementation was committed and pushed to `origin/main`. Its 131-test suite, typechecks, and build passed on GitHub for Node 22 and 24; see RM-04 for the exact run and revision. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
 
-Latest investigation: [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; the study itself changes no production behavior. Its opt-in asset-limit recommendation is implemented locally under RM-04, pending independent review. See the study review below for historical local checks versus remote production CI.
+Latest investigation: [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; the study itself changes no production behavior. Its opt-in asset-limit recommendation is implemented and accepted under RM-04. See the study review below for historical local checks versus remote production CI.
 
 ## Active work
 
-None. RM-04 implementation and local checks are complete; independent reviewer assessment, delivery and remote CI are pending. No subsequent task started.
+None. RM-04 was accepted unchanged, committed/pushed, and verified on both supported Node CI jobs. No subsequent task started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -42,8 +42,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-01 | needs-evidence | Validate repeat usefulness on developers' own deployments | Real feedback; no outreach without authorization |
 | RM-02 | done | Add CI for supported Node LTS versions | [Both remote jobs passed](https://github.com/jkup/sourcemapped/actions/runs/38094230079); [run review](docs/agent-runs/0001-ci.md) |
 | RM-03 | done | Automate CLI and package smoke coverage | [96 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38094705019); [run review](docs/agent-runs/0002-cli-tests.md) |
-| RM-04 | done | Improve bounded asset sampling | Opt-in `--max-assets`; 131 local tests passed; independent review/delivery pending |
-| RM-04a | done | Investigate bounded sampling on controlled fixtures | [Offline study](research/sampling-2026-10-10.md); production implementation remains RM-04 |
+| RM-04 | done | Improve bounded asset sampling | Opt-in `--max-assets`; [remote CI](https://github.com/jkup/sourcemapped/actions/runs/38096210967), [run review](docs/agent-runs/0005-asset-limit.md) |
+| RM-04a | done | Investigate bounded sampling on controlled fixtures | [Offline study](research/sampling-2026-10-10.md); accepted implementation recorded under RM-04 |
 | RM-05 | done | Group repeated failure evidence in terminal output | [110 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38095190779); [run review](docs/agent-runs/0003-failure-presentation.md) |
 | RM-06 | needs-evidence | Compare saved metadata reports | Validate a repeat deployment-checking workflow |
 | RM-07 | needs-evidence | Extend standards coverage and validation | Concrete unsupported case and fixture strategy |
@@ -77,13 +77,15 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 ### RM-04 — Bounded sampling
 
-**Next action:** independent review of the local implementation, then reviewer delivery and remote verification. Concrete owner feedback remains absent; synthetic map yield is not adoption evidence.
+**Next action:** none for the selected implementation; RM-04 is complete. Concrete owner feedback remains absent; synthetic map yield is not adoption evidence.
 
 **Acceptance:** document request cost, discoveries, bias, and skipped counts; propose the smallest useful behavior change. If accepted, add deterministic fixtures and preserve hard shared budgets and visible scope. Update ADR 0002 if discovery policy changes.
 
 **Implementation/evidence (2026-10-10):** [CLI](src/cli.ts) exposes `--max-assets N`, accepting decimal digits for positive safe integers (1–9007199254740991, leading zeros accepted) and forwarding only `maxScripts`. Defaults, document order, direct-JavaScript behavior, all shared budgets and schema version 1 remain unchanged. [ADR 0004](docs/decisions/0004-opt-in-asset-limit.md) extends ADR 0002 and records compatibility; [README](README.md), help, architecture and report-contract docs explain scope and limits. Twenty added [CLI cases](test/cli.test.ts) cover invalid values before any request, boundaries, larger selections with and without additional maps, and exhaustion of the default request cap. One [scanner case](test/scan.test.ts) retains shared-map, 404, redirect and skipped-count accounting with a larger selection.
 
-**Local verification:** Node **26.10.0**, npm **11.19.1**. `npm run build` passed; the focused attempt passed 12 scanner tests but its 36 CLI cases could not start the loopback listener (`listen EPERM`). A sandboxed `npm run check` passed typechecks/build and 95 tests with the same CLI setup limitation. The permitted `npm run check` then passed **131 tests across six files**, typechecks and build. Built `--help` was inspected. `npm pack --dry-run --ignore-scripts --offline` with a temporary cache listed the expected 15 files; the default-cache attempt failed on cache write permissions. A disposable clean install of the local tarball fetched production dependencies from npm and successfully ran its npm bin command for help and two synthetic loopback scans (`--max-assets 1` and `2`); rendered output showed one versus zero skipped assets and unchanged request cap. The earlier offline install attempt failed with `ENOTCACHED`; the successful install used an empty temporary prefix/cache, not checkout dependencies. Scripts were disabled and the already verified build was packed. Temporary installation files were removed. `git diff --check` and changed-document relative links passed. No public-site scan, historical evidence refresh, commit or push occurred. No new remote CI or TTY-progress claim; reviewer assessment/delivery remain pending.
+**Local verification:** Node **26.10.0**, npm **11.19.1**. `npm run build` passed; the focused attempt passed 12 scanner tests but its 36 CLI cases could not start the loopback listener (`listen EPERM`). A sandboxed `npm run check` passed typechecks/build and 95 tests with the same CLI setup limitation. The permitted `npm run check` then passed **131 tests across six files**, typechecks and build. Built `--help` was inspected. `npm pack --dry-run --ignore-scripts --offline` with a temporary cache listed the expected 15 files; the default-cache attempt failed on cache write permissions. A disposable clean install of the local tarball fetched production dependencies from npm and successfully ran its npm bin command for help and two synthetic loopback scans (`--max-assets 1` and `2`); rendered output showed one versus zero skipped assets and unchanged request cap. The earlier offline install attempt failed with `ENOTCACHED`; the successful install used an empty temporary prefix/cache, not checkout dependencies. Scripts were disabled and the already verified build was packed. Temporary installation files were removed. `git diff --check` and changed-document relative links passed. No public-site scan, historical evidence refresh, commit or push occurred. These are implementer-local results with no TTY-progress claim; reviewer delivery and remote evidence follow.
+
+**Review/delivery:** accepted unchanged, committed/pushed as `cfc6c36aeb9e36ffb28be955aa3eea49285c7203`. Reviewer inspected built help and independently passed all 48 CLI/scanner tests. [CI](https://github.com/jkup/sourcemapped/actions/runs/38096210967) passed all 131 tests, typechecks and build on Node 22/24. The [fifth observed run](docs/agent-runs/0005-asset-limit.md) received 9.5/10; AGENTS.md preserves the limit-testing pattern. No remaining selected RM-04 work.
 
 ### RM-04a — Controlled sampling investigation
 
@@ -93,9 +95,9 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 **Recommendation:** retain document-order defaults; consider only an opt-in asset-limit CLI flag as the smallest next behavior change, retaining all shared budgets. Origin and prefix filters have explicit counterexamples; defer a filter feature pending a concrete deployment workflow. This recommendation is not implementation approval.
 
-**Local verification:** Node 26.10.0/npm 11.19.1; build and harness assertions passed, 20 rows reproduced byte-for-byte, changed-document relative links and `git diff --check` passed. No full production suite rerun or new remote CI claim. These are the implementer's local checks; reviewer evidence follows. RM-04a's investigation is complete, RM-04 implementation is not.
+**Local verification:** Node 26.10.0/npm 11.19.1; build and harness assertions passed, 20 rows reproduced byte-for-byte, changed-document relative links and `git diff --check` passed. No full production suite rerun or new remote CI claim. These are the implementer's local checks; reviewer evidence follows. At that handoff RM-04a's investigation was complete and RM-04 implementation had not started; later implementation is recorded above.
 
-**Review/delivery:** accepted unchanged at `6dffa28e4ca6e182db1f043145446875a984fe7e`, committed/pushed by the reviewer. Independent reproduction, all row totals, and the prose result table agreed. [Run review](docs/agent-runs/0004-sampling-investigation.md): 9.5/10. [CI](https://github.com/jkup/sourcemapped/actions/runs/38095544909) passed the existing 110-test suite, typechecks, and build on Node 22/24; CI does not run the research harness. The recommendation remains a future implementation choice.
+**Review/delivery:** accepted unchanged at `6dffa28e4ca6e182db1f043145446875a984fe7e`, committed/pushed by the reviewer. Independent reproduction, all row totals, and the prose result table agreed. [Run review](docs/agent-runs/0004-sampling-investigation.md): 9.5/10. [CI](https://github.com/jkup/sourcemapped/actions/runs/38095544909) passed the existing 110-test suite, typechecks, and build on Node 22/24; CI does not run the research harness. At that review the recommendation remained a future choice; its later implementation is recorded under RM-04 above.
 
 ### RM-05 — Failure presentation
 
@@ -138,7 +140,7 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-00c | 2026-10-10 | Same-site MVP evaluation and initial priorities; [evaluation](EVALUATION.md), commit `c12454c` |
 | RM-02 | 2026-10-10 | Supported Node LTS CI, verified [remote run](https://github.com/jkup/sourcemapped/actions/runs/38094230079), and [agent review](docs/agent-runs/0001-ci.md); implementation commit `3584580` |
 | RM-03 | 2026-10-10 | 16 built-CLI/packed-entry-point tests, 96 total tests passed remotely; [coverage and limits](docs/testing.md), [agent review](docs/agent-runs/0002-cli-tests.md); implementation `be3c61b` |
-| RM-04 | 2026-10-10 | Opt-in asset-limit CLI, 21 regression cases and unchanged shared budgets/schema; 131 local tests passed; review/delivery pending |
+| RM-04 | 2026-10-10 | Opt-in asset-limit CLI, 21 regression cases and unchanged shared budgets/schema; [131 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38096210967); [run review](docs/agent-runs/0005-asset-limit.md) |
 | RM-04a | 2026-10-10 | Controlled offline sampling comparison; [method/results](research/sampling-2026-10-10.md), [harness](scripts/sampling-study.mjs), and [metadata](research/sampling-2026-10-10.json); no production change |
 | RM-05 | 2026-10-10 | Bounded request-outcome groups and 14 regression cases; [renderer tests](test/render.test.ts), 110 tests passed remotely; [agent review](docs/agent-runs/0003-failure-presentation.md); implementation `7c2ee0e` |
 | RM-11 | 2026-10-10 | Agent onboarding, running work queue, architecture/report docs, and three accepted ADRs; [AGENTS.md](AGENTS.md), [docs index](docs/README.md) |
@@ -154,6 +156,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Accepted RM-04 unchanged; committed/pushed and all 131 tests passed on Node 22/24 CI. Recorded grade 9.5/10 and added limit-testing guidance. No subsequent task started.
 
 - **2026-10-10:** Implemented RM-04’s selected opt-in `--max-assets` recommendation, preserving document order, defaults, shared budgets and report semantics. Added 21 deterministic cases; all 131 local tests/typechecks/build passed. Checked help, tarball contents and a clean installed command with synthetic loopback output. Independent review/delivery and remote CI pending; no subsequent task started.
 

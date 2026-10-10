@@ -32,6 +32,7 @@ npx --no-install vitest run test/discover.test.ts  # example focused test
 - For behavior changes, add a regression test that proves the user-visible behavior, run focused tests during iteration, and run `npm run check` before handoff.
 - For documentation-only changes, verify claims against source, relative links, commands, and `git diff --check`; a full test rerun is unnecessary unless runtime behavior changed.
 - For packaging changes, run `npm pack --dry-run` and inspect the file list. For entry-point changes, also exercise the built CLI and a locally installed tarball. Packing does not publish.
+- For executable/package tests, state the boundary actually exercised: built files, a packed artifact, or an installed command. Reusing checkout dependencies does not verify clean dependency installation or npm bin shims. Keep those limits explicit; use a small reversible negative check when useful to confirm the test catches its intended failure.
 - For CI changes, use a workflow-aware validator such as `actionlint` when available. Record the actual local Node/npm versions separately from the remote matrix, and tie remote pass claims to a run URL and commit. A local pass is not a remote pass.
 - `dist/`, `node_modules/`, and tarballs are generated and ignored. Never edit generated output as the fix.
 - [CI](.github/workflows/ci.yml) runs the offline checks on supported Node LTS versions; there is no configured linter. Do not report checks that were not run. If a check is blocked, record the exact limitation and the checks that did run.

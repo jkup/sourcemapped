@@ -88,6 +88,8 @@ The CLI follows explicitly referenced assets, including external hosts. Only HTT
 
 ## Development
 
+Agents and contributors: start with [AGENTS.md](AGENTS.md), use the [running roadmap](ROADMAP.md) for work status and acceptance criteria, and read the [documentation index](docs/README.md) for architecture, report semantics, and decision records.
+
 ```sh
 npm ci
 npm run check     # strict source/test typechecking, Vitest, build

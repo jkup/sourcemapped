@@ -1,0 +1,76 @@
+import type { Report } from './scan.js';
+
+// Never let a remote path/URL print terminal escapes, newlines, or bidi controls.
+export function safeText(value: string): string {
+  return value.replace(/[\u0000-\u001f\u007f-\u009f\u2028\u2029\u202a-\u202e\u2066-\u2069]/g, '�');
+}
+
+function short(value: string, width = 95): string {
+  const safe = safeText(value);
+  return safe.length > width ? `${safe.slice(0, width - 1)}…` : safe;
+}
+
+export function render(report: Report, options: { verbose?: boolean; color?: boolean } = {}): string {
+  const s = report.summary;
+  const bold = (value: string) => options.color ? `\x1b[1m${value}\x1b[22m` : value;
+  const cyan = (value: string) => options.color ? `\x1b[36m${value}\x1b[39m` : value;
+  const lines = ['', `  ${bold('sourcemapped')}  ${short(report.finalUrl ?? report.target)}`, ''];
+  if (report.error) lines.push(`  Could not inspect target: ${safeText(report.error)}`, '');
+  lines.push(`  ├─ JavaScript  ${s.discovered} ${report.scope === 'static-html' ? 'static references' : 'direct asset'}`);
+  lines.push(`  │  ${s.inspected} inspected · ${s.scriptFailures} failed · ${s.skipped} skipped`);
+  lines.push(`  ├─ Source maps  ${cyan(`${s.mapsChecked} analyzed`)} / ${s.discovered} discovered assets`);
+  lines.push(`  │  ${s.noReference} no reference · ${s.mapsUnavailable} unavailable · ${s.mapsInvalid} invalid`);
+  if (s.mapsUnsupported || s.mapsLimited) lines.push(`  │  ${s.mapsUnsupported} unsupported · ${s.mapsLimited} limited`);
+  if (s.sourceEntries) {
+    lines.push(`  ├─ Original sources  ${s.sourceEntries.toLocaleString('en-US')} entries across analyzed bundle maps`);
+    lines.push(`  │  ${s.embeddedSources.toLocaleString('en-US')} / ${s.sourceEntries.toLocaleString('en-US')} contain embedded content`);
+    const languages = Object.entries(s.languages).sort((a, b) => b[1] - a[1]).map(([name, count]) => `${count} ${name}`);
+    lines.push(`  │  ${languages.join(' · ')}`);
+    lines.push('  │  Entries can repeat across bundles; extensions describe filenames.');
+  }
+  lines.push('  └─ Findings');
+  const findings: string[] = [];
+  if (!s.mapsChecked && !report.error) findings.push('No analyzable public maps found within this scan.');
+  if (s.noReference) findings.push('No map reference is normal; maps may be kept private.');
+  if (s.mapsUnavailable) findings.push(`${s.mapsUnavailable} advertised map${s.mapsUnavailable === 1 ? '' : 's'} could not be retrieved; see --verbose for evidence.`);
+  const packageNames = new Set<string>();
+  for (const bundle of report.bundles) {
+    if (bundle.map?.analysis?.status !== 'checked') continue;
+    for (const entry of bundle.map.analysis.packages) packageNames.add(entry.name);
+  }
+  if (packageNames.size) findings.push(`Package paths mention ${[...packageNames].slice(0, 6).join(', ')}${packageNames.size > 6 ? ', …' : ''}.`);
+  const mapWarnings = new Set(report.bundles.flatMap(bundle => bundle.map?.analysis?.warnings ?? []));
+  for (const warning of [...mapWarnings].slice(0, 4)) findings.push(warning);
+  if (s.mapsChecked) findings.push('Analyzed means basic structure and mappings checks passed, not full conformance.');
+  if (!findings.length) findings.push('No further findings within this scan.');
+  lines.push(...findings.map(finding => `     ${short(finding, 120)}`));
+
+  if (options.verbose) {
+    lines.push('', '  Evidence');
+    for (const bundle of report.bundles) {
+      lines.push(`  • ${safeText(bundle.url)}`, `    ${bundle.kind} · ${bundle.status}${bundle.bytes !== undefined ? ` · ${bundle.bytes} decoded response bytes` : ''}`);
+      if (bundle.finalUrl && bundle.finalUrl !== bundle.url) lines.push(`    redirected to ${safeText(bundle.finalUrl)}`);
+      if (bundle.error) lines.push(`    ${safeText(bundle.error)}`);
+      const map = bundle.map;
+      if (map) {
+        lines.push(`    ${map.referenceKind} → ${safeText(map.url)} · ${map.status}${map.httpStatus ? ` · HTTP ${map.httpStatus}` : ''}`);
+        if (map.finalUrl && map.finalUrl !== map.url) lines.push(`    map redirected to ${safeText(map.finalUrl)}`);
+        if (map.error) lines.push(`    ${safeText(map.error)}`);
+        const analysis = map.analysis;
+        if (analysis) {
+          lines.push(...analysis.errors.map(error => `    Error: ${safeText(error)}`), ...analysis.warnings.map(warning => `    Note: ${safeText(warning)}`));
+          if (analysis.status === 'checked') {
+            lines.push(`    ${analysis.sourceEntries} entries · ${analysis.uniqueSourcePaths} distinct resolved paths in this map · ${analysis.mappingCount} mapping segments`);
+            lines.push(...analysis.pathSamples.map(path => `      ${safeText(path)}`));
+            lines.push(...analysis.packages.map(entry => `    Package path: ${safeText(entry.name)} ← ${safeText(entry.examples[0] ?? '')}`));
+          }
+        }
+      }
+    }
+    lines.push('', '  HTTP requests');
+    for (const request of report.requests) lines.push(`  ${request.status ?? '—'} ${safeText(request.url)}${request.error ? ` · ${safeText(request.error)}` : ''}`);
+  }
+  lines.push('', ...report.warnings.map(warning => `  ${short(warning, 140)}`));
+  lines.push(`  ${report.requests.length}/${report.limits.maxRequests} requests · ${(s.downloadedBytes / 1048576).toFixed(1)} MiB downloaded · source contents stay in memory`, '');
+  return `${lines.join('\n')}\n`;
+}

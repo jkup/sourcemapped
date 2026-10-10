@@ -51,6 +51,8 @@ sourcemapped <url> --json > report.json
 sourcemapped --help
 ```
 
+Default output groups failed HTTP attempts by responding host and outcome, showing up to six groups with an overflow count. These count requests, not affected bundles: a shared map is fetched once, and redirects can cross hosts. Origin pauses and scan limits are reported separately; neither implies that private maps are a defect.
+
 `--verbose` exposes each bundle, the map-reference method, HTTP outcomes, diagnostics, and a small source-path sample. Package names are supported by `node_modules` paths; they are not claims about the site's overall framework, dependency versions, or application architecture.
 
 `--json` emits a versioned structured report: target, final URL, timestamp, scope, limits, bundle observations, per-map analysis, request evidence, and summary counts. Original source contents, symbol-name arrays, and inline map payloads are excluded. Reports still contain public URLs and path metadata; review them before sharing.

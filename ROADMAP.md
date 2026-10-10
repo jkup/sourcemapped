@@ -6,13 +6,15 @@ Last updated: **2026-10-10**. This is the single work queue and durable handoff 
 
 The working MVP inspects page/direct JavaScript URLs and reports bounded source-map metadata through terminal, verbose, and JSON output. Research found useful maps on only two of sixteen sampled sites; deployment diagnostics are promising, broad website archaeology is unproven. See [RESEARCH.md](RESEARCH.md) and [EVALUATION.md](EVALUATION.md).
 
-Latest local verification (RM-03, 2026-10-10): **96 tests passed**, strict source/test typechecks, one build, and dry-run package inspection on Node 26.10.0/npm 11.19.1. This includes built-CLI and unpacked-package entry-point checks against synthetic loopback HTTP. The earlier MVP baseline included manual installed-CLI and live MDN smoke checks; those were not rerun for RM-03. This is dated evidence, not a substitute for checking the current revision.
+Latest local verification (RM-05, 2026-10-10): **110 tests passed**, strict source/test typechecks, and build on Node 26.10.0/npm 11.19.1. See RM-05 for fixture coverage, sandbox retry, and review/remote verification still pending.
+
+Earlier local verification (RM-03, 2026-10-10): **96 tests passed**, strict source/test typechecks, one build, and dry-run package inspection on Node 26.10.0/npm 11.19.1. This includes built-CLI and unpacked-package entry-point checks against synthetic loopback HTTP. The earlier MVP baseline included manual installed-CLI and live MDN smoke checks; those were not rerun for RM-03. This is dated evidence, not a substitute for checking the current revision.
 
 No npm release is recorded in the project history. The RM-03 implementation was committed and pushed to `origin/main`. Its 96-test suite, typechecks, and build passed on GitHub for Node 22 and 24; see RM-03 for the exact run and revision. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
 
 ## Active work
 
-None. RM-03 implementation, independent review, delivery, and remote verification are complete. No subsequent roadmap task has been started.
+None. RM-05 implementation and first review revision are locally verified; reviewer assessment, delivery, and remote CI remain pending. No subsequent task started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -29,7 +31,7 @@ Update the affected item and the change log in the same change as the work. Keep
 
 ## Prioritized queue
 
-Order reflects product priority. Follow the user's task first. RM-01 is the main product question; RM-05 is the next bounded engineering candidate when implementation work is requested.
+Order reflects product priority. Follow the user's task first. RM-01 remains the main product question; completed engineering items do not authorize subsequent work.
 
 | ID | Status | Work | Dependency / completion evidence |
 | --- | --- | --- | --- |
@@ -37,7 +39,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | RM-02 | done | Add CI for supported Node LTS versions | [Both remote jobs passed](https://github.com/jkup/sourcemapped/actions/runs/38094230079); [run review](docs/agent-runs/0001-ci.md) |
 | RM-03 | done | Automate CLI and package smoke coverage | [96 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38094705019); [run review](docs/agent-runs/0002-cli-tests.md) |
 | RM-04 | needs-evidence | Improve bounded asset sampling | Compare strategies without silently expanding scope |
-| RM-05 | ready | Group repeated failure evidence in terminal output | Preserve per-bundle JSON and existing statuses |
+| RM-05 | done | Group repeated failure evidence in terminal output | [Renderer](src/render.ts), [regression fixtures](test/render.test.ts); 110 local tests passed; reviewer/remote verification pending |
 | RM-06 | needs-evidence | Compare saved metadata reports | Validate a repeat deployment-checking workflow |
 | RM-07 | needs-evidence | Extend standards coverage and validation | Concrete unsupported case and fixture strategy |
 | RM-08 | needs-evidence | Support owner-provided local bundle/map pairs | Confirm demand and define explicit input semantics |
@@ -78,6 +80,10 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 
 **Acceptance:** default output groups repeated HTTP outcomes by useful context such as asset host and status. Verbose and JSON retain exact per-bundle evidence. Fixtures cover mixed 403/404 responses, rate-limit pauses, no-reference assets, and limits without calling private maps a defect. Keep output compact and terminal-safe.
 
+**Implementation/evidence (2026-10-10):** [Renderer](src/render.ts) groups failed request attempts by responding host and HTTP status/failure kind, displaying the six largest groups plus an overflow count. Redirects use the responding host; shared maps count one actual attempt rather than one per bundle. Origin pauses and scan limits remain separate findings. Existing verbose evidence and JSON schema/status/count semantics are unchanged; this presentation-only change needs no report migration or ADR. [README](README.md) and [architecture](docs/architecture.md) explain the denominator and bounded display.
+
+**Local verification:** Node **26.10.0**, npm **11.19.1**. Focused renderer suite: 19 passed, including six new synthetic cases covering mixed 403/404, shared maps, redirects, 429/503 pauses, missing references, request/sampling/byte limits, bounded groups, and terminal safety. After first review revision, final `npm run check`: **110 tests across six files**, strict source/test typechecks, and build passed. The first sandbox run passed 86 tests but could not start the existing CLI fixture (`listen EPERM` on `127.0.0.1`); rerunning with loopback permission passed all 102. The first review revision corrected singular/plural wording in pause, scan-limit, and overflow messages, adding eight zero/one/many cases; all 110 tests passed with loopback permission. Built renderer output was also inspected using a synthetic injected-fetch scan; no public-site requests or research refresh occurred. `git diff --check` and changed-document relative links passed. These are local results, not remote Node 22/24 evidence. Reviewer assessment/delivery and remote CI remain pending; implementation agent made no commit or push. No subsequent task started.
+
 ### RM-06 — Saved-report comparison
 
 **Acceptance to start implementation:** document at least one concrete repeated deployment workflow and a small before/after fixture. Define stable identity across URL hashes, sampling differences, and schema versions before claiming regressions. A changed sample must not be reported as a disappeared map. Keep any implementation local and metadata-only.
@@ -109,6 +115,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | RM-00c | 2026-10-10 | Same-site MVP evaluation and initial priorities; [evaluation](EVALUATION.md), commit `c12454c` |
 | RM-02 | 2026-10-10 | Supported Node LTS CI, verified [remote run](https://github.com/jkup/sourcemapped/actions/runs/38094230079), and [agent review](docs/agent-runs/0001-ci.md); implementation commit `3584580` |
 | RM-03 | 2026-10-10 | 16 built-CLI/packed-entry-point tests, 96 total tests passed remotely; [coverage and limits](docs/testing.md), [agent review](docs/agent-runs/0002-cli-tests.md); implementation `be3c61b` |
+| RM-05 | 2026-10-10 | Bounded request-outcome groups and 14 regression cases; [renderer tests](test/render.test.ts), 110 local tests passed; review and remote verification pending |
 | RM-11 | 2026-10-10 | Agent onboarding, running work queue, architecture/report docs, and three accepted ADRs; [AGENTS.md](AGENTS.md), [docs index](docs/README.md) |
 
 ## Deliberately deferred
@@ -122,6 +129,10 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** RM-05 review revision 1 corrected singular/plural wording in new pause, scan-limit, and overflow messages. Added eight zero/one/many cases; 19 renderer tests and all 110 local tests, typechecks, and build passed. Reviewer assessment/delivery and remote CI remain pending.
+
+- **2026-10-10:** Completed RM-05 local implementation: bounded host/outcome groups with explicit attempt counts, origin pauses, and scan-limit findings. All 102 local tests, typechecks, and build passed. Verbose/JSON evidence retained; reviewer assessment, delivery, and remote verification pending.
 
 - **2026-10-10:** Accepted RM-03 unchanged after independent negative-control testing and both remote jobs passed. Recorded grade 9.5/10 and clarified executable/package test boundaries in AGENTS.md. No subsequent task started.
 

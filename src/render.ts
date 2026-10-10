@@ -1,3 +1,4 @@
+import type { RequestEvidence } from './network.js';
 import type { Report } from './scan.js';
 
 // Never let a remote path/URL print terminal escapes, newlines, or bidi controls.
@@ -8,6 +9,35 @@ export function safeText(value: string): string {
 function short(value: string, width = 95): string {
   const safe = safeText(value);
   return safe.length > width ? `${safe.slice(0, width - 1)}…` : safe;
+}
+
+function counted(count: number, noun: string): string {
+  return `${count} ${noun}${count === 1 ? '' : 's'}`;
+}
+
+// Count attempts, not bundle/map relationships: shared maps are fetched once, and
+// redirect failures belong to the host that actually returned the response.
+function requestOutcomes(requests: RequestEvidence[]): string[] {
+  const groups = new Map<string, { host: string; outcome: string; count: number }>();
+  for (const request of requests) {
+    if (!request.error && !(request.status !== undefined && request.status >= 400)) continue;
+    let host: string;
+    try { host = new URL(request.url).host; } catch { host = '(unknown host)'; }
+    const status = request.status === undefined ? '' : `HTTP ${request.status}`;
+    const reason = request.code === 'limit' ? 'resource limit'
+      : request.code === 'timeout' ? 'timeout'
+      : request.code === 'network' ? 'network failure'
+      : request.code === 'url' ? 'URL failure' : '';
+    const outcome = reason ? `${reason}${status ? ` (${status})` : ''}` : status || 'request failure';
+    const key = JSON.stringify([host, outcome]);
+    const group = groups.get(key);
+    if (group) group.count++;
+    else groups.set(key, { host, outcome, count: 1 });
+  }
+  const sorted = [...groups.values()].sort((a, b) => b.count - a.count || a.host.localeCompare(b.host) || a.outcome.localeCompare(b.outcome));
+  const lines = sorted.slice(0, 6).map(group => `  │  ${group.count} × ${group.outcome} · ${short(group.host, 70)}`);
+  if (sorted.length > 6) lines.push(`  │  ${counted(sorted.length - 6, 'more outcome group')}; see --verbose or --json.`);
+  return lines;
 }
 
 export function render(report: Report, options: { verbose?: boolean; color?: boolean } = {}): string {
@@ -28,9 +58,17 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     lines.push(`  │  ${languages.join(' · ')}`);
     lines.push('  │  Entries can repeat across bundles; extensions describe filenames.');
   }
+  const outcomes = requestOutcomes(report.requests);
+  if (outcomes.length) lines.push('  ├─ Failed HTTP attempts by host (not affected bundles)', ...outcomes);
   lines.push('  └─ Findings');
   const findings: string[] = [];
   if (!s.mapsChecked && !report.error) findings.push('No analyzable public maps found within this scan.');
+  // Paused calls have no RequestEvidence entry unless an earlier redirect was attempted.
+  const pauseMessage = 'Origin paused after a rate-limit response';
+  const pausedScripts = report.bundles.filter(bundle => bundle.error === pauseMessage).length;
+  const pausedMaps = report.bundles.filter(bundle => bundle.map?.error === pauseMessage).length;
+  if (pausedScripts || pausedMaps) findings.push(`Origin pause blocked ${counted(pausedScripts, 'JavaScript asset')} and ${counted(pausedMaps, 'bundle/map relationship')}; see --verbose.`);
+  if (s.skipped || s.mapsLimited) findings.push(`Scan limits: ${counted(s.skipped, 'JavaScript asset')} skipped · ${counted(s.mapsLimited, 'bundle/map relationship')} limited.`);
   if (s.noReference) findings.push('No map reference is normal; maps may be kept private.');
   if (s.mapsUnavailable) findings.push(`${s.mapsUnavailable} advertised map${s.mapsUnavailable === 1 ? '' : 's'} could not be retrieved; see --verbose for evidence.`);
   const packageNames = new Set<string>();

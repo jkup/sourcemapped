@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { analyzeMap } from '../src/analyze.js';
 import { DEFAULT_LIMITS } from '../src/network.js';
 import { render, safeText } from '../src/render.js';
-import type { Report } from '../src/scan.js';
+import { scan, type Report } from '../src/scan.js';
 
 function emptyReport(): Report {
   return {
@@ -84,5 +84,152 @@ describe('terminal report', () => {
     expect(render(emptyReport(), { color: true })).toContain('\x1b[1m');
     expect(render(emptyReport(), { color: false })).not.toContain('\x1b');
     expect(safeText('src/שלום/日本語.ts')).toBe('src/שלום/日本語.ts');
+  });
+});
+
+// Exercise presentation using real scan reports and synthetic native responses.
+async function scanFixture(assets: string[], responses: Record<string, () => Response>, limits: Partial<Report['limits']> = {}) {
+  return scan('https://page.example/', {
+    limits: { concurrency: 1, ...limits },
+    fetchImpl: (async input => {
+      const url = String(input);
+      if (url === 'https://page.example/') return new Response(assets.map(url => `<script src="${url}"></script>`).join(''), { headers: { 'content-type': 'text/html' } });
+      const response = responses[url];
+      if (!response) throw new Error(`Unexpected request: ${url}`);
+      return response();
+    }) as typeof fetch,
+  });
+}
+
+const script = (map?: string) => () => new Response(map ? `//# sourceMappingURL=${map}` : 'run();', { headers: { 'content-type': 'application/javascript' } });
+
+describe('grouped retrieval evidence', () => {
+  it('groups actual 403/404 attempts by responding host, preserving shared-map and redirect evidence', async () => {
+    const report = await scanFixture(['https://page.example/a.js', 'https://page.example/b.js', 'https://page.example/c.js', 'https://page.example/d.js', 'https://other.example/missing.js', 'https://page.example/none.js'], {
+      'https://page.example/a.js': script('https://maps.example/shared.map'),
+      'https://page.example/b.js': script('https://maps.example/shared.map'),
+      'https://page.example/c.js': script('https://maps.example/other.map'),
+      'https://page.example/d.js': () => new Response(null, { status: 302, headers: { location: 'https://maps.example/missing.js' } }),
+      'https://maps.example/shared.map': () => new Response(null, { status: 403 }),
+      'https://maps.example/other.map': () => new Response(null, { status: 403 }),
+      'https://maps.example/missing.js': () => new Response(null, { status: 404 }),
+      'https://other.example/missing.js': () => new Response(null, { status: 404 }),
+      'https://page.example/none.js': script(),
+    });
+    const jsonBefore = JSON.stringify(report);
+    const output = render(report);
+    expect(output).toContain('2 × HTTP 403 · maps.example');
+    expect(output).toContain('1 × HTTP 404 · maps.example');
+    expect(output).toContain('1 × HTTP 404 · other.example');
+    expect(output).not.toContain('HTTP 302');
+    expect(output).not.toContain('HTTP 404 · page.example');
+    expect(output).toContain('3 advertised maps could not be retrieved');
+    expect(output).toContain('No map reference is normal; maps may be kept private.');
+    expect(output).not.toContain('shared.map');
+    const verbose = render(report, { verbose: true });
+    for (const bundle of report.bundles) expect(verbose).toContain(bundle.url);
+    expect(verbose.match(/annotation → https:\/\/maps.example\/shared.map · unavailable · HTTP 403/g)).toHaveLength(2);
+    expect(verbose).toContain('404 https://maps.example/missing.js · HTTP 404');
+    expect(JSON.stringify(report)).toBe(jsonBefore);
+    const json = JSON.parse(jsonBefore) as Report;
+    expect(json.schemaVersion).toBe(1);
+    expect(json.bundles[0]?.map).toMatchObject({ httpStatus: 403, error: 'HTTP 403', status: 'unavailable' });
+    expect(json.bundles[1]?.map?.url).toBe('https://maps.example/shared.map');
+    expect(json.bundles[3]).toMatchObject({ status: 'fetch-failed', error: 'HTTP 404' });
+  });
+
+  it.each([429, 503])('separates HTTP %i from later origin pauses for scripts and maps', async status => {
+    const report = await scanFixture(['https://page.example/a.js', 'https://page.example/b.js', 'https://maps.example/c.js'], {
+      'https://page.example/a.js': script('https://maps.example/a.map'),
+      'https://page.example/b.js': script('https://maps.example/b.map'),
+      'https://maps.example/a.map': () => new Response(null, { status, headers: { 'retry-after': '60' } }),
+    });
+    const output = render(report);
+    expect(output).toContain(`1 × HTTP ${status} · maps.example`);
+    expect(output).toContain('Origin pause blocked 1 JavaScript asset and 1 bundle/map relationship');
+    expect(output).not.toContain(`2 × HTTP ${status}`);
+    expect(report.requests).toHaveLength(4);
+    expect(report.bundles[1]?.map).toMatchObject({ status: 'unavailable', error: 'Origin paused after a rate-limit response' });
+    expect(report.bundles[1]?.map?.httpStatus).toBeUndefined();
+    const verbose = render(report, { verbose: true });
+    expect(verbose.match(/Origin paused after a rate-limit response/g)).toHaveLength(2);
+    expect(verbose).toContain('https://maps.example/b.map');
+    expect(JSON.parse(JSON.stringify(report)).bundles[2].error).toBe('Origin paused after a rate-limit response');
+  });
+
+  it('shows request and sampling limits without inventing HTTP attempts or missing references', async () => {
+    const report = await scanFixture(['https://page.example/a.js', 'https://page.example/b.js', 'https://page.example/c.js'], {
+      'https://page.example/a.js': script('a.map'),
+    }, { maxRequests: 2, maxScripts: 2 });
+    const output = render(report);
+    expect(output).toContain('Scan limits: 2 JavaScript assets skipped · 1 bundle/map relationship limited.');
+    expect(output).toContain('0 no reference · 0 unavailable · 0 invalid');
+    expect(output).toContain('first 2 of 3 static references');
+    expect(output).not.toContain('Failed HTTP attempts');
+    expect(report.requests).toHaveLength(2);
+    expect(render(report, { verbose: true })).toContain('Request limit reached');
+  });
+
+  it('does not present an HTTP 200 byte-limit failure as an HTTP rejection', async () => {
+    const report = await scanFixture(['https://page.example/a.js'], {
+      'https://page.example/a.js': script('a.map'),
+      'https://page.example/a.map': () => new Response('x'.repeat(300)),
+    }, { maxResponseBytes: 200 });
+    expect(render(report)).toContain('1 × resource limit (HTTP 200) · page.example');
+    expect(render(report)).toContain('0 unsupported · 1 limited');
+    expect(render(report, { verbose: true })).toContain('Download byte limit reached');
+  });
+
+  it.each([
+    [0, 0, '0 JavaScript assets', '0 bundle/map relationships'],
+    [0, 1, '0 JavaScript assets', '1 bundle/map relationship'],
+    [1, 0, '1 JavaScript asset', '0 bundle/map relationships'],
+    [1, 1, '1 JavaScript asset', '1 bundle/map relationship'],
+    [2, 2, '2 JavaScript assets', '2 bundle/map relationships'],
+  ] as const)('uses singular/plural pause and limit counts for %i scripts and %i maps', (scripts, maps, scriptText, mapText) => {
+    const paused = emptyReport();
+    const error = 'Origin paused after a rate-limit response';
+    paused.bundles = [
+      ...Array.from({ length: scripts }, (_, index) => ({ url: `https://example.com/${index}.js`, kind: 'script' as const, status: 'fetch-failed' as const, error })),
+      ...Array.from({ length: maps }, (_, index) => ({ url: `https://example.com/map-${index}.js`, kind: 'script' as const, status: 'map-found' as const, map: { url: `https://example.com/${index}.map`, referenceKind: 'annotation' as const, status: 'unavailable' as const, retrieved: false, error } })),
+    ];
+    const limited = emptyReport();
+    limited.summary.skipped = scripts;
+    limited.summary.mapsLimited = maps;
+    if (scripts || maps) {
+      expect(render(paused)).toContain(`Origin pause blocked ${scriptText} and ${mapText}; see --verbose.`);
+      expect(render(limited)).toContain(`Scan limits: ${scriptText} skipped · ${mapText} limited.`);
+    } else {
+      expect(render(paused)).not.toContain('Origin pause blocked');
+      expect(render(limited)).not.toContain('Scan limits:');
+    }
+  });
+
+  it.each([
+    [6, undefined],
+    [7, '1 more outcome group; see --verbose or --json.'],
+    [8, '2 more outcome groups; see --verbose or --json.'],
+  ] as const)('uses singular/plural overflow wording for %i groups', (groups, expected) => {
+    const report = emptyReport();
+    report.requests = Array.from({ length: groups }, (_, index) => ({ url: `https://host${index}.example/a.js`, status: 404, bytes: 0, error: 'HTTP 404' }));
+    const output = render(report);
+    expect(output.match(/ × /g)).toHaveLength(6);
+    if (expected) expect(output).toContain(expected);
+    else expect(output).not.toContain('more outcome group');
+  });
+
+  it('bounds groups, preserves all detailed attempts, and sanitizes fallback/long hosts', () => {
+    const report = emptyReport();
+    report.requests = Array.from({ length: 9 }, (_, index) => ({ url: `https://host${index}.example/a.js`, status: 404, bytes: 0, error: 'HTTP 404' }));
+    report.requests.push({ url: 'invalid\n\x1b[31m', bytes: 0, error: 'untrusted\n\x1b[31m', code: 'network' });
+    report.requests.push({ url: `https://${'a'.repeat(150)}.example/a.js`, status: 403, bytes: 0, error: 'HTTP 403' });
+    const output = render(report);
+    expect(output.match(/ × /g)).toHaveLength(6);
+    expect(output).toContain('5 more outcome groups; see --verbose or --json.');
+    expect(output).toContain('(unknown host)');
+    expect(output).not.toContain('a'.repeat(100));
+    expect(output).not.toMatch(/[\x00-\x09\x0b-\x1f\x7f-\x9f\u2028\u2029\u202a-\u202e\u2066-\u2069]/);
+    const verbose = render(report, { verbose: true });
+    for (const request of report.requests) expect(verbose).toContain(safeText(request.url));
   });
 });

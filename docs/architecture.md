@@ -32,6 +32,8 @@ The TypeScript sources use ESM with `.js` import specifiers. `tsc` emits JavaScr
 5. Decode inline payloads or retrieve a map. Strip the permitted HTTP anti-XSSI prefix for network maps. The analyzer returns metadata and diagnostics without source bodies.
 6. Aggregate a `Report`. The terminal and JSON views consume that same evidence. Individual failures remain in the report instead of turning into an empty successful scan.
 
+Terminal failure groups come from request evidence, grouped by responding host (including port) and HTTP status or failure kind. They count actual attempts, including failed redirect hops, rather than bundle/map relationships; cached map failures therefore count once. The default view shows the six largest groups (ties by host/outcome), then an overflow count. Pre-request origin pauses have no request entry and are summarized separately from bundle/map errors; skipped/limited relationships retain their own totals. Verbose output keeps the per-bundle and per-request evidence. Grouping only formats the report and does not change JSON fields, statuses, or count semantics.
+
 See the [report contract](report-contract.md) for status/count semantics and the [source-map decision](decisions/0003-analysis-and-report-semantics.md) for validation limits.
 
 ## Resource control and trust boundaries

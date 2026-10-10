@@ -46,4 +46,4 @@ HTML, paths, URLs, headers, and map contents are untrusted input. Do not evaluat
 
 `scan` and `Fetcher` accept an injected `fetchImpl`. Tests construct native `Response` objects and synthetic maps, covering outcomes without internet access. Pure discovery, analysis, and rendering functions have focused fixtures.
 
-CLI subprocess and package installation were smoke-tested manually for the MVP; they are not yet automated in `npm test`. CI is also pending. Indexed maps, full conformance tests, original-position validation, generated-byte coverage, runtime imports, and inline-script inspection remain deliberately outside current behavior. Track proposed changes in the roadmap, not as speculative module scaffolding.
+CLI subprocess and package installation were smoke-tested manually for the MVP; they are not yet automated in `npm test`. [CI](ci.md) runs the existing offline checks. Indexed maps, full conformance tests, original-position validation, generated-byte coverage, runtime imports, and inline-script inspection remain deliberately outside current behavior. Track proposed changes in the roadmap, not as speculative module scaffolding.

@@ -8,11 +8,11 @@ The working MVP inspects page/direct JavaScript URLs and reports bounded source-
 
 Last verified runtime baseline: **80 tests passed**, strict source/test typechecks, build, package inspection, isolated installed-CLI smoke checks, and a live MDN check on 2026-10-10. Later documentation changes were checked against source and for valid links. This is dated evidence, not a substitute for checking the current revision.
 
-No npm release or remote push has been made as of this update. CI and automated CLI subprocess tests are not implemented. The package has two production dependencies; no services or credentials are required.
+No npm release has been made. Project commits have been pushed to `origin/main`. CI is configured and locally validated; its first remote run is pending under RM-02. Automated CLI subprocess tests are not implemented. The package has two production dependencies; no services or credentials are required.
 
 ## Active work
 
-None. No owner or blocker is carried forward from the initial implementation.
+RM-02 · review handoff · `.github/workflows/ci.yml` and contributor documentation · clean install, 80 tests/typechecks/build on local Node 22.13.1 and actionlint passed · reviewer to commit, run on GitHub, and record both matrix results · remote execution pending; no local blocker.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -34,7 +34,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | ID | Status | Work | Dependency / completion evidence |
 | --- | --- | --- | --- |
 | RM-01 | needs-evidence | Validate repeat usefulness on developers' own deployments | Real feedback; no outreach without authorization |
-| RM-02 | ready | Add CI for supported Node LTS versions | Existing offline checks |
+| RM-02 | in-progress | Add CI for supported Node LTS versions | Local workflow implementation; remote run pending |
 | RM-03 | ready | Automate CLI and package smoke coverage | Existing manual MVP smoke procedure |
 | RM-04 | needs-evidence | Improve bounded asset sampling | Compare strategies without silently expanding scope |
 | RM-05 | ready | Group repeated failure evidence in terminal output | Preserve per-bundle JSON and existing statuses |
@@ -53,6 +53,10 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 ### RM-02 — Continuous integration
 
 **Acceptance:** a small workflow runs `npm ci` and `npm run check` on supported Node LTS versions, with read-only permissions and no secrets or public-site requests. Verify selected action/runtime versions when implementing. Record local validation and the actual remote workflow result when available; do not claim a remote pass before it runs.
+
+**Implementation/evidence (2026-10-10):** [CI workflow](.github/workflows/ci.yml) covers Node 22 and 24 on pushes/pull requests; [CI maintenance](docs/ci.md) records primary-source verification of the LTS lines, action releases, and Node 24 action runtime. `npm ci` succeeded with Node 22.13.1/npm 11.4.1; `npm run check` then passed all 80 tests, source/test typechecks, and build. `actionlint` 1.7.12 and `git diff --check` passed. The initial sandbox install could not resolve the npm registry and was stopped; installation succeeded with network permission and a temporary npm cache. No runtime source or dependencies changed.
+
+**Next action:** review and commit the workflow, then record the actual GitHub run URL and results for both matrix entries. Node 24 was not installed locally; local Node 22 checks are not evidence of the remote Ubuntu matrix. RM-02 remains in-progress until remote verification is recorded; nothing has been committed or pushed by this implementation session.
 
 ### RM-03 — Automated CLI and package smoke checks
 
@@ -111,6 +115,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 
 ## Change log
 
+- **2026-10-10:** Implemented RM-02 workflow and CI maintenance documentation. Local clean install, 80 tests/typechecks/build, actionlint, and whitespace checks passed; remote matrix results remain pending.
 - **2026-10-10:** Completed RM-11. Added agent onboarding, documentation ownership, architecture and report semantics, accepted decision records, stable work IDs, acceptance criteria, and handoff rules. Runtime behavior unchanged.
 - **2026-10-10:** Completed RM-00a/b/c. Narrowed the original idea to local deployment diagnostics after the public-site study. Omitted default guesses and deferred images; retained the broad product hypothesis as unproven.
 

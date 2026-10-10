@@ -9,6 +9,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 | How do I install and run it? | [README](../README.md) |
 | What should I work on, and what is already done? | [Running roadmap](../ROADMAP.md) |
 | Where does a behavior belong? | [Architecture](architecture.md) |
+| What does CI run and how are its versions maintained? | [CI maintenance](ci.md) |
 | What do JSON fields and statuses mean? | [Report contract](report-contract.md) |
 | Why was this scope chosen? | [Decision records](decisions/README.md) |
 | Does the product idea hold up? | [Research](../RESEARCH.md) and [MVP evaluation](../EVALUATION.md) |

@@ -98,6 +98,8 @@ npm pack         # build a publishable tarball; does not publish
 
 Production dependencies: `htmlparser2` for HTML and `@jridgewell/trace-mapping` for maps. Native Node APIs handle networking, arguments, and terminal output.
 
+[GitHub Actions CI](.github/workflows/ci.yml) runs `npm ci` and `npm run check` on pushes and pull requests for supported Node LTS versions. It needs no configured secrets and runs no public-site scans. See [CI maintenance](docs/ci.md) for version selection and [RM-02](ROADMAP.md#rm-02--continuous-integration) for verification evidence.
+
 ```text
 src/discover.ts   HTML references, target URLs, map linkage
 src/network.ts    fetch budgets, redirects, inline decoding

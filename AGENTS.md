@@ -33,7 +33,7 @@ npx --no-install vitest run test/discover.test.ts  # example focused test
 - For documentation-only changes, verify claims against source, relative links, commands, and `git diff --check`; a full test rerun is unnecessary unless runtime behavior changed.
 - For packaging changes, run `npm pack --dry-run` and inspect the file list. For entry-point changes, also exercise the built CLI and a locally installed tarball. Packing does not publish.
 - `dist/`, `node_modules/`, and tarballs are generated and ignored. Never edit generated output as the fix.
-- There is no configured linter or CI yet. Do not report checks that were not run. If a check is blocked, record the exact limitation and the checks that did run.
+- [CI](.github/workflows/ci.yml) runs the offline checks on supported Node LTS versions; there is no configured linter. Do not report checks that were not run. If a check is blocked, record the exact limitation and the checks that did run.
 
 ## Where changes belong
 

@@ -13,3 +13,4 @@ Update [AGENTS.md](../../AGENTS.md) only for reusable lessons. Successful behavi
 | 003 | RM-05: failure presentation | 9/10 | [Failure-presentation trial](0003-failure-presentation.md) |
 | 004 | RM-04a: sampling investigation | 9.5/10 | [Controlled-sampling trial](0004-sampling-investigation.md) |
 | 005 | RM-04: opt-in asset limit | 9.5/10 | [Asset-limit trial](0005-asset-limit.md) |
+| 006 | RM-06a: report-comparison investigation | 9.5/10 | [Comparison trial](0006-report-comparison.md) |

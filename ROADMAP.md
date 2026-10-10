@@ -14,11 +14,11 @@ Earlier local verification (RM-03, 2026-10-10): **96 tests passed**, strict sour
 
 No npm release is recorded in the project history. The RM-04 implementation was committed and pushed to `origin/main`. Its 131-test suite, typechecks, and build passed on GitHub for Node 22 and 24; see RM-04 for the exact run and revision. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
 
-Latest investigation: [RM-06a](research/report-comparison-2026-10-10.md) defines a hypothetical repeat-deployment workflow and conservative comparison semantics using 26 offline before/after pairs. Its local investigation is complete; independent review/delivery remain pending. RM-06 production comparison remains unimplemented pending owner-workflow evidence. Earlier [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; its selected recommendation is implemented under RM-04.
+Latest investigation: [RM-06a](research/report-comparison-2026-10-10.md) defines a hypothetical repeat-deployment workflow and conservative comparison semantics using 26 offline before/after pairs. It was accepted unchanged, committed/pushed, and independently reproduced; the run review below separates local study checks from remote production CI. RM-06 production comparison remains unimplemented pending owner-workflow evidence. Earlier [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; its selected recommendation is implemented under RM-04.
 
 ## Active work
 
-None. RM-06a local investigation is complete and handed off for independent review. RM-06 implementation has not started; no subsequent task started.
+None. RM-06a was accepted unchanged, committed/pushed, and graded 9.5/10. RM-06 implementation has not started; no subsequent task started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -126,7 +126,9 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 **Recommendation:** defer production RM-06 pending owner-workflow evidence. Exact URL equality identifies a requested location, not content or lineage; a changed sample and aggregate decline must not be called a disappeared map. The workflow is hypothetical, with no adoption or owner-feedback claims. This is a research proposal, not a changed product/report contract or accepted ADR.
 
-**Local verification:** Node 26.10.0/npm 11.19.1; build and all harness assertions passed; two runs reproduced byte-for-byte. Changed-document relative links and `git diff --check` passed. No full production suite rerun, CLI/API/dependency/schema changes, external scan, outreach, historical refresh, commit or push. The harness is not part of CI; independent reviewer assessment/delivery and remote verification remain pending. No subsequent task started.
+**Local verification:** Node 26.10.0/npm 11.19.1; build and all harness assertions passed; two runs reproduced byte-for-byte. Changed-document relative links and `git diff --check` passed. No full production suite rerun, CLI/API/dependency/schema changes, external scan, outreach, historical refresh, commit or push. The harness is not part of CI; reviewer evidence follows. No subsequent task started.
+
+**Review/delivery:** accepted unchanged and committed/pushed as `aeb96ce703f595d8774efa83097f9b2a8e756bba`. Reviewer reproduced the snapshot and independently verified all 27 report records and 26 pair totals. [Run review](docs/agent-runs/0006-report-comparison.md): 9.5/10. [CI](https://github.com/jkup/sourcemapped/actions/runs/38096605446) passed the existing 131 tests, typechecks and build on Node 22/24; it does not run the research harness. RM-06 remains `needs-evidence`.
 
 ### RM-07 — Standards and validation
 
@@ -172,6 +174,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Accepted RM-06a unchanged after independent reproduction and count checks; committed/pushed with both production CI jobs passing. Recorded grade 9.5/10 and comparison-evidence guidance. Production RM-06 remains unimplemented pending owner evidence; no subsequent task started.
 
 - **2026-10-10:** Completed RM-06a local investigation: hypothetical deployment workflow, conservative comparison design and 26 asserted offline pairs. Build, deterministic reproduction, relative links and whitespace checks passed. Recommend deferring RM-06 production implementation pending owner-workflow evidence; no user demand claimed. Independent review/delivery pending; no subsequent task started.
 

@@ -75,6 +75,8 @@ Only rerun a study when it addresses the task. Preserve earlier observations or 
 
 When comparing strategies, check the experiment's baseline against current behavior and include counterexamples to the favored approach. Separate controlled mechanics from prevalence or demand, and keep investigation completion distinct from proposed implementation.
 
+For before/after investigations, establish capture provenance, comparable scope and identity before interpreting deltas. Keep unobserved evidence distinct from absence; matching URLs or schema versions alone do not prove identical content or checks.
+
 ## Keep project memory current
 
 - Use [ROADMAP.md](ROADMAP.md) as the single running work queue. When starting a listed item, mark it `in-progress` and add a short Active work entry. Do not claim an item merely because it appears next.

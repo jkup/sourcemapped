@@ -12,6 +12,8 @@ The CLI's `--json` output is a single JSON document on stdout. The authoritative
 - Bundle order follows discovery order. Request order reflects concurrent execution and should not be used as stable identity.
 - `url` identifies the requested/reference URL; `finalUrl` records redirects when retrieval succeeds. Optional properties are omitted from serialized JSON when undefined.
 
+`--max-assets N` changes only the effective `limits.maxScripts` value. It does not change the schema or count meanings: `discovered` still includes references outside the selected sample, and `skipped` includes both sampling exclusions and selected assets stopped by shared budgets. Direct JavaScript still has one bundle. [ADR 0004](decisions/0004-opt-in-asset-limit.md) records why this remains schema version 1.
+
 ## Bundle and map states
 
 | Bundle status | Interpretation |

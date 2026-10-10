@@ -47,9 +47,12 @@ The complete report also shows scope, sampling limits, requests, and downloaded 
 ```sh
 sourcemapped <website-or-javascript-url>
 sourcemapped <url> --verbose
+sourcemapped <url> --max-assets 48
 sourcemapped <url> --json > report.json
 sourcemapped --help
 ```
+
+`--max-assets N` selects up to the first N deduplicated static script/preload references in document order. N must contain only decimal digits and represent an integer from 1 to 9007199254740991 (leading zeros are accepted); both `--max-assets 48` and `--max-assets=48` work. The default comes from [DEFAULT_LIMITS](src/network.ts) and appears in `--help`. A smaller value narrows the sample; a larger value may reach later maps or just spend more requests without finding maps. It does not raise the shared request, byte, or time budgets, so the scan can stop before inspecting N assets. Direct JavaScript URLs still inspect one resource. JSON records the effective value as `limits.maxScripts` and retains all discovered/skipped references. Invalid values fail before scanning with exit 1 and stderr only.
 
 Default output groups failed HTTP attempts by responding host and outcome, showing up to six groups with an overflow count. These count requests, not affected bundles: a shared map is fetched once, and redirects can cross hosts. Origin pauses and scan limits are reported separately; neither implies that private maps are a defect.
 
@@ -78,7 +81,7 @@ Exit code `1` means invalid invocation or the target could not be inspected. A c
 ## Scope and limits
 
 - Fetches one HTML document, honors redirects and the first HTML base URL, and deduplicates external script and script/module preload references. These are static references, **not bundles observed executing in a browser**.
-- Inspects the first **24** references in document order, with **3** concurrent inspections and **60** total HTTP attempts including redirects. A direct JavaScript URL skips HTML discovery.
+- Inspects a bounded document-order sample, adjustable with `--max-assets`; [DEFAULT_LIMITS](src/network.ts) defines the default sample size, concurrency, and total HTTP attempt cap (including redirects). A direct JavaScript URL skips HTML discovery.
 - Uses an **8-second** fetch timeout across redirect hops, a **90-second** network scan deadline, **5** redirects per resource, **8 MiB** decoded response limit, and **64 MiB** aggregate download limit. Stream limits are checked per chunk, so counters may exceed thresholds by in-flight chunks before cancellation. Parser work can outlast the network deadline.
 - Stops issuing requests to an origin after HTTP 429, or 503 with `Retry-After`. It does not retry; already in-flight requests may finish. Requests identify `sourcemapped` in their User-Agent and carry no authentication/cookies.
 - Recognizes `SourceMap`, then legacy `X-SourceMap`, then trailing JavaScript `//#` / `//@ sourceMappingURL` annotations. Resolves external references relative to the final JavaScript URL and accepts percent-encoded/base64 data URLs. Supports the HTTP anti-XSSI prefix.

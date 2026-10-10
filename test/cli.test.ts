@@ -25,6 +25,14 @@ const server = createServer((request, response) => {
     '/app.map': ['application/json', map],
     '/missing-map.js': ['application/javascript', '//# sourceMappingURL=absent.map'],
   };
+  const sampling = /^\/sample-(late|none|budget)$/.exec(path);
+  if (sampling) {
+    const count = sampling[1] === 'budget' ? 65 : 26;
+    routes[path] = ['text/html', Array.from({ length: count }, (_, i) =>
+      `<script src="/${sampling[1]}-${i}.js"></script>`).join('')];
+  }
+  const asset = /^\/(late|none|budget)-(\d+)\.js$/.exec(path);
+  if (asset) routes[path] = ['application/javascript', asset[1] === 'late' && Number(asset[2]) === 24 ? '//# sourceMappingURL=app.map' : 'run();'];
   const route = routes[path];
   response.writeHead(route ? 200 : 404, { 'content-type': route?.[0] ?? 'text/plain' });
   response.end(route?.[1] ?? 'Not found');
@@ -75,6 +83,8 @@ describe('built CLI', () => {
     expect(result.stderr).toBe('');
     expect(result.stdout).toContain('Usage: sourcemapped');
     expect(result.stdout).toContain('--json');
+    expect(result.stdout).toContain('--max-assets N');
+    expect(result.stdout).toContain('default: 24');
   });
 
   it.each(['--version', '-v'])('matches the package version for %s', async flag => {
@@ -86,6 +96,63 @@ describe('built CLI', () => {
     expect(result.code).toBe(1);
     expect(result.stdout).toBe('');
     expect(result.stderr).toMatch(/^sourcemapped: .+\n$/);
+  });
+
+  it.each(['', '0', '-1', '1.5', 'NaN', 'Infinity', '1e2', '0x10', '+1', ' 2', '2 ', '9007199254740992', '999999999999999999999'])('rejects invalid asset limit %j before requesting the target', async value => {
+    requests.length = 0;
+    const result = await cli([origin, '--json', `--max-assets=${value}`]);
+    expect(result).toEqual({ code: 1, stdout: '', stderr: 'sourcemapped: --max-assets must be a decimal integer from 1 to 9007199254740991.\n' });
+    expect(requests).toEqual([]);
+  });
+
+  it('rejects a missing asset-limit value before a scan', async () => {
+    requests.length = 0;
+    const result = await cli([origin, '--max-assets']);
+    expect(result.code).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toContain('--max-assets');
+    expect(requests).toEqual([]);
+  });
+
+  it.each(['1', '0001', '9007199254740991'])('accepts decimal boundary %s without changing direct-JavaScript semantics', async value => {
+    requests.length = 0;
+    const result = await cli([`${origin}/app.js`, '--max-assets', value, '--json']);
+    expect(result.code).toBe(0);
+    expect(result.stderr).toBe('');
+    expect(JSON.parse(result.stdout)).toMatchObject({ scope: 'direct-javascript', limits: { maxScripts: Number(value), maxRequests: 60 }, summary: { discovered: 1, inspected: 1, mapsChecked: 1 } });
+    expect(requests).toEqual(['/app.js', '/app.map']);
+  });
+
+  it.each(['late', 'none'])('extends document-order selection with %s maps', async scenario => {
+    const baseline = await cli([`${origin}/sample-${scenario}`, '--json']);
+    const expanded = await cli([`${origin}/sample-${scenario}`, '--max-assets=25', '--json']);
+    expect([baseline.code, expanded.code]).toEqual([0, 0]);
+    expect(baseline.stderr + expanded.stderr).toBe('');
+    const before = JSON.parse(baseline.stdout);
+    const after = JSON.parse(expanded.stdout);
+    expect(before.summary).toMatchObject({ discovered: 26, inspected: 24, skipped: 2, mapsChecked: 0 });
+    expect(after.summary).toMatchObject({ discovered: 26, inspected: 25, skipped: 1, mapsChecked: scenario === 'late' ? 1 : 0 });
+    expect(after.limits).toEqual({ ...before.limits, maxScripts: 25 });
+    expect(after.bundles.map((bundle: { url: string }) => bundle.url)).toEqual(before.bundles.map((bundle: { url: string }) => bundle.url));
+    expect(after.bundles[25].status).toBe('skipped');
+    expect(before.requests).toHaveLength(25);
+    expect(after.requests).toHaveLength(scenario === 'late' ? 27 : 26);
+    expectMetadataOnly(expanded.stdout);
+  });
+
+  it('keeps the shared request cap when selected assets exceed it', async () => {
+    requests.length = 0;
+    const result = await cli([`${origin}/sample-budget`, '--max-assets=64', '--json']);
+    expect(result.code).toBe(0);
+    expect(result.stderr).toBe('');
+    const report = JSON.parse(result.stdout);
+    expect(report.summary).toMatchObject({ discovered: 65, inspected: 59, skipped: 6, noReference: 59, mapsChecked: 0 });
+    expect(report.limits).toMatchObject({ maxScripts: 64, maxRequests: 60 });
+    expect(report.requests).toHaveLength(60);
+    expect(requests).toHaveLength(60);
+    expect(report.bundles.slice(59, 64)).toEqual(Array.from({ length: 5 }, () => expect.objectContaining({ status: 'skipped', error: 'Request limit reached' })));
+    expect(report.bundles[64]).not.toHaveProperty('error');
+    expect(report.warnings.join(' ')).toContain('first 64 of 65');
   });
 
   it('emits a single metadata JSON report with clean stderr and no original-source requests', async () => {

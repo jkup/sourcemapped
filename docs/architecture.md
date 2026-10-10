@@ -38,7 +38,7 @@ See the [report contract](report-contract.md) for status/count semantics and the
 
 ## Resource control and trust boundaries
 
-[DEFAULT_LIMITS](../src/network.ts) is the authority for networking defaults; [analyze.ts](../src/analyze.ts) defines parser-allocation caps. The public CLI currently exposes no limit flags; the internal `scan` options allow test/research overrides.
+[DEFAULT_LIMITS](../src/network.ts) is the authority for networking defaults; [analyze.ts](../src/analyze.ts) defines parser-allocation caps. The public CLI exposes `--max-assets N` as an override of `maxScripts` only; it validates decimal digits and the positive safe-integer range before scanning. HTML candidates remain a document-order slice of all deduplicated references; direct JavaScript responses are still reused regardless of that limit. All other public budgets keep their defaults. The internal `scan` options allow test/research overrides. See [ADR 0004](decisions/0004-opt-in-asset-limit.md) for the choice and compatibility assessment.
 
 Redirects and failed attempts consume requests. Bytes are decoded response bytes measured as chunks arrive, not wire transfer size. A threshold may be exceeded by in-flight chunks before cancellation. Fetch timeout includes redirect hops; the scan deadline bounds network work, not synchronous parser CPU time. Rate-limit pauses prevent later requests to that origin; already running requests can finish.
 

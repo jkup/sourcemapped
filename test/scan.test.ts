@@ -115,6 +115,29 @@ describe('scan integration', () => {
     expect(capped.warnings.join(' ')).toContain('first 1 of 2');
   });
 
+  it('preserves selection order, shared maps and failed/redirect request costs when raising the asset limit', async () => {
+    const entries = {
+      'https://example.com/': () => html('<script src="a.js"></script><script src="b.js"></script><script src="c.js"></script><link rel="modulepreload" href="d.js"><script src="e.js"></script>'),
+      'https://example.com/a.js': () => js('//# sourceMappingURL=shared.map'),
+      'https://example.com/b.js': () => js('//# sourceMappingURL=shared.map'),
+      'https://example.com/shared.map': () => new Response(sourceMap),
+      'https://example.com/c.js': () => js('//# sourceMappingURL=missing.map'),
+      'https://example.com/missing.map': () => new Response(null, { status: 404 }),
+      'https://example.com/d.js': () => new Response(null, { status: 302, headers: { location: '/final.js' } }),
+    };
+    const baseline = await scan('example.com', { fetchImpl: routes(entries), limits: { maxScripts: 2, maxRequests: 7, concurrency: 1 } });
+    const expanded = await scan('example.com', { fetchImpl: routes(entries), limits: { maxScripts: 4, maxRequests: 7, concurrency: 1 } });
+    expect(baseline.summary).toMatchObject({ discovered: 5, inspected: 2, skipped: 3, mapsChecked: 2 });
+    expect(expanded.summary).toMatchObject({ discovered: 5, inspected: 3, skipped: 2, mapsChecked: 2, mapsUnavailable: 1 });
+    expect(expanded.limits).toEqual({ ...baseline.limits, maxScripts: 4 });
+    expect(expanded.requests.map(request => [new URL(request.url).pathname, request.status])).toEqual([
+      ['/', 200], ['/a.js', 200], ['/shared.map', 200], ['/b.js', 200], ['/c.js', 200], ['/missing.map', 404], ['/d.js', 302],
+    ]);
+    expect(expanded.bundles[3]).toMatchObject({ kind: 'preload', status: 'skipped', error: 'Request limit reached' });
+    expect(expanded.bundles[4]).toMatchObject({ status: 'skipped' });
+    expect(expanded.bundles[4]).not.toHaveProperty('error');
+  });
+
   it('classifies a map that exceeds response limits as limited, not invalid', async () => {
     const report = await scan('https://example.com/a.js', {
       limits: { maxResponseBytes: 50 }, fetchImpl: routes({

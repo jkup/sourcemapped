@@ -32,6 +32,7 @@ npx --no-install vitest run test/discover.test.ts  # example focused test
 - For behavior changes, add a regression test that proves the user-visible behavior, run focused tests during iteration, and run `npm run check` before handoff.
 - For documentation-only changes, verify claims against source, relative links, commands, and `git diff --check`; a full test rerun is unnecessary unless runtime behavior changed.
 - For packaging changes, run `npm pack --dry-run` and inspect the file list. For entry-point changes, also exercise the built CLI and a locally installed tarball. Packing does not publish.
+- For CI changes, use a workflow-aware validator such as `actionlint` when available. Record the actual local Node/npm versions separately from the remote matrix, and tie remote pass claims to a run URL and commit. A local pass is not a remote pass.
 - `dist/`, `node_modules/`, and tarballs are generated and ignored. Never edit generated output as the fix.
 - [CI](.github/workflows/ci.yml) runs the offline checks on supported Node LTS versions; there is no configured linter. Do not report checks that were not run. If a check is blocked, record the exact limitation and the checks that did run.
 
@@ -76,7 +77,9 @@ Only rerun a study when it addresses the task. Preserve earlier observations or 
 - Keep completed items with evidence links. Do not mark an item done until its acceptance criteria are met. Record remaining work explicitly rather than presenting a partial implementation as complete.
 - Add or supersede an ADR for changes to product scope, discovery strategy, validation semantics, privacy, dependency strategy, or report compatibility. Use [the ADR template](docs/decisions/template.md). Ordinary fixes do not require an ADR.
 - Update user-facing behavior in README, internal behavior in `docs/`, and verification evidence in the handoff. Avoid copying mutable defaults into multiple documents; link to their source.
+- When editing a current-state summary, recheck adjacent claims against Git history, configuration, and available run evidence. Do not carry forward stale statements about publication, pushes, or pending work merely because they were already written; preserve dated historical evidence as history.
 - When useful, leave a handoff containing the roadmap ID, changed files, checks and results, unresolved questions, and the next concrete step. Keep the durable state in the roadmap rather than relying on chat history.
+- For observed agent trials, have the reviewer record correctness, scope discipline, verification, product judgment, and communication in `docs/agent-runs/`. Separate the agent's work from reviewer interventions and link supporting evidence. Change this guide only for reusable lessons, not to add a rule for every isolated mistake.
 
 ## Scope and delivery
 

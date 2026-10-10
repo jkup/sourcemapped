@@ -10,6 +10,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 | What should I work on, and what is already done? | [Running roadmap](../ROADMAP.md) |
 | Where does a behavior belong? | [Architecture](architecture.md) |
 | What does CI run and how are its versions maintained? | [CI maintenance](ci.md) |
+| How did observed agent tasks perform? | [Agent run reviews](agent-runs/README.md) |
 | What do JSON fields and statuses mean? | [Report contract](report-contract.md) |
 | Why was this scope chosen? | [Decision records](decisions/README.md) |
 | Does the product idea hold up? | [Research](../RESEARCH.md) and [MVP evaluation](../EVALUATION.md) |
@@ -22,6 +23,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 - **README.md:** installation, supported behavior, examples, and user-facing limits.
 - **Architecture and report contract:** how current code fits together and what its output means.
 - **ADRs:** decisions, rejected alternatives, tradeoffs, and conditions for reconsideration.
+- **Agent run reviews:** reviewer grades, supporting evidence, interventions, and lessons carried into AGENTS.md; no separate task queue.
 - **Research/evaluation:** dated observations. Preserve their historical meaning when code or websites change.
 
 Update the document that owns a fact and link to it elsewhere. Prefer repository-relative links and runnable commands without machine-specific paths. Date new decisions and evidence. Documentation can be wrong: reconcile discrepancies against code, tests, and the original evidence.

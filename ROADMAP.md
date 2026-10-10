@@ -8,11 +8,11 @@ The working MVP inspects page/direct JavaScript URLs and reports bounded source-
 
 Last verified runtime baseline: **80 tests passed**, strict source/test typechecks, build, package inspection, isolated installed-CLI smoke checks, and a live MDN check on 2026-10-10. Later documentation changes were checked against source and for valid links. This is dated evidence, not a substitute for checking the current revision.
 
-No npm release has been made. Project commits have been pushed to `origin/main`. CI is configured and locally validated; its first remote run is pending under RM-02. Automated CLI subprocess tests are not implemented. The package has two production dependencies; no services or credentials are required.
+No npm release has been made. Project commits have been pushed to `origin/main`. CI passed on GitHub for Node 22 and 24; see RM-02 for the exact run and revision. Automated CLI subprocess tests are not implemented. The package has two production dependencies; no services or credentials are required.
 
 ## Active work
 
-RM-02 · review handoff · `.github/workflows/ci.yml` and contributor documentation · clean install, 80 tests/typechecks/build on local Node 22.13.1 and actionlint passed · reviewer to commit, run on GitHub, and record both matrix results · remote execution pending; no local blocker.
+None. RM-02 and its observed-run review are complete; the next task has not been started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -29,12 +29,12 @@ Update the affected item and the change log in the same change as the work. Keep
 
 ## Prioritized queue
 
-Order reflects product priority. Follow the user's task first. RM-01 is the main product question; RM-02 and RM-03 are the next bounded engineering candidates when implementation work is requested.
+Order reflects product priority. Follow the user's task first. RM-01 is the main product question; RM-03 and RM-05 are the next bounded engineering candidates when implementation work is requested.
 
 | ID | Status | Work | Dependency / completion evidence |
 | --- | --- | --- | --- |
 | RM-01 | needs-evidence | Validate repeat usefulness on developers' own deployments | Real feedback; no outreach without authorization |
-| RM-02 | in-progress | Add CI for supported Node LTS versions | Local workflow implementation; remote run pending |
+| RM-02 | done | Add CI for supported Node LTS versions | [Both remote jobs passed](https://github.com/jkup/sourcemapped/actions/runs/38094230079); [run review](docs/agent-runs/0001-ci.md) |
 | RM-03 | ready | Automate CLI and package smoke coverage | Existing manual MVP smoke procedure |
 | RM-04 | needs-evidence | Improve bounded asset sampling | Compare strategies without silently expanding scope |
 | RM-05 | ready | Group repeated failure evidence in terminal output | Preserve per-bundle JSON and existing statuses |
@@ -56,7 +56,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 
 **Implementation/evidence (2026-10-10):** [CI workflow](.github/workflows/ci.yml) covers Node 22 and 24 on pushes/pull requests; [CI maintenance](docs/ci.md) records primary-source verification of the LTS lines, action releases, and Node 24 action runtime. `npm ci` succeeded with Node 22.13.1/npm 11.4.1; `npm run check` then passed all 80 tests, source/test typechecks, and build. `actionlint` 1.7.12 and `git diff --check` passed. The initial sandbox install could not resolve the npm registry and was stopped; installation succeeded with network permission and a temporary npm cache. No runtime source or dependencies changed.
 
-**Next action:** review and commit the workflow, then record the actual GitHub run URL and results for both matrix entries. Node 24 was not installed locally; local Node 22 checks are not evidence of the remote Ubuntu matrix. RM-02 remains in-progress until remote verification is recorded; nothing has been committed or pushed by this implementation session.
+**Remote verification:** [run 38094230079](https://github.com/jkup/sourcemapped/actions/runs/38094230079) passed both Node 22 and Node 24 jobs on Ubuntu for commit `3584580220fa00bd70ecb76e990cb0baa280a957`. Both completed clean installation and `npm run check`. Reviewer accepted the workflow unchanged and corrected one stale current-state sentence. The [observed agent run](docs/agent-runs/0001-ci.md) received 9/10; reusable lessons were added to AGENTS.md. No remaining RM-02 work.
 
 ### RM-03 — Automated CLI and package smoke checks
 
@@ -101,6 +101,7 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | RM-00a | 2026-10-10 | Competitive review and 16-site baseline; [research](RESEARCH.md), [metadata](research/baseline.json), commit `a5e776e` |
 | RM-00b | 2026-10-10 | Bounded TypeScript CLI, metadata reports, tests; [README](README.md), [source](src/scan.ts), commit `2bba76e` |
 | RM-00c | 2026-10-10 | Same-site MVP evaluation and initial priorities; [evaluation](EVALUATION.md), commit `c12454c` |
+| RM-02 | 2026-10-10 | Supported Node LTS CI, verified [remote run](https://github.com/jkup/sourcemapped/actions/runs/38094230079), and [agent review](docs/agent-runs/0001-ci.md); implementation commit `3584580` |
 | RM-11 | 2026-10-10 | Agent onboarding, running work queue, architecture/report docs, and three accepted ADRs; [AGENTS.md](AGENTS.md), [docs index](docs/README.md) |
 
 ## Deliberately deferred
@@ -114,6 +115,8 @@ Order reflects product priority. Follow the user's task first. RM-01 is the main
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Completed RM-02 after both remote matrix jobs passed. Recorded observed-run grade 9/10 and clarified current-state checks and CI evidence in AGENTS.md. No subsequent task started.
 
 - **2026-10-10:** Implemented RM-02 workflow and CI maintenance documentation. Local clean install, 80 tests/typechecks/build, actionlint, and whitespace checks passed; remote matrix results remain pending.
 - **2026-10-10:** Completed RM-11. Added agent onboarding, documentation ownership, architecture and report semantics, accepted decision records, stable work IDs, acceptance criteria, and handoff rules. Runtime behavior unchanged.

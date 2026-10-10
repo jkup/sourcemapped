@@ -1,0 +1,1128 @@
+{
+  "study": "RM-04 offline sampling, 2026-10-10",
+  "rows": [
+    {
+      "fixture": "late-app",
+      "policy": "document-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://vendor.example/a.js",
+        "https://vendor.example/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 0,
+        "checked": 0,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://vendor.example/a.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://vendor.example/b.js",
+          "bytes": 6,
+          "status": 200
+        }
+      ],
+      "requestCount": 3,
+      "downloadedBytes": 4108,
+      "checkedBundles": []
+    },
+    {
+      "fixture": "late-app",
+      "policy": "document-4",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://vendor.example/a.js",
+        "https://vendor.example/b.js",
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 2,
+        "runtimeBudget": 0,
+        "total": 2
+      },
+      "outcomes": {
+        "inspected": 4,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://vendor.example/a.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://vendor.example/b.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 7,
+      "downloadedBytes": 4364,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "late-app",
+      "policy": "same-origin-2",
+      "discovered": 6,
+      "eligible": 4,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 2,
+        "assetLimit": 2,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4352,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "late-app",
+      "policy": "explicit-prefix-2",
+      "prefix": "https://site.example/app/",
+      "discovered": 6,
+      "eligible": 3,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 3,
+        "assetLimit": 1,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4352,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "cdn-app",
+      "policy": "document-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://cdn.example/app/a.js",
+        "https://cdn.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/a.js",
+          "bytes": 60,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/b.js",
+          "bytes": 60,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4350,
+      "checkedBundles": [
+        "https://cdn.example/app/a.js",
+        "https://cdn.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "cdn-app",
+      "policy": "document-4",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://cdn.example/app/a.js",
+        "https://cdn.example/app/b.js",
+        "https://site.example/shell.js",
+        "https://site.example/metrics.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 2,
+        "runtimeBudget": 0,
+        "total": 2
+      },
+      "outcomes": {
+        "inspected": 4,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/a.js",
+          "bytes": 60,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/b.js",
+          "bytes": 60,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/b.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/shell.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/metrics.js",
+          "bytes": 6,
+          "status": 200
+        }
+      ],
+      "requestCount": 7,
+      "downloadedBytes": 4362,
+      "checkedBundles": [
+        "https://cdn.example/app/a.js",
+        "https://cdn.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "cdn-app",
+      "policy": "same-origin-2",
+      "discovered": 6,
+      "eligible": 3,
+      "selected": [
+        "https://site.example/shell.js",
+        "https://site.example/metrics.js"
+      ],
+      "skipped": {
+        "filter": 3,
+        "assetLimit": 1,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 0,
+        "checked": 0,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/shell.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/metrics.js",
+          "bytes": 6,
+          "status": 200
+        }
+      ],
+      "requestCount": 3,
+      "downloadedBytes": 4108,
+      "checkedBundles": []
+    },
+    {
+      "fixture": "cdn-app",
+      "policy": "explicit-prefix-2",
+      "prefix": "https://cdn.example/app/",
+      "discovered": 6,
+      "eligible": 3,
+      "selected": [
+        "https://cdn.example/app/a.js",
+        "https://cdn.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 3,
+        "assetLimit": 1,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/a.js",
+          "bytes": 60,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/b.js",
+          "bytes": 60,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/app/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4350,
+      "checkedBundles": [
+        "https://cdn.example/app/a.js",
+        "https://cdn.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "early-maps",
+      "policy": "document-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://site.example/vendor/a.js",
+        "https://site.example/vendor/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/a.js",
+          "bytes": 64,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/b.js",
+          "bytes": 64,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4358,
+      "checkedBundles": [
+        "https://site.example/vendor/a.js",
+        "https://site.example/vendor/b.js"
+      ]
+    },
+    {
+      "fixture": "early-maps",
+      "policy": "document-4",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://site.example/vendor/a.js",
+        "https://site.example/vendor/b.js",
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 2,
+        "runtimeBudget": 0,
+        "total": 2
+      },
+      "outcomes": {
+        "inspected": 4,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/a.js",
+          "bytes": 64,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/b.js",
+          "bytes": 64,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/b.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 6,
+          "status": 200
+        }
+      ],
+      "requestCount": 7,
+      "downloadedBytes": 4370,
+      "checkedBundles": [
+        "https://site.example/vendor/a.js",
+        "https://site.example/vendor/b.js"
+      ]
+    },
+    {
+      "fixture": "early-maps",
+      "policy": "same-origin-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://site.example/vendor/a.js",
+        "https://site.example/vendor/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/a.js",
+          "bytes": 64,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/b.js",
+          "bytes": 64,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/vendor/b.js.map",
+          "bytes": 67,
+          "status": 200
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4358,
+      "checkedBundles": [
+        "https://site.example/vendor/a.js",
+        "https://site.example/vendor/b.js"
+      ]
+    },
+    {
+      "fixture": "early-maps",
+      "policy": "explicit-prefix-2",
+      "prefix": "https://site.example/app/",
+      "discovered": 6,
+      "eligible": 3,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 3,
+        "assetLimit": 1,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 0,
+        "checked": 0,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 6,
+          "status": 200
+        }
+      ],
+      "requestCount": 3,
+      "downloadedBytes": 4108,
+      "checkedBundles": []
+    },
+    {
+      "fixture": "shared-and-failed",
+      "policy": "document-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 59,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/shared.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 59,
+          "status": 200
+        }
+      ],
+      "requestCount": 4,
+      "downloadedBytes": 4281,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "shared-and-failed",
+      "policy": "document-4",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js",
+        "https://site.example/app/c.js",
+        "https://site.example/app/d.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 2,
+        "runtimeBudget": 1,
+        "total": 3
+      },
+      "outcomes": {
+        "inspected": 3,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 3,
+        "checked": 2,
+        "unavailable": 1,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 59,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/shared.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 59,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/c.js",
+          "bytes": 61,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/c.js.map",
+          "bytes": 0,
+          "status": 404,
+          "error": "HTTP 404",
+          "code": "http"
+        },
+        {
+          "url": "https://site.example/app/d.js",
+          "bytes": 0,
+          "status": 302
+        }
+      ],
+      "requestCount": 7,
+      "downloadedBytes": 4342,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "shared-and-failed",
+      "policy": "same-origin-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 59,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/shared.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 59,
+          "status": 200
+        }
+      ],
+      "requestCount": 4,
+      "downloadedBytes": 4281,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "shared-and-failed",
+      "policy": "explicit-prefix-2",
+      "prefix": "https://site.example/app/",
+      "discovered": 6,
+      "eligible": 5,
+      "selected": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ],
+      "skipped": {
+        "filter": 1,
+        "assetLimit": 3,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 2,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/a.js",
+          "bytes": 59,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/shared.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://site.example/app/b.js",
+          "bytes": 59,
+          "status": 200
+        }
+      ],
+      "requestCount": 4,
+      "downloadedBytes": 4281,
+      "checkedBundles": [
+        "https://site.example/app/a.js",
+        "https://site.example/app/b.js"
+      ]
+    },
+    {
+      "fixture": "empty-filter",
+      "policy": "document-2",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://cdn.example/a.js",
+        "https://cdn.example/b.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 4,
+        "runtimeBudget": 0,
+        "total": 4
+      },
+      "outcomes": {
+        "inspected": 2,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 2,
+        "checked": 1,
+        "unavailable": 1,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/a.js",
+          "bytes": 56,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/b.js",
+          "bytes": 56,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/b.js.map",
+          "bytes": 0,
+          "status": 404,
+          "error": "HTTP 404",
+          "code": "http"
+        }
+      ],
+      "requestCount": 5,
+      "downloadedBytes": 4275,
+      "checkedBundles": [
+        "https://cdn.example/a.js"
+      ]
+    },
+    {
+      "fixture": "empty-filter",
+      "policy": "document-4",
+      "discovered": 6,
+      "eligible": 6,
+      "selected": [
+        "https://cdn.example/a.js",
+        "https://cdn.example/b.js",
+        "https://cdn.example/c.js",
+        "https://cdn.example/d.js"
+      ],
+      "skipped": {
+        "filter": 0,
+        "assetLimit": 2,
+        "runtimeBudget": 0,
+        "total": 2
+      },
+      "outcomes": {
+        "inspected": 4,
+        "scriptFailures": 0,
+        "noReference": 2,
+        "mapReferences": 2,
+        "checked": 1,
+        "unavailable": 1,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/a.js",
+          "bytes": 56,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/a.js.map",
+          "bytes": 67,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/b.js",
+          "bytes": 56,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/b.js.map",
+          "bytes": 0,
+          "status": 404,
+          "error": "HTTP 404",
+          "code": "http"
+        },
+        {
+          "url": "https://cdn.example/c.js",
+          "bytes": 6,
+          "status": 200
+        },
+        {
+          "url": "https://cdn.example/d.js",
+          "bytes": 6,
+          "status": 200
+        }
+      ],
+      "requestCount": 7,
+      "downloadedBytes": 4287,
+      "checkedBundles": [
+        "https://cdn.example/a.js"
+      ]
+    },
+    {
+      "fixture": "empty-filter",
+      "policy": "same-origin-2",
+      "discovered": 6,
+      "eligible": 0,
+      "selected": [],
+      "skipped": {
+        "filter": 6,
+        "assetLimit": 0,
+        "runtimeBudget": 0,
+        "total": 6
+      },
+      "outcomes": {
+        "inspected": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 0,
+        "checked": 0,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        }
+      ],
+      "requestCount": 1,
+      "downloadedBytes": 4096,
+      "checkedBundles": []
+    },
+    {
+      "fixture": "empty-filter",
+      "policy": "explicit-prefix-2",
+      "prefix": "https://site.example/app/",
+      "discovered": 6,
+      "eligible": 0,
+      "selected": [],
+      "skipped": {
+        "filter": 6,
+        "assetLimit": 0,
+        "runtimeBudget": 0,
+        "total": 6
+      },
+      "outcomes": {
+        "inspected": 0,
+        "scriptFailures": 0,
+        "noReference": 0,
+        "mapReferences": 0,
+        "checked": 0,
+        "unavailable": 0,
+        "limited": 0
+      },
+      "requests": [
+        {
+          "url": "https://site.example/page",
+          "bytes": 4096,
+          "status": 200
+        }
+      ],
+      "requestCount": 1,
+      "downloadedBytes": 4096,
+      "checkedBundles": []
+    }
+  ]
+}

@@ -14,7 +14,7 @@ No npm release is recorded in the project history. The RM-05 implementation was 
 
 ## Active work
 
-None. RM-05 was accepted after one minor presentation revision, committed/pushed, and verified remotely. No subsequent task started.
+None. RM-04a investigation artifacts are ready for independent review. RM-04 production changes remain unimplemented; no subsequent task started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -38,7 +38,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-01 | needs-evidence | Validate repeat usefulness on developers' own deployments | Real feedback; no outreach without authorization |
 | RM-02 | done | Add CI for supported Node LTS versions | [Both remote jobs passed](https://github.com/jkup/sourcemapped/actions/runs/38094230079); [run review](docs/agent-runs/0001-ci.md) |
 | RM-03 | done | Automate CLI and package smoke coverage | [96 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38094705019); [run review](docs/agent-runs/0002-cli-tests.md) |
-| RM-04 | needs-evidence | Improve bounded asset sampling | Compare strategies without silently expanding scope |
+| RM-04 | needs-evidence | Improve bounded asset sampling | Review RM-04a recommendation before choosing a production change |
+| RM-04a | done | Investigate bounded sampling on controlled fixtures | [Offline study](research/sampling-2026-10-10.md); production implementation remains RM-04 |
 | RM-05 | done | Group repeated failure evidence in terminal output | [110 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38095190779); [run review](docs/agent-runs/0003-failure-presentation.md) |
 | RM-06 | needs-evidence | Compare saved metadata reports | Validate a repeat deployment-checking workflow |
 | RM-07 | needs-evidence | Extend standards coverage and validation | Concrete unsupported case and fixture strategy |
@@ -72,9 +73,19 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 ### RM-04 — Bounded sampling
 
-**Next action:** compare document-order sampling with an explicit asset filter/limit or a documented first-party strategy on a small controlled set. GitHub's 4-to-16-map increase with doubled sampling motivates this; it does not prove one policy is best.
+**Next action:** independently review [RM-04a](research/sampling-2026-10-10.md) and decide whether to accept the proposed opt-in asset-limit flag. No production discovery, CLI, or report change has been made. Concrete owner feedback remains absent; do not treat synthetic map yield as adoption evidence.
 
 **Acceptance:** document request cost, discoveries, bias, and skipped counts; propose the smallest useful behavior change. If accepted, add deterministic fixtures and preserve hard shared budgets and visible scope. Update ADR 0002 if discovery policy changes.
+
+### RM-04a — Controlled sampling investigation
+
+**Acceptance:** compare current document-order selection with explicit limits/filtering or a precisely defined origin policy on small offline fixtures; record request cost, discoveries, bias, skipped counts, reproducible commands, and a bounded recommendation. Keep implementation as separate unfinished work.
+
+**Evidence (2026-10-10):** [Harness](scripts/sampling-study.mjs), [dated method/results](research/sampling-2026-10-10.md), and [metadata snapshot](research/sampling-2026-10-10.json) compare five constructed pages across four policies (20 rows). Current scanner source `c55923a` is reused via injected responses. Request evidence includes a shared map, a 404 map, and a redirect stopped by the shared cap; zero-match policies retain original discovery/exclusion counts in the study format. D2/D4 are checked against the original full-page scan. No public network requests, refreshed historical research, dependencies, or production/report changes.
+
+**Recommendation:** retain document-order defaults; consider only an opt-in asset-limit CLI flag as the smallest next behavior change, retaining all shared budgets. Origin and prefix filters have explicit counterexamples; defer a filter feature pending a concrete deployment workflow. This recommendation is not implementation approval.
+
+**Local verification:** Node 26.10.0/npm 11.19.1; build and harness assertions passed, 20 rows reproduced byte-for-byte, changed-document relative links and `git diff --check` passed. No full production suite rerun or new remote CI claim. Independent reviewer assessment and delivery remain pending; RM-04a's investigation is complete, RM-04 implementation is not.
 
 ### RM-05 — Failure presentation
 
@@ -117,6 +128,7 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-00c | 2026-10-10 | Same-site MVP evaluation and initial priorities; [evaluation](EVALUATION.md), commit `c12454c` |
 | RM-02 | 2026-10-10 | Supported Node LTS CI, verified [remote run](https://github.com/jkup/sourcemapped/actions/runs/38094230079), and [agent review](docs/agent-runs/0001-ci.md); implementation commit `3584580` |
 | RM-03 | 2026-10-10 | 16 built-CLI/packed-entry-point tests, 96 total tests passed remotely; [coverage and limits](docs/testing.md), [agent review](docs/agent-runs/0002-cli-tests.md); implementation `be3c61b` |
+| RM-04a | 2026-10-10 | Controlled offline sampling comparison; [method/results](research/sampling-2026-10-10.md), [harness](scripts/sampling-study.mjs), and [metadata](research/sampling-2026-10-10.json); no production change |
 | RM-05 | 2026-10-10 | Bounded request-outcome groups and 14 regression cases; [renderer tests](test/render.test.ts), 110 tests passed remotely; [agent review](docs/agent-runs/0003-failure-presentation.md); implementation `7c2ee0e` |
 | RM-11 | 2026-10-10 | Agent onboarding, running work queue, architecture/report docs, and three accepted ADRs; [AGENTS.md](AGENTS.md), [docs index](docs/README.md) |
 
@@ -131,6 +143,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Completed RM-04a offline investigation with five synthetic pages and four explicit sampling policies; documented actual request costs and disjoint skipped counts. Proposed an opt-in asset limit while retaining defaults. RM-04 production work remains unimplemented pending review/selection; reviewer assessment and delivery are pending. No subsequent task started.
 
 - **2026-10-10:** Accepted RM-05 after one minor wording revision; committed/pushed and both supported Node CI jobs passed. Recorded grade 9/10 and added rendered-output review guidance. No subsequent task started.
 

@@ -72,6 +72,8 @@ Live scans are optional investigations, not routine verification. `scripts/probe
 
 Only rerun a study when it addresses the task. Preserve earlier observations or deliberately create a dated replacement with method, limits, source revision, and changed conclusions documented. Never silently refresh historical data merely to make tests pass. Do not save fetched JavaScript or original source content as fixtures; create a minimal synthetic reproduction instead.
 
+When comparing strategies, check the experiment's baseline against current behavior and include counterexamples to the favored approach. Separate controlled mechanics from prevalence or demand, and keep investigation completion distinct from proposed implementation.
+
 ## Keep project memory current
 
 - Use [ROADMAP.md](ROADMAP.md) as the single running work queue. When starting a listed item, mark it `in-progress` and add a short Active work entry. Do not claim an item merely because it appears next.

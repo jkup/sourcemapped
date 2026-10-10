@@ -12,9 +12,11 @@ Earlier local verification (RM-03, 2026-10-10): **96 tests passed**, strict sour
 
 No npm release is recorded in the project history. The RM-05 implementation was committed and pushed to `origin/main`. Its 110-test suite, typechecks, and build passed on GitHub for Node 22 and 24; see RM-05 for the exact run and revision. Automated CLI subprocess and packed-entry-point checks now run in `npm test`; see [test setup](docs/testing.md) for loopback/subprocess requirements and coverage limits. The package still has two production dependencies; no separately started services or credentials are required.
 
+Latest investigation: [RM-04a](research/sampling-2026-10-10.md) is committed/pushed and independently reproduced; it changes no production behavior. See its review below for local study checks versus remote production CI.
+
 ## Active work
 
-None. RM-04a investigation artifacts are ready for independent review. RM-04 production changes remain unimplemented; no subsequent task started.
+None. RM-04a investigation was accepted unchanged, committed/pushed, and graded 9.5/10. RM-04 production changes remain unimplemented; no subsequent task started.
 
 For work in progress, add one entry with: **ID · owner/session · scope/files · latest evidence · next action · blocker (if any)**. Keep it brief; remove the entry when completed. A roadmap entry does not authorize external actions or automatic future work.
 
@@ -38,7 +40,7 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | RM-01 | needs-evidence | Validate repeat usefulness on developers' own deployments | Real feedback; no outreach without authorization |
 | RM-02 | done | Add CI for supported Node LTS versions | [Both remote jobs passed](https://github.com/jkup/sourcemapped/actions/runs/38094230079); [run review](docs/agent-runs/0001-ci.md) |
 | RM-03 | done | Automate CLI and package smoke coverage | [96 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38094705019); [run review](docs/agent-runs/0002-cli-tests.md) |
-| RM-04 | needs-evidence | Improve bounded asset sampling | Review RM-04a recommendation before choosing a production change |
+| RM-04 | needs-evidence | Improve bounded asset sampling | RM-04a accepted; choose whether to implement the proposed opt-in asset limit |
 | RM-04a | done | Investigate bounded sampling on controlled fixtures | [Offline study](research/sampling-2026-10-10.md); production implementation remains RM-04 |
 | RM-05 | done | Group repeated failure evidence in terminal output | [110 tests passed remotely](https://github.com/jkup/sourcemapped/actions/runs/38095190779); [run review](docs/agent-runs/0003-failure-presentation.md) |
 | RM-06 | needs-evidence | Compare saved metadata reports | Validate a repeat deployment-checking workflow |
@@ -73,7 +75,7 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 ### RM-04 — Bounded sampling
 
-**Next action:** independently review [RM-04a](research/sampling-2026-10-10.md) and decide whether to accept the proposed opt-in asset-limit flag. No production discovery, CLI, or report change has been made. Concrete owner feedback remains absent; do not treat synthetic map yield as adoption evidence.
+**Next action:** choose whether to implement the proposed opt-in asset-limit flag from the accepted [RM-04a investigation](research/sampling-2026-10-10.md). No production discovery, CLI, or report change has been made. Concrete owner feedback remains absent; do not treat synthetic map yield as adoption evidence.
 
 **Acceptance:** document request cost, discoveries, bias, and skipped counts; propose the smallest useful behavior change. If accepted, add deterministic fixtures and preserve hard shared budgets and visible scope. Update ADR 0002 if discovery policy changes.
 
@@ -85,7 +87,9 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 
 **Recommendation:** retain document-order defaults; consider only an opt-in asset-limit CLI flag as the smallest next behavior change, retaining all shared budgets. Origin and prefix filters have explicit counterexamples; defer a filter feature pending a concrete deployment workflow. This recommendation is not implementation approval.
 
-**Local verification:** Node 26.10.0/npm 11.19.1; build and harness assertions passed, 20 rows reproduced byte-for-byte, changed-document relative links and `git diff --check` passed. No full production suite rerun or new remote CI claim. Independent reviewer assessment and delivery remain pending; RM-04a's investigation is complete, RM-04 implementation is not.
+**Local verification:** Node 26.10.0/npm 11.19.1; build and harness assertions passed, 20 rows reproduced byte-for-byte, changed-document relative links and `git diff --check` passed. No full production suite rerun or new remote CI claim. These are the implementer's local checks; reviewer evidence follows. RM-04a's investigation is complete, RM-04 implementation is not.
+
+**Review/delivery:** accepted unchanged at `6dffa28e4ca6e182db1f043145446875a984fe7e`, committed/pushed by the reviewer. Independent reproduction, all row totals, and the prose result table agreed. [Run review](docs/agent-runs/0004-sampling-investigation.md): 9.5/10. [CI](https://github.com/jkup/sourcemapped/actions/runs/38095544909) passed the existing 110-test suite, typechecks, and build on Node 22/24; CI does not run the research harness. The recommendation remains a future implementation choice.
 
 ### RM-05 — Failure presentation
 
@@ -143,6 +147,8 @@ Order reflects product priority. Follow the user's task first. RM-01 remains the
 | Secret extraction, recovered-source export, SaaS, dashboards, authentication, plugin architecture, quality scores | Outside the current product purpose; do not treat these as implicit backlog commitments. |
 
 ## Change log
+
+- **2026-10-10:** Accepted RM-04a unchanged after independent reproduction and arithmetic/table checks; committed/pushed, with production CI passing on Node 22/24. Grade 9.5/10; AGENTS.md preserves baseline/counterexample research guidance. RM-04 remains unimplemented, and no subsequent task started.
 
 - **2026-10-10:** Completed RM-04a offline investigation with five synthetic pages and four explicit sampling policies; documented actual request costs and disjoint skipped counts. Proposed an opt-in asset limit while retaining defaults. RM-04 production work remains unimplemented pending review/selection; reviewer assessment and delivery are pending. No subsequent task started.
 

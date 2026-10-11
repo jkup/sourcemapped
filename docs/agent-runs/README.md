@@ -2,7 +2,7 @@
 
 One bounded task at a time: assign acceptance criteria, observe without steering implementation, independently review the handoff, verify the result, then grade it. The [roadmap](../../ROADMAP.md) remains the work queue.
 
-Use five dimensions scored 1–10: correctness, scope discipline, verification, product judgment, and communication. Treat scores as reviewer judgment, not a measured benchmark. Record evidence, limitations, and reviewer interventions. A narrow infrastructure success does not establish autonomous product-development ability.
+For explicitly requested observed trials, assess five dimensions: correctness, scope discipline, verification, product judgment, and communication. Prefer evidence and actionable findings over a headline number. If a score is requested, define its scope and justification; avoid defaulting to 9–10 or implying decimal precision is measured. Historical scores below are task-execution judgments, not codebase/product scores or independent benchmarks. Record evidence, limitations, and reviewer interventions. A narrow infrastructure success does not establish autonomous product-development ability.
 
 Update [AGENTS.md](../../AGENTS.md) only for reusable lessons. Successful behavior can justify preserving or clarifying guidance; a run need not produce a new rule. Keep individual mistakes and task-specific details in the run record.
 

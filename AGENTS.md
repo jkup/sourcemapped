@@ -1,97 +1,57 @@
 # Working on sourcemapped
 
-## Purpose
-
-Build a small, trustworthy CLI for understanding publicly advertised source maps behind a deployed page or JavaScript URL. Favor useful evidence and clear limits over impressive-looking claims. The initial study supports deployment diagnostics; broad website archaeology remains unproven.
-
-This file is the entry point for agents working anywhere in this repository. Follow the user's current task; the roadmap is context, not authorization to expand that task.
+Build a small, trustworthy CLI for publicly advertised source-map metadata. Deployment diagnostics are the focus; broad website archaeology and repeat usefulness remain unproven. Follow the user's task, not every possible roadmap improvement.
 
 ## Start here
 
-1. Read this file and [ROADMAP.md](ROADMAP.md), especially **Current state**, **Active work**, and the relevant item's acceptance criteria.
-2. Check `git status --short`. Preserve existing work; do not reset or overwrite unrelated changes.
-3. Read [docs/README.md](docs/README.md) for the documentation map. For code changes, read [architecture](docs/architecture.md) and the relevant [decisions](docs/decisions/README.md). For report changes, read the [report contract](docs/report-contract.md).
-4. Read the affected source and its tests before editing. Documents explain intent; source establishes current behavior. If they disagree, investigate and fix the discrepancy rather than assuming either is correct.
+1. Check `git status --short`; preserve unrelated work.
+2. Read [ROADMAP.md](ROADMAP.md) for current state, active work and the relevant acceptance criteria. The queue is context, not permission to start another task.
+3. Read the affected source/tests and the relevant links in [docs/README.md](docs/README.md). Source establishes behavior; docs explain intent. Investigate discrepancies.
+4. For runtime changes, consult [architecture](docs/architecture.md); for evidence/JSON changes, also consult the [report contract](docs/report-contract.md) and relevant [decisions](docs/decisions/README.md).
 
-Avoid loading the large `research/*.json` snapshots by default. Use the research summaries first, then inspect specific observations when needed.
+Do not load large research snapshots by default. Use their summaries and inspect only relevant evidence.
 
-## Setup and verification
+## Implementation boundaries
 
-Use npm and the committed lockfile. Node.js 22.12+ is required; there are no credentials, environment files, services, or database setup steps.
+- Keep strict TypeScript, NodeNext `.js` imports and small modules. Prefer Node APIs and the existing parsers over new dependencies, frameworks or custom numeric VLQ/HTML parsers.
+- `discover.ts` owns reference extraction; `network.ts` owns shared budgets; `analyze.ts` owns metadata checks; `scan.ts` owns orchestration/reporting; `render.ts` owns presentation; `cli.ts` owns invocation. See architecture for details.
+- Use structured outcomes for logic, human error strings for display. Preserve evidence across layers. Treat dictionary keys from remote data as untrusted, including inherited object-property names.
+- Read package identity from [package.json](package.json) through `src/package.ts`; do not duplicate version literals. Defaults belong in `DEFAULT_LIMITS`, not separately maintained constants.
+- Do not edit generated `dist/`, dependencies or tarballs as fixes. Avoid broad refactors or formatting churn unrelated to an observed problem.
+
+## Product invariants
+
+- Inspect bounded static references or one direct JavaScript URL. No implicit browser execution, crawling, guessed maps, original-source fetching or inspected-code execution.
+- Reports remain metadata-only: no source bodies, symbol-name arrays or inline payloads. Sanitize untrusted terminal text with `safeText`; JSON stdout must contain one report, with progress on stderr.
+- Keep no reference, retrieval failure, invalid, unsupported, skipped and limited outcomes distinct. `checked` means only the implemented checks passed, never full conformance or debugging correctness.
+- Preserve the report's denominators: source entries and bundle/map relationships are not globally unique files or HTTP requests. Package paths are evidence, not framework/version/vulnerability proof. See the contract rather than redefining counts here.
+- Keep request/byte/time budgets shared, including redirects and failures; preserve rate-limit pauses and parsing limits. More selected assets must not silently raise other budgets.
+- Changes to scope, dependencies, discovery policy or compatibility need a small decision record. Ordinary fixes need no ADR. Additive report fields still need documented compatibility and tests.
+
+## Verify proportionately
 
 ```sh
-npm ci                       # when dependencies are absent or the lockfile changed
-npm run typecheck            # strict checks for source and tests
-npm test                     # build once, then offline Vitest tests
-npm run build                # compile src into dist
-npm run check                # typecheck + build once + tests
+npm ci                     # only when installation/lockfile changes require it
+npm run check              # typecheck, doc links, one build, offline tests
+npm run check:docs         # local Markdown file links only
+npm test -- test/scan.test.ts  # focused tests, with a fresh build
 node dist/cli.js --help
-npx --no-install vitest run test/discover.test.ts  # example focused test
 ```
 
-- For behavior changes, add a regression test that proves the user-visible behavior, run focused tests during iteration, and run `npm run check` before handoff.
-- For user-selectable limits, verify invalid input causes no requests and that changing one limit preserves the other effective budgets. Cover both useful additional results and exhaustion before the requested selection size.
-- For terminal presentation changes, inspect actual rendered examples, including relevant zero/one/many counts and truncation. Assertions should preserve clear wording, not freeze obvious display mistakes.
-- For documentation-only changes, verify claims against source, relative links, commands, and `git diff --check`; a full test rerun is unnecessary unless runtime behavior changed.
-- For packaging changes, run `npm pack --dry-run` and inspect the file list. For entry-point changes, also exercise the built CLI and a locally installed tarball. Packing does not publish.
-- For executable/package tests, state the boundary actually exercised: built files, a packed artifact, or an installed command. Reusing checkout dependencies does not verify clean dependency installation or npm bin shims. Keep those limits explicit; use a small reversible negative check when useful to confirm the test catches its intended failure.
-- For CI changes, use a workflow-aware validator such as `actionlint` when available. Record the actual local Node/npm versions separately from the remote matrix, and tie remote pass claims to a run URL and commit. A local pass is not a remote pass.
-- `dist/`, `node_modules/`, and tarballs are generated and ignored. Never edit generated output as the fix.
-- [CI](.github/workflows/ci.yml) runs the offline checks on supported Node LTS versions; there is no configured linter. Do not report checks that were not run. If a check is blocked, record the exact limitation and the checks that did run.
+- Reproduce bugs and add tests that detect the actual failure. Include relevant boundary/counterexamples, not just implementation-shaped assertions. Use synthetic responses and loopback fixtures, not public websites.
+- Run focused checks while editing and `npm run check` before runtime handoff. Inspect rendered output when presentation changes. For docs-only work, check claims, run `npm run check:docs` and `git diff --check` instead of rerunning runtime tests.
+- On failure, preserve useful diagnostics and determine the cause. Do not turn repeated failures into success by skipping checks, blindly retrying or increasing timeouts. Environment restrictions and product defects are different findings.
+- Follow [testing and packaging guidance](docs/testing.md) for executable changes and [CI guidance](docs/ci.md) for workflows. Report the boundary actually exercised (built, packed, installed), actual runtime, and local versus remote results. Never infer a pass from another revision.
+- Live studies are separate investigations. Preserve dated evidence and source revision; validate the baseline and counterexamples. Synthetic examples do not prove prevalence, demand or adoption. Before/after claims require comparable identity, scope and provenance; unobserved is not absent.
 
-## Where changes belong
+## Keep project memory small and accurate
 
-| Concern | Implementation | Tests |
-| --- | --- | --- |
-| Target normalization, static HTML, map reference extraction | `src/discover.ts` | `test/discover.test.ts` |
-| HTTP, redirects, budgets, rate limits, data URLs | `src/network.ts` | `test/network.test.ts` |
-| Map checks, source counts, path/package evidence | `src/analyze.ts` | `test/analyze.test.ts` |
-| Scan orchestration, map cache, report aggregation | `src/scan.ts` | `test/scan.test.ts` |
-| Terminal presentation and untrusted text | `src/render.ts` | `test/render.test.ts` |
-| CLI arguments, stdout/stderr, exit codes | `src/cli.ts` | `test/cli.test.ts` (built subprocesses and packed entry point) |
+- Update the relevant roadmap item when starting/finishing substantive work. Keep only current state, active ownership, open acceptance criteria and compact completion links there. Put detailed verification in one dated evidence record or the PR; do not repeat it across summaries, change logs and reviews.
+- Before adding guidance, identify a reusable failure mode that existing instructions do not cover. Prefer replacing/merging a rule or improving a test/tool over appending another bullet. A successful task does not require an AGENTS.md change.
+- AGENTS.md owns working rules; the roadmap owns the queue; README owns user behavior; architecture/contract own technical semantics; ADRs own consequential decisions. Link to the owner instead of copying its contents. Recheck nearby current-state claims when editing; preserve historical records as history.
+- For explicitly observed trials, record review evidence and interventions in [agent runs](docs/agent-runs/README.md). Task-execution grades are not codebase/product scores or independent benchmarks. No automatic high score for green tests, self-grading, or invented precision.
+- Finish at the authorized task boundary. If remaining ideas need user evidence, say so rather than manufacturing another feature or research task to keep agents busy.
 
-Keep TypeScript strict and ESM imports compatible with NodeNext (`.js` specifiers in source). Prefer Node APIs and the existing two production dependencies. Reuse `htmlparser2` and `@jridgewell/trace-mapping`; do not add a custom HTML parser or numeric VLQ decoder. Use simple modules rather than introducing a plugin or application framework.
+## Delivery
 
-## Correctness rules
-
-- Static references are not assets observed loading or executing. Keep skipped counts and scan scope visible.
-- No map reference, inaccessible JavaScript, inaccessible map, invalid map, unsupported map, and budget limit are different outcomes. Preserve the evidence behind each.
-- `checked` means the implemented checks passed, not full ECMA-426 conformance, semantic accuracy, or correct debugging.
-- Source counts are entries across bundle/map relationships, not globally unique files. An empty embedded string counts as content; null/missing content does not.
-- Package paths are evidence about map metadata, not proof of a site's framework, dependency version, or vulnerability.
-- Never substitute bundle availability or source-content percentages for generated-code coverage. No ambiguous quality score.
-- Keep reports metadata-only. Do not persist or print source bodies, symbol-name arrays, or inline map payloads; do not fetch original source URLs, search for secrets, or execute inspected code.
-- Keep budgets shared across the scan, count redirects and failed HTTP attempts, honor rate-limit pauses, and bound parsing work as well as downloads.
-- Sanitize remote text through `safeText` before terminal display. Keep JSON as structured data; progress belongs on stderr, never in JSON stdout.
-- Report-contract changes need matching tests, documentation, and a compatibility decision. See [docs/report-contract.md](docs/report-contract.md).
-
-## Tests and field research
-
-Use synthetic maps, native `Response` objects, and injected `fetchImpl` for deterministic tests. Do not make the regular test suite depend on real websites. Prefer boundary cases and observable behavior over tests mirroring implementation details.
-
-Live scans are optional investigations, not routine verification. `scripts/probe.mjs` is a historical exploratory harness with known regex limitations; production behavior lives in `src/`. `scripts/evaluate.mjs` runs the built scanner and overwrites `research/mvp.json`. Both scripts make public network requests and overwrite evidence files.
-
-Only rerun a study when it addresses the task. Preserve earlier observations or deliberately create a dated replacement with method, limits, source revision, and changed conclusions documented. Never silently refresh historical data merely to make tests pass. Do not save fetched JavaScript or original source content as fixtures; create a minimal synthetic reproduction instead.
-
-When comparing strategies, check the experiment's baseline against current behavior and include counterexamples to the favored approach. Separate controlled mechanics from prevalence or demand, and keep investigation completion distinct from proposed implementation.
-
-For before/after investigations, establish capture provenance, comparable scope and identity before interpreting deltas. Keep unobserved evidence distinct from absence; matching URLs or schema versions alone do not prove identical content or checks.
-
-## Keep project memory current
-
-- Use [ROADMAP.md](ROADMAP.md) as the single running work queue. When starting a listed item, mark it `in-progress` and add a short Active work entry. Do not claim an item merely because it appears next.
-- Add a small scoped item for substantive unlisted work. Update status, evidence, next action, and the dated change log when finishing or handing off. Use `blocked` only with a concrete dependency; clear completed ownership entries.
-- Keep completed items with evidence links. Do not mark an item done until its acceptance criteria are met. Record remaining work explicitly rather than presenting a partial implementation as complete.
-- Add or supersede an ADR for changes to product scope, discovery strategy, validation semantics, privacy, dependency strategy, or report compatibility. Use [the ADR template](docs/decisions/template.md). Ordinary fixes do not require an ADR.
-- Update user-facing behavior in README, internal behavior in `docs/`, and verification evidence in the handoff. Avoid copying mutable defaults into multiple documents; link to their source.
-- When editing a current-state summary, recheck adjacent claims against Git history, configuration, and available run evidence. Do not carry forward stale statements about publication, pushes, or pending work merely because they were already written; preserve dated historical evidence as history.
-- When useful, leave a handoff containing the roadmap ID, changed files, checks and results, unresolved questions, and the next concrete step. Keep the durable state in the roadmap rather than relying on chat history.
-- For observed agent trials, have the reviewer record correctness, scope discipline, verification, product judgment, and communication in `docs/agent-runs/`. Separate the agent's work from reviewer interventions and link supporting evidence. Change this guide only for reusable lessons, not to add a rule for every isolated mistake.
-
-## Scope and delivery
-
-Make routine implementation decisions autonomously within the task. These docs do not introduce an extra approval gate for reversible local work. Preserve user authorization already given. Do not publish a package, push changes, or change external services unless the task authorizes it.
-
-Keep changes focused and commits logical when committing is requested. Do not include unrelated work. If creating a branch, use `codex/` unless the user specifies otherwise. Delegate only when the user or task calls for it; assign non-overlapping files and reconcile results before reporting completion.
-
-Images, browser execution, recursive crawling, source export, hosted services, and full conformance validation are not implied extensions of the MVP. Consult the roadmap and decisions before expanding scope.
+Make routine reversible decisions autonomously within the task; these docs add no approval gate. Preserve existing authorization. Commit/push when requested, with focused commits and a clean accounting of remaining work; publishing a package or contacting others needs its own authorization. Delegate only when the user/task asks for it. Use `codex/` for new branches unless directed otherwise.

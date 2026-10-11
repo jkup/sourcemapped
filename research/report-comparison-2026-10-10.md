@@ -38,6 +38,8 @@ Exact pairs may still supply useful local observations when selection or limits 
 
 Run from the checkout with installed lockfile dependencies:
 
+Exact snapshot reproduction requires the [recorded study checkout](https://github.com/jkup/sourcemapped/tree/aeb96ce703f595d8774efa83097f9b2a8e756bba). Later scanner revisions can add metadata; do not overwrite this historical snapshot to make a current-checkout comparison pass.
+
 ```sh
 npm run build
 node scripts/report-comparison-study.mjs > /tmp/report-comparison.json

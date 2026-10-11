@@ -4,9 +4,11 @@
 
 # sourcemapped
 
-**Know what your production JavaScript reveals.**
+**Check the source maps you ship.**
 
-Give sourcemapped a URL to find public source maps, spot broken map links, and see whether they include your original source code. Check a deployment in one command, without digging through minified bundles in DevTools.
+Source maps help debug production JavaScript, but they can also make your original source code public. Give sourcemapped a URL to see which bundles link to maps, whether those maps load, and whether they contain source code.
+
+Run it after a deploy or build configuration change to catch broken map links and source code you didn't mean to publish.
 
 ## Try it
 
@@ -43,7 +45,7 @@ sourcemapped https://example.com/app.js          # Inspect one JavaScript file
 sourcemapped --help                             # Limits and other options
 ```
 
-Use `--verbose` to see which bundles have usable maps, which map requests failed, and the source filenames listed inside each map. Use `--json` to inspect the same findings in scripts. Reports contain metadata, never the original source text.
+Use `--verbose` for per-bundle results and source filenames, or `--json` to inspect findings in scripts. Reports contain metadata, never the original source text.
 
 ## What it checks
 

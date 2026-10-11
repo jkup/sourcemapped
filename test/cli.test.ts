@@ -173,7 +173,7 @@ describe('built CLI', () => {
     const result = await cli([origin, '--no-color', ...args]);
     expect(result.code).toBe(0);
     expect(result.stderr).toBe('');
-    expect(result.stdout).toContain('2 analyzed / 2 discovered assets');
+    expect(result.stdout).toContain('Analyzed maps for 2 of 2 discovered assets');
     expect(result.stdout).not.toContain('\x1b');
     expectMetadataOnly(result.stdout);
     if (args.includes('--verbose')) {
@@ -193,7 +193,7 @@ describe('built CLI', () => {
       const report = JSON.parse(result.stdout);
       expect(report.error).toContain('404');
       expect(report.requests).toEqual([expect.objectContaining({ url: `${origin}/absent`, status: 404 })]);
-    } else expect(result.stdout).toContain('Could not inspect target: HTTP 404');
+    } else expect(result.stdout).toContain('Could not inspect this target');
   });
 
   it('exits successfully for a completed scan with an unavailable advertised map', async () => {

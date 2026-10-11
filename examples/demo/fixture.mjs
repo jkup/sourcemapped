@@ -25,6 +25,11 @@ export async function buildDemo() {
       });
     }
   }
+  files.set('/mixed/', {
+    body: html.replace('./app.js', '/mapped/app.js').replace('</html>', '<script src="/mixed/extra.js"></script>\n</html>'),
+    type: 'text/html',
+  });
+  files.set('/mixed/extra.js', { body: '/* A small additional asset without an advertised map. */', type: 'application/javascript' });
   return files;
 }
 

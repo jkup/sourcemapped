@@ -35,41 +35,47 @@ function requestOutcomes(requests: RequestEvidence[]): string[] {
     else groups.set(key, { host, outcome, count: 1 });
   }
   const sorted = [...groups.values()].sort((a, b) => b.count - a.count || a.host.localeCompare(b.host) || a.outcome.localeCompare(b.outcome));
-  const lines = sorted.slice(0, 6).map(group => `  │  ${group.count} × ${group.outcome} · ${short(group.host, 70)}`);
-  if (sorted.length > 6) lines.push(`  │  ${counted(sorted.length - 6, 'more outcome group')}; see --verbose or --json.`);
+  const lines = sorted.slice(0, 6).map(group => `    ${group.count} × ${group.outcome} · ${short(group.host, 70)}`);
+  if (sorted.length > 6) lines.push(`    ${counted(sorted.length - 6, 'more outcome group')}; see --verbose or --json.`);
   return lines;
 }
 
 export function render(report: Report, options: { verbose?: boolean; color?: boolean } = {}): string {
   const s = report.summary;
-  const bold = (value: string) => options.color ? `\x1b[1m${value}\x1b[22m` : value;
-  const cyan = (value: string) => options.color ? `\x1b[36m${value}\x1b[39m` : value;
-  const lines = ['', `  ${bold('sourcemapped')}  ${short(report.finalUrl ?? report.target)}`, ''];
-  if (report.error) lines.push(`  Could not inspect target: ${safeText(report.error)}`, '');
-  lines.push(`  ├─ JavaScript  ${counted(s.discovered, report.scope === 'static-html' ? 'static reference' : 'direct asset')}`);
-  lines.push(`  │  ${s.inspected} inspected · ${s.scriptFailures} failed · ${s.skipped} skipped`);
-  lines.push(`  ├─ Source maps  ${cyan(`${s.mapsChecked} analyzed`)} / ${counted(s.discovered, 'discovered asset')}`);
-  lines.push(`  │  ${s.noReference} no reference · ${s.mapsUnavailable} unavailable · ${s.mapsInvalid} invalid`);
-  if (s.mapsUnsupported || s.mapsLimited) lines.push(`  │  ${s.mapsUnsupported} unsupported · ${s.mapsLimited} limited`);
+  const paint = (code: number, value: string) => options.color ? `\x1b[${code}m${value}\x1b[0m` : value;
+  const bold = (value: string) => paint(1, value);
+  const muted = (value: string) => paint(2, value);
+  const incomplete = Boolean(s.scriptFailures || s.skipped || s.mapsLimited);
+  const advertised = s.mapsChecked + s.mapsUnavailable + s.mapsInvalid + s.mapsUnsupported + s.mapsLimited;
+  const headline = report.error ? '× Could not inspect this target'
+    : s.mapsChecked ? `${incomplete ? '◐' : '✓'} Maps analyzed for ${counted(s.mapsChecked, 'JavaScript asset')}`
+    : advertised ? '! Map references found, none analyzed'
+    : incomplete ? '! Scan incomplete — map availability is unknown'
+    : !s.discovered ? '○ No external JavaScript discovered'
+    : '○ No source maps advertised';
+  const lines = ['', `  ${bold('sourcemapped')}  ${muted('· explore the source behind the bundle')}`,
+    `  ${short(report.finalUrl ?? report.target)}`, '',
+    `  ${paint(report.error ? 31 : incomplete || (!s.mapsChecked && advertised) ? 33 : s.mapsChecked ? 36 : 37, bold(headline))}`];
+  if (report.error) lines.push(`  ${safeText(report.error)}`);
+  if (s.mapsChecked) lines.push(`  Analyzed maps for ${s.mapsChecked} of ${counted(s.discovered, 'discovered asset')}.`);
   if (s.sourceEntries) {
-    lines.push(`  ├─ Original sources  ${counted(s.sourceEntries, 'entry', 'entries')} across analyzed bundle maps`);
-    lines.push(`  │  ${s.embeddedSources.toLocaleString('en-US')} / ${s.sourceEntries.toLocaleString('en-US')} contain embedded content`);
-    const languages = Object.entries(s.languages).sort((a, b) => b[1] - a[1]).map(([name, count]) => `${count} ${name}`);
-    lines.push(`  │  ${languages.join(' · ')}`);
-    lines.push('  │  Entries can repeat across bundles; extensions describe filenames.');
+    const languages = Object.entries(s.languages).sort((a, b) => b[1] - a[1]).map(([name, count]) => `${count} ${safeText(name)}`);
+    lines.push('', `  ${bold(counted(s.sourceEntries, 'source entry', 'source entries'))}  ${languages.join(' · ')} (by filename)`,
+      `  ${s.embeddedSources} of ${s.sourceEntries} include original source text in the maps.`,
+      muted('  Source text is omitted from this report.'));
+    if (s.mapsChecked > 1) lines.push(muted('  Entries can repeat across bundles; extensions describe filenames.'));
   }
-  const outcomes = requestOutcomes(report.requests);
-  if (outcomes.length) lines.push('  ├─ Failed HTTP attempts by host (not affected bundles)', ...outcomes);
-  lines.push('  └─ Findings');
   const findings: string[] = [];
-  if (!s.mapsChecked && !report.error) findings.push('No analyzable public maps found within this scan.');
+  if (s.noReference) findings.push(`${counted(s.noReference, 'asset')} did not advertise a map. Maps may be private or unlinked.`);
+  if (s.scriptFailures) findings.push(`${counted(s.scriptFailures, 'JavaScript asset')} could not be inspected.`);
+  if (s.mapsUnavailable) findings.push(`${counted(s.mapsUnavailable, 'advertised map')} could not be retrieved; see --verbose for evidence.`);
+  if (s.mapsInvalid) findings.push(`${counted(s.mapsInvalid, 'map')} failed basic validation.`);
+  if (s.mapsUnsupported) findings.push(`${counted(s.mapsUnsupported, 'map')} could not be analyzed: unsupported format or analysis limit.`);
   // Paused calls have no RequestEvidence entry unless an earlier redirect was attempted.
   const pausedScripts = report.bundles.filter(bundle => bundle.errorCode === 'rate-limited' && bundle.httpStatus === undefined).length;
   const pausedMaps = report.bundles.filter(bundle => bundle.map?.errorCode === 'rate-limited' && bundle.map.httpStatus === undefined).length;
   if (pausedScripts || pausedMaps) findings.push(`Origin pause blocked ${counted(pausedScripts, 'JavaScript asset')} and ${counted(pausedMaps, 'bundle/map relationship')}; see --verbose.`);
   if (s.skipped || s.mapsLimited) findings.push(`Scan limits: ${counted(s.skipped, 'JavaScript asset')} skipped · ${counted(s.mapsLimited, 'bundle/map relationship')} limited.`);
-  if (s.noReference) findings.push('No map reference is normal; maps may be kept private.');
-  if (s.mapsUnavailable) findings.push(`${s.mapsUnavailable} advertised map${s.mapsUnavailable === 1 ? '' : 's'} could not be retrieved; see --verbose for evidence.`);
   const packageNames = new Set<string>();
   for (const bundle of report.bundles) {
     if (bundle.map?.analysis?.status !== 'checked') continue;
@@ -78,9 +84,10 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   if (packageNames.size) findings.push(`Package paths mention ${[...packageNames].slice(0, 6).join(', ')}${packageNames.size > 6 ? ', …' : ''}.`);
   const mapWarnings = new Set(report.bundles.flatMap(bundle => bundle.map?.analysis?.warnings ?? []));
   for (const warning of [...mapWarnings].slice(0, 4)) findings.push(warning);
-  if (s.mapsChecked) findings.push('Analyzed means basic structure and mappings checks passed, not full conformance.');
-  if (!findings.length) findings.push('No further findings within this scan.');
-  lines.push(...findings.map(finding => `     ${short(finding, 120)}`));
+  if (findings.length) lines.push('', ...findings.map(finding => `  ${short(finding, 120)}`));
+  const outcomes = requestOutcomes(report.requests);
+  if (outcomes.length) lines.push('', paint(33, '  ! Failed HTTP attempts by host (not affected bundles)'), ...outcomes);
+  if (s.mapsChecked) lines.push(muted('  Analyzed = basic structure and mapping checks passed, not full conformance.'));
 
   if (options.verbose) {
     lines.push('', '  Evidence');
@@ -107,7 +114,19 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     lines.push('', '  HTTP requests');
     for (const request of report.requests) lines.push(`  ${request.status ?? '—'} ${safeText(request.url)}${request.error ? ` · ${safeText(request.error)}` : ''}`);
   }
-  lines.push('', ...report.warnings.map(warning => `  ${short(warning, 140)}`));
-  lines.push(`  ${report.requests.length}/${report.limits.maxRequests} requests · ${(s.downloadedBytes / 1048576).toFixed(1)} MiB downloaded · source contents stay in memory`, '');
+  lines.push('', muted(`  ${counted(s.inspected, 'JavaScript asset')} inspected · ${counted(report.requests.length, 'request')} · ${formatBytes(s.downloadedBytes)} decoded`));
+  lines.push(muted(report.scope === 'static-html'
+    ? '  Scope: static page references only; imports, other routes and inline scripts excluded.'
+    : '  Scope: one JavaScript asset; imports and original source files are not fetched.'));
+  const warnings = options.verbose ? report.warnings : report.warnings.filter(warning => !warning.startsWith('Static HTML only:'));
+  lines.push(...warnings.map(warning => `  ${short(warning, 140)}`));
+  if (!options.verbose) lines.push(muted('  → Use --verbose for paths and request details, or --json for data.'));
+  lines.push('');
   return `${lines.join('\n')}\n`;
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KiB`;
+  return `${(bytes / 1048576).toFixed(1)} MiB`;
 }

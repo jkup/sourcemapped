@@ -22,7 +22,7 @@ cli.ts → scan.ts → discover.ts
 | [package.ts](../src/package.ts) | Manifest-derived CLI version and HTTP identity | Separate version literals or cwd-dependent lookup |
 | [cli.ts](../src/cli.ts) | Arguments, progress, output mode, exit status | Analysis or discovery rules |
 
-The TypeScript sources use ESM with `.js` import specifiers. `tsc` emits JavaScript and declarations into ignored `dist/`; `package.json` points the executable there. There is no bundler, runtime service, or generated code checked into Git.
+The TypeScript sources use ESM with `.js` import specifiers. `tsc` emits JavaScript and declarations into ignored `dist/`; `package.json` points the executable there. The production CLI has no bundler or runtime service. The local demo uses development-only esbuild; no generated code is checked into Git.
 
 ## Scan lifecycle
 

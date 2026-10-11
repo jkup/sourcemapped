@@ -12,7 +12,7 @@ beforeAll(async () => {
 });
 afterAll(async () => { await demo?.close(); });
 
-it.each(['mapped', 'unmapped'])('scans the real %s build through the CLI', async mode => {
+it.each(['mapped', 'unmapped', 'mixed'])('scans the real %s build through the CLI', async mode => {
   if (!demo) throw new Error('Demo server did not start');
   demo.requests.length = 0;
   const result = await promisify(execFile)(process.execPath, [
@@ -21,8 +21,8 @@ it.each(['mapped', 'unmapped'])('scans the real %s build through the CLI', async
   expect(result.stderr).toBe('');
   const report = JSON.parse(result.stdout);
   expect(report.error).toBeUndefined();
-  expect(report.summary).toMatchObject({ discovered: 1, inspected: 1, skipped: 0, scriptFailures: 0 });
-  if (mode === 'mapped') {
+  expect(report.summary).toMatchObject({ discovered: mode === 'mixed' ? 2 : 1, inspected: mode === 'mixed' ? 2 : 1, skipped: 0, scriptFailures: 0 });
+  if (mode !== 'unmapped') {
     // Establish that the input really contains source text before checking its omission.
     const map = JSON.parse(files.get('/mapped/app.js.map')!.body);
     expect(map.sources).toHaveLength(2);
@@ -39,7 +39,8 @@ it.each(['mapped', 'unmapped'])('scans the real %s build through the CLI', async
   for (const forbidden of ['DEMO_ORIGINAL_SOURCE_SENTINEL', 'sourcesContent', '"names"']) {
     expect(result.stdout).not.toContain(forbidden);
   }
-  expect(demo.requests).toEqual([
-    `/${mode}/`, `/${mode}/app.js`, ...(mode === 'mapped' ? ['/mapped/app.js.map'] : []),
-  ]);
+  expect([...demo.requests].sort()).toEqual((mode === 'mixed'
+    ? ['/mixed/', '/mapped/app.js', '/mixed/extra.js', '/mapped/app.js.map']
+    : [`/${mode}/`, `/${mode}/app.js`, ...(mode === 'mapped' ? ['/mapped/app.js.map'] : [])]).sort());
+  if (mode === 'mixed') expect(report.summary.noReference).toBe(1);
 });

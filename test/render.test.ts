@@ -18,11 +18,41 @@ function emptyReport(): Report {
 }
 
 describe('terminal report', () => {
+  it('leads with useful mixed results without treating no reference as a failure', async () => {
+    const report = await scanFixture(['https://page.example/a.js', 'https://page.example/b.js'], {
+      'https://page.example/a.js': script('a.map'),
+      'https://page.example/a.map': () => new Response(JSON.stringify({ version: 3, sources: ['app.ts'], sourcesContent: ['PRIVATE_DEMO_TEXT'], names: [], mappings: 'AAAA' })),
+      'https://page.example/b.js': script(),
+    });
+    const output = render(report, { color: true });
+    expect(output).toContain('✓ Maps analyzed for 1 JavaScript asset');
+    expect(output).toContain('Analyzed maps for 1 of 2 discovered assets');
+    expect(output).toContain('1 asset did not advertise a map');
+    expect(output).not.toContain('0 failed');
+    expect(output).not.toContain('HTTP requests');
+    expect(output).not.toContain('PRIVATE_DEMO_TEXT');
+    expect(output).toContain('\x1b[36m');
+    expect(render(report)).not.toContain('\x1b');
+  });
+
+  it.each([[0, '0 B'], [900, '900 B'], [1536, '1.5 KiB'], [1572864, '1.5 MiB']] as const)('formats %i decoded bytes readably', (bytes, expected) => {
+    const report = emptyReport();
+    report.summary.downloadedBytes = bytes;
+    expect(render(report)).toContain(`${expected} decoded`);
+  });
+
+  it('does not call inaccessible JavaScript a no-map result', () => {
+    const report = emptyReport();
+    Object.assign(report.summary, { discovered: 1, scriptFailures: 1 });
+    expect(render(report)).toContain('Scan incomplete');
+    expect(render(report, { color: true })).toContain('\x1b[33m');
+    expect(render(report)).not.toContain('No source maps advertised');
+  });
   it('presents zero observations without inventing a source tree or configuration problem', () => {
     const output = render(emptyReport());
-    expect(output).toContain('0 static references');
-    expect(output).toContain('0 analyzed / 0 discovered assets');
-    expect(output).toContain('No analyzable public maps found within this scan.');
+    expect(output).toContain('No external JavaScript discovered');
+    expect(output).toContain('0 JavaScript assets inspected');
+    expect(output).not.toContain('No source maps advertised');
     expect(output).not.toContain('Original sources');
     expect(output).not.toContain('misconfigured');
     expect(output).not.toContain('\x1b');
@@ -35,18 +65,22 @@ describe('terminal report', () => {
     });
     report.warnings.push('Static HTML only: lazy chunks are not inspected.');
     const output = render(report);
-    expect(output).toContain('1 no reference · 1 unavailable · 1 invalid');
-    expect(output).toContain('1 unsupported · 1 limited');
-    expect(output).toContain('No map reference is normal; maps may be kept private.');
+    expect(output).toContain('1 asset did not advertise a map');
+    expect(output).toContain('1 map failed basic validation');
+    expect(output).toContain('1 map could not be analyzed: unsupported');
+    expect(output).toContain('1 bundle/map relationship limited');
+    expect(output).toContain('Maps may be private or unlinked.');
     expect(output).toContain('1 advertised map could not be retrieved');
-    expect(output).toContain('Static HTML only: lazy chunks are not inspected.');
+    expect(output).toContain('Scope: static page references only');
   });
 
   it('reports request failure without claiming a complete absence of maps', () => {
     const report = emptyReport();
     report.error = 'Request timed out';
     const output = render(report);
-    expect(output).toContain('Could not inspect target: Request timed out');
+    expect(output).toContain('Could not inspect this target');
+    expect(output).toContain('Request timed out');
+    expect(render(report, { color: true })).toContain('\x1b[31m');
     expect(output).not.toContain('No analyzable public maps found');
   });
 
@@ -75,11 +109,11 @@ describe('terminal report', () => {
     expect(output).toContain('webpack:///node_modules/pkg�]0;owned');
     expect(output).not.toContain('private source sentinel');
     expect(JSON.stringify(report)).not.toContain('private source sentinel');
-    expect(output).toContain('1 entry across analyzed bundle maps');
-    expect(output).toContain('1 static reference');
-    expect(output).toContain('1 analyzed / 1 discovered asset');
+    expect(output).toContain('1 source entry');
+    expect(output).toContain('1 JavaScript asset inspected');
+    expect(output).toContain('Analyzed maps for 1 of 1 discovered asset');
     expect(output).toContain('1 entry · 1 distinct resolved path in this map · 1 mapping segment');
-    expect(output).toContain('Entries can repeat across bundles');
+    expect(output).toContain('Source text is omitted from this report');
     expect(output).toContain('not full conformance');
   });
 
@@ -145,7 +179,7 @@ describe('grouped retrieval evidence', () => {
     expect(output).not.toContain('HTTP 302');
     expect(output).not.toContain('HTTP 404 · page.example');
     expect(output).toContain('3 advertised maps could not be retrieved');
-    expect(output).toContain('No map reference is normal; maps may be kept private.');
+    expect(output).toContain('Maps may be private or unlinked.');
     expect(output).not.toContain('shared.map');
     const verbose = render(report, { verbose: true });
     for (const bundle of report.bundles) expect(verbose).toContain(bundle.url);
@@ -186,7 +220,8 @@ describe('grouped retrieval evidence', () => {
     }, { maxRequests: 2, maxScripts: 2 });
     const output = render(report);
     expect(output).toContain('Scan limits: 2 JavaScript assets skipped · 1 bundle/map relationship limited.');
-    expect(output).toContain('0 no reference · 0 unavailable · 0 invalid');
+    expect(output).not.toContain('0 no reference');
+    expect(output).not.toContain('No source maps advertised');
     expect(output).toContain('first 2 of 3 static references');
     expect(output).not.toContain('Failed HTTP attempts');
     expect(report.requests).toHaveLength(2);
@@ -199,7 +234,7 @@ describe('grouped retrieval evidence', () => {
       'https://page.example/a.map': () => new Response('x'.repeat(300)),
     }, { maxResponseBytes: 200 });
     expect(render(report)).toContain('1 × resource limit (HTTP 200) · page.example');
-    expect(render(report)).toContain('0 unsupported · 1 limited');
+    expect(render(report)).toContain('1 bundle/map relationship limited');
     expect(render(report, { verbose: true })).toContain('Download byte limit reached');
   });
 

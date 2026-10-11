@@ -12,7 +12,7 @@ Current maintenance findings/checks are recorded once in [RM-12](docs/maintenanc
 
 ## Active work
 
-**RM-12 · parent agent · delivery blocked by network connectivity.** Runtime/test fixes and documentation consolidation are locally complete: 137 tests and installed-package smoke checks pass. Runtime commit: `3674312`. Next: push the maintenance commits and inspect CI when GitHub connectivity returns. Fresh registry installation also remains unverified. No other active task.
+None. RM-12 maintenance is complete; no next task is automatically authorized.
 
 ## Open queue
 
@@ -20,7 +20,6 @@ Current maintenance findings/checks are recorded once in [RM-12](docs/maintenanc
 
 | ID | Status | Work / next action |
 | --- | --- | --- |
-| RM-12 | blocked | Local maintenance complete; push and current-revision CI await connectivity. [Scope/evidence](docs/maintenance/2026-10-10.md) |
 | RM-01 | needs-evidence | Validate repeat usefulness on an authorized owner's deployments |
 | RM-06 | needs-evidence | Obtain paired owner reports and desired decision before implementing comparison |
 | RM-07 | needs-evidence | Identify a concrete unsupported case before extending standards coverage |
@@ -66,6 +65,7 @@ Blocked on package identity/ownership and publication authorization. When author
 | RM-05 | Bounded failure summaries | [Review](docs/agent-runs/0003-failure-presentation.md) |
 | RM-06a | Conservative comparison investigation; no production comparator | [Study](research/report-comparison-2026-10-10.md), [review](docs/agent-runs/0006-report-comparison.md) |
 | RM-11 | Agent onboarding and project memory | [Documentation index](docs/README.md), `1464a47` |
+| RM-12 | Runtime/test fixes, installed-package verification and documentation consolidation; pushed with Node 22/24 CI passing | [Maintenance evidence](docs/maintenance/2026-10-10.md), `3674312`, `9d5bd32` |
 
 ## Deliberately deferred
 

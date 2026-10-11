@@ -1,7 +1,7 @@
 // Manual release check. Installs only production dependencies into a fresh prefix/cache.
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, realpath, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { promisify } from 'node:util';
@@ -9,8 +9,8 @@ import { buildDemo, serveDemo } from '../examples/demo/fixture.mjs';
 
 const input = process.argv[2];
 if (!input || process.argv.length !== 3) throw new Error('Usage: node scripts/verify-install.mjs <tarball-or-package@version>');
-const spec = input.endsWith('.tgz') ? resolve(input) : input;
-const temporary = await mkdtemp(join(tmpdir(), 'sourcemapped-release-'));
+const spec = input.endsWith('.tgz') ? await realpath(resolve(input)) : input;
+const temporary = await realpath(await mkdtemp(join(tmpdir(), 'sourcemapped-release-')));
 const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 const env = { ...process.env, NO_COLOR: '1', npm_config_cache: join(temporary, 'cache'), npm_config_update_notifier: 'false' };
 const run = (command, args) => promisify(execFile)(command, args, { cwd: temporary, env, timeout: 60_000, maxBuffer: 1024 * 1024 });

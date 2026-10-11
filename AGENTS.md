@@ -1,6 +1,6 @@
 # Working on sourcemapped
 
-Read [ROADMAP.md](ROADMAP.md), check `git status`, and preserve unrelated changes. Work on the requested task; the roadmap is not permission to start another one.
+Check `git status` and preserve unrelated changes. Work on the requested task; documentation and open issues are not permission to start another one.
 
 ## Code
 
@@ -28,7 +28,7 @@ Read [ROADMAP.md](ROADMAP.md), check `git status`, and preserve unrelated change
 
 ## Documentation and delivery
 
-- README is for users; roadmap is for priorities; architecture/contract explain behavior; decisions explain tradeoffs. Link instead of repeating information.
+- README is for users; GitHub issues track concrete future work; architecture/contract explain behavior; decisions explain tradeoffs. Link instead of repeating information.
 - Replace outdated guidance rather than appending task logs. Add a rule only for a recurring failure that tests or tooling cannot address better.
 - Keep dated research clearly historical. Synthetic fixtures and successful scans do not establish demand or web-wide prevalence.
 - Make routine reversible decisions without extra approval. Honor the user's existing commit/push/publication instructions. Delegate only when asked; use `codex/` for new branches.

@@ -30,4 +30,4 @@ Users can audit the evidence, but cannot treat a checked map as proof of correct
 
 ## Revisit when
 
-Users need a deeper diagnostic and a maintained validator or precise metric solves it. Expand claims only with corresponding conformance/boundary fixtures. See RM-07 and RM-09 in the roadmap.
+Users need a deeper diagnostic and a maintained validator or precise metric solves it. Expand claims only with corresponding conformance/boundary fixtures.

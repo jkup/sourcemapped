@@ -70,6 +70,6 @@ From inside this checkout, scan a URL with `node dist/cli.js <url>`. Run the `np
 
 ## Contribute
 
-Run `npm run check` before submitting changes. Start with the [contributor guidance](https://github.com/jkup/sourcemapped/blob/main/AGENTS.md), [roadmap](https://github.com/jkup/sourcemapped/blob/main/ROADMAP.md), and [technical docs](https://github.com/jkup/sourcemapped/blob/main/docs/README.md).
+Run `npm run check` before submitting changes. Start with the [contributor guidance](https://github.com/jkup/sourcemapped/blob/main/AGENTS.md) and [technical docs](https://github.com/jkup/sourcemapped/blob/main/docs/README.md).
 
 [MIT licensed](https://github.com/jkup/sourcemapped/blob/main/LICENSE).

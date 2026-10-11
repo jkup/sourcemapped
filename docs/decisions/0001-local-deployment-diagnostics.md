@@ -24,4 +24,4 @@ No-reference is an ordinary outcome, not a warning that a website is misconfigur
 
 ## Revisit when
 
-Developers repeatedly use the tool on their own deployments and identify a concrete unmet workflow. Favor observed repeat use over favorable screenshots from a few hand-picked sites. The next validation step is recorded as RM-01 in the roadmap.
+Developers repeatedly use the tool on their own deployments and identify a concrete unmet workflow. Favor observed repeat use over favorable screenshots from a few hand-picked sites.

@@ -2,7 +2,6 @@
 
 - Status: Accepted
 - Date: 2026-10-10
-- Related roadmap item: RM-04
 - Extends: [ADR 0002](0002-bounded-advertised-map-discovery.md)
 
 ## Context

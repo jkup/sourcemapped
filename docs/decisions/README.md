@@ -1,6 +1,6 @@
 # Decision records
 
-ADRs record consequential choices and the evidence behind them. They describe accepted direction; [ROADMAP.md](../../ROADMAP.md) tracks implementation work and priority.
+ADRs record consequential choices and the evidence behind them. They describe accepted direction; [GitHub issues](https://github.com/jkup/sourcemapped/issues) track implementation work.
 
 | ID | Status | Decision |
 | --- | --- | --- |
@@ -13,4 +13,4 @@ ADRs record consequential choices and the evidence behind them. They describe ac
 
 Use [template.md](template.md) for a new decision. Assign the next unused four-digit ID and a descriptive filename. Include context, alternatives, consequences, evidence, and what would justify reconsideration. A short record is enough; ordinary fixes need no ADR.
 
-Statuses are `Proposed`, `Accepted`, `Superseded`, and `Rejected`. Accepted means chosen for this project, not standards conformance. To reverse a decision, add a replacement and mark the old record Superseded with a link; preserve its historical reasoning. Update this index and any affected roadmap items in the same change.
+Statuses are `Proposed`, `Accepted`, `Superseded`, and `Rejected`. Accepted means chosen for this project, not standards conformance. To reverse a decision, add a replacement and mark the old record Superseded with a link; preserve its historical reasoning. Update this index and any affected issues in the same change.

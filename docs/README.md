@@ -9,4 +9,4 @@
 - [Local demo](../examples/demo/README.md): repeatable mapped and unmapped builds.
 - [Research](../research/README.md): dated experiments and observations.
 
-Start with [AGENTS.md](../AGENTS.md) when changing the code. Current priorities live in [ROADMAP.md](../ROADMAP.md).
+Start with [AGENTS.md](../AGENTS.md) when changing the code. Track concrete future work in [GitHub issues](https://github.com/jkup/sourcemapped/issues).

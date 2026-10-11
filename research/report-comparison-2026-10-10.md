@@ -1,6 +1,6 @@
 # RM-06a: conservative saved-report comparison
 
-Date: 2026-10-10. **Synthetic investigation and proposed design, not a production feature or validated user workflow.** Scanner baseline: `dc55ac9` (the source after RM-04). [Harness](../scripts/report-comparison-study.mjs), [metadata evidence](report-comparison-2026-10-10.json), [current contract](../docs/report-contract.md), [unfinished RM-06](../ROADMAP.md#rm-06--saved-report-comparison).
+Date: 2026-10-10. **Synthetic investigation and proposed design, not a production feature or validated user workflow.** Scanner baseline: `dc55ac9` (the source after RM-04). [Harness](../scripts/report-comparison-study.mjs), [metadata evidence](report-comparison-2026-10-10.json), [current contract](../docs/report-contract.md).
 
 ## Hypothetical repeated deployment workflow
 

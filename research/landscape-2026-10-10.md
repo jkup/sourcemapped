@@ -4,7 +4,7 @@ Research and implementation began on **2026-10-10**. The experiments preceded th
 
 **Decision: build a small deployment-inspection CLI, but do not claim the “interesting on any popular website” idea is validated.** Only two of sixteen sampled sites exposed usable maps. URL discovery already exists in competing tools. The opportunity is a clear, local report that aggregates evidence and distinguishes unavailable maps from unadvertised ones.
 
-The MVP inspects a single document and its static script/preload references, with direct JavaScript URLs as an equally important input. It reports metadata without recovering files. Speculative URL probes, browser automation, framework guesses, generated-byte coverage, and image export are deferred. See [ROADMAP.md](../ROADMAP.md) for priorities and [EVALUATION.md](evaluation-2026-10-10.md) for the production CLI rerun.
+The MVP inspects a single document and its static script/preload references, with direct JavaScript URLs as an equally important input. It reports metadata without recovering files. Speculative URL probes, browser automation, framework guesses, generated-byte coverage, and image export are deferred. See [the evaluation](evaluation-2026-10-10.md) for the production CLI rerun.
 
 ## Competitive landscape and product implications
 

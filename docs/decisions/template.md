@@ -2,7 +2,7 @@
 
 - Status: Proposed
 - Date: YYYY-MM-DD
-- Related roadmap item: RM-XX
+- Related issue: omit if not applicable
 - Supersedes / superseded by: omit if not applicable
 
 ## Context

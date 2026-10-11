@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-10-10
-- Evidence: [baseline experiment](../../RESEARCH.md), [MVP evaluation](../../EVALUATION.md)
+- Evidence: [baseline experiment](../../research/landscape-2026-10-10.md), [MVP evaluation](../../research/evaluation-2026-10-10.md)
 - Implementation: [discovery](../../src/discover.ts), [networking](../../src/network.ts)
 
 ## Context

@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-10-10
-- Evidence: [research](../../RESEARCH.md), [MVP evaluation](../../EVALUATION.md)
+- Evidence: [research](../../research/landscape-2026-10-10.md), [MVP evaluation](../../research/evaluation-2026-10-10.md)
 
 ## Context
 

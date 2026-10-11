@@ -1,6 +1,6 @@
 # MVP evaluation
 
-Evaluated **2026-10-10** using the built TypeScript scanner on the same 16 homepages as the preliminary study. Reproduce with `npm run build && node scripts/evaluate.mjs`. Full structured evidence lives in [`research/mvp.json`](research/mvp.json); no original source content is persisted.
+Evaluated **2026-10-10** using the built TypeScript scanner on the same 16 homepages as the preliminary study. Reproduce with `npm run build && node scripts/evaluate.mjs`. Full structured evidence lives in [`research/mvp.json`](mvp.json); no original source content is persisted.
 
 The evaluation uses the production scanner with its defaults: 24 inspected script/preload references per page, 60 HTTP requests maximum per scan including redirects, three concurrent requests per scan, eight-second HTTP timeout, 8 MiB per response, and 64 MiB total response bytes. The evaluation harness runs at most two sites concurrently. It does not guess sibling `.map` URLs. This differs from the baseline's 12 assets and optional guessing, so bundle-level percentages are not a controlled before/after performance comparison.
 

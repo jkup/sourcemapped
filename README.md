@@ -100,7 +100,7 @@ npm pack         # build a publishable tarball; does not publish
 
 Production dependencies: `htmlparser2` for HTML and `@jridgewell/trace-mapping` for maps. Native Node APIs handle networking, arguments, and terminal output.
 
-[GitHub Actions CI](.github/workflows/ci.yml) runs `npm ci` and `npm run check` on pushes and pull requests for supported Node LTS versions. It needs no configured secrets and runs no public-site scans. See [CI maintenance](docs/ci.md) for version selection and [RM-02 evidence](docs/agent-runs/0001-ci.md).
+[GitHub Actions CI](.github/workflows/ci.yml) runs `npm ci` and `npm run check` on pushes and pull requests for supported Node LTS versions. It needs no configured secrets and runs no public-site scans. See [CI maintenance](docs/ci.md) for version selection and [RM-02 evidence](https://github.com/jkup/sourcemapped/blob/25f7f49/docs/agent-runs/0001-ci.md).
 
 ```text
 src/discover.ts   HTML references, target URLs, map linkage
@@ -123,4 +123,4 @@ node scripts/evaluate.mjs   # same sites through the production scanner
 
 **As a focused diagnostic utility, cautiously yes. As a reveal-any-website spectacle, not yet.** Only GitHub and MDN yielded analyzable maps among sixteen sampled homepages. The MVP found 21 checked maps among 212 inspected assets, while 371 other static references remained outside the sample. Conventional `.map` guesses found nothing in the baseline. These are convenience-sample observations, not web-wide prevalence estimates.
 
-Website discovery, source recovery, validation, and treemaps already exist in other tools. This project's distinction is a bounded local report that makes the evidence understandable without exporting source code. See [RESEARCH.md](RESEARCH.md), the [MVP evaluation](EVALUATION.md), and [ROADMAP.md](ROADMAP.md). MIT licensed.
+Website discovery, source recovery, validation, and treemaps already exist in other tools. This project's distinction is a bounded local report that makes the evidence understandable without exporting source code. See [RESEARCH.md](research/landscape-2026-10-10.md), the [MVP evaluation](research/evaluation-2026-10-10.md), and [ROADMAP.md](ROADMAP.md). MIT licensed.

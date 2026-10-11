@@ -5,8 +5,8 @@
 In progress: prepare `@jkup/sourcemapped@0.1.0` for npm.
 
 - [x] Simplify repository documentation.
-- [ ] Set package identity and verify a clean installation.
-- [ ] Add a logo and concise README with usage examples.
+- [x] Set package identity and verify a clean installation.
+- [x] Add a logo and concise README with usage examples.
 - [ ] Publish, test the registry package, and tag the release.
 
 ## Next

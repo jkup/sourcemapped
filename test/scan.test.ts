@@ -1,12 +1,17 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { scan } from '../src/scan.js';
 
 const sourceMap = JSON.stringify({ version: 3, sources: ['src/app.ts'], sourcesContent: ['const PRIVATE_SOURCE_SENTINEL = 42;'], names: [], mappings: 'AAAA' });
+const unexpectedRequests: string[] = [];
+afterEach(() => expect(unexpectedRequests.splice(0)).toEqual([]));
 function routes(entries: Record<string, () => Response>): typeof fetch {
   return vi.fn(async (input: string | URL | Request) => {
     const url = String(input);
     const entry = entries[url];
-    if (!entry) throw new Error(`Unexpected request: ${url}`);
+    if (!entry) {
+      unexpectedRequests.push(url); // scan catches errors; also fail outside its catch boundary.
+      throw new Error(`Unexpected request: ${url}`);
+    }
     return entry();
   }) as typeof fetch;
 }
@@ -16,6 +21,33 @@ function js(body: string, headers: Record<string, string> = {}) {
 function html(body: string) { return new Response(body, { headers: { 'content-type': 'text/html' } }); }
 
 describe('scan integration', () => {
+  it.each([404, 429])('retains received HTTP %i separately from an origin pause', async status => {
+    const report = await scan('example.com', { fetchImpl: routes({
+      'https://example.com/': () => html('<script src="app.js"></script>'),
+      'https://example.com/app.js': () => new Response(null, { status }),
+    }) });
+    const serialized = JSON.parse(JSON.stringify(report));
+    expect(serialized.bundles[0]).toMatchObject({
+      status: 'fetch-failed', httpStatus: status, errorCode: status === 429 ? 'rate-limited' : 'http',
+    });
+    expect(serialized.requests).toHaveLength(2);
+  });
+
+  it('fetches a shared map once when references differ only by fragment', async () => {
+    const fetchImpl = routes({
+      'https://example.com/': () => html('<script src="a.js"></script><script src="b.js"></script>'),
+      'https://example.com/a.js': () => js('//# sourceMappingURL=shared.map#first'),
+      'https://example.com/b.js': () => js('//# sourceMappingURL=shared.map#second'),
+      'https://example.com/shared.map': () => new Response(sourceMap),
+    });
+    const report = await scan('example.com', { fetchImpl, limits: { maxRequests: 4, concurrency: 1 } });
+    expect(report.summary).toMatchObject({ mapsChecked: 2, mapsLimited: 0 });
+    expect(report.requests.filter(request => request.url.endsWith('/shared.map'))).toHaveLength(1);
+    expect(report.bundles.map(bundle => bundle.map?.url)).toEqual([
+      'https://example.com/shared.map#first', 'https://example.com/shared.map#second',
+    ]);
+  });
+
   it('preserves direct-JavaScript intent across opaque redirects and strips HTTP anti-XSSI', async () => {
     const report = await scan('https://example.com/app.js', { fetchImpl: routes({
       'https://example.com/app.js': () => new Response(null, { status: 302, headers: { location: '/opaque/download' } }),
@@ -58,7 +90,7 @@ describe('scan integration', () => {
     });
     const report = await scan('example.com', { fetchImpl });
     expect(report.summary).toMatchObject({ noReference: 1, mapsUnavailable: 1, mapsInvalid: 1, mapsUnsupported: 1, mapsRetrieved: 2, mapsChecked: 0 });
-    expect(report.bundles[1]?.map).toMatchObject({ status: 'unavailable', httpStatus: 404, retrieved: false });
+    expect(report.bundles[1]?.map).toMatchObject({ status: 'unavailable', httpStatus: 404, errorCode: 'http', retrieved: false });
   });
 
   it.each(['text/html', 'application/xhtml+xml'])('does not classify a %s asset fallback as missing map references', async contentType => {
@@ -146,5 +178,6 @@ describe('scan integration', () => {
       }),
     });
     expect(report.summary).toMatchObject({ mapsLimited: 1, mapsInvalid: 0, mapsUnavailable: 0 });
+    expect(report.bundles[0]?.map?.errorCode).toBe('limit');
   });
 });

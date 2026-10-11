@@ -106,9 +106,17 @@ export function discoverMapReference(source: string, headers: Headers): MapRefer
   const legacy = headers.get('x-sourcemap');
   if (legacy !== null) return { reference: legacy, kind: 'legacy-header' };
 
-  const lines = source.split(/\r\n|[\n\r\u2028\u2029]/);
-  for (let i = lines.length - 1; i >= 0; i--) {
-    const line = lines[i]!.trimStart();
+  // Walk backward without allocating an array for every line of an untrusted bundle.
+  let end = source.length;
+  while (end >= 0) {
+    let start = end;
+    while (start > 0) {
+      const code = source.charCodeAt(start - 1);
+      if (code === 10 || code === 13 || code === 0x2028 || code === 0x2029) break;
+      start--;
+    }
+    const line = source.slice(start, end).trimStart();
+    end = start - 1;
     if (!line) continue;
     if (!line.startsWith('//')) return null;
     const comment = line.slice(2);

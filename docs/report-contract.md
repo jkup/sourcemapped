@@ -33,6 +33,10 @@ The CLI's `--json` output is a single JSON document on stdout. The authoritative
 
 `referenceKind` distinguishes `header`, `legacy-header`, and `annotation`. A map's `retrieved` flag means a network response body or decoded inline payload became available for analysis, not that it passed checks. A malformed inline payload can therefore be `invalid` with `retrieved: false`. Inline maps use the literal label `(inline data URL)` instead of exporting their payload. `httpStatus` is optional and is not applicable to inline maps; request evidence preserves per-hop network outcomes.
 
+Bundle/map observations may include `errorCode` from the existing network failure vocabulary: `http`, `network`, `timeout`, `limit`, `rate-limited`, or `url`. Bundles may also include `httpStatus`, as maps already do. Human `error` text is not a stable machine discriminator. Typed fetch failures preserve their code and associated status; successful JavaScript retrieval records its HTTP status. Untyped errors and historical reports can omit these fields.
+
+A `rate-limited` error with status 429 is a received response; without `httpStatus` it is a pre-request origin pause (possibly following an earlier redirect hop). Missing `errorCode` is unknown, not an inferred classification. These additive fields retain schema 1; see [ADR 0005](decisions/0005-structured-retrieval-evidence.md).
+
 ## Count invariants
 
 For a normally completed scan:

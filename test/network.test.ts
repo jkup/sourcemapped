@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { decodeInlineMap, Fetcher } from '../src/network.js';
+import { readFileSync } from 'node:fs';
+
+const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 
 function mockFetch(handler: (url: string, init?: RequestInit) => Response | Promise<Response>): typeof fetch {
   return vi.fn((input: string | URL | Request, init?: RequestInit) => Promise.resolve(handler(String(input), init))) as typeof fetch;
@@ -16,7 +19,7 @@ describe('bounded networking', () => {
     const fetchImpl = mockFetch((url, init) => {
       expect(init?.redirect).toBe('manual');
       expect(init?.credentials).toBe('omit');
-      expect(new Headers(init?.headers).get('user-agent')).toMatch(/^sourcemapped\//);
+      expect(new Headers(init?.headers).get('user-agent')).toBe(`${manifest.name}/${manifest.version} (+https://github.com/jkup/sourcemapped)`);
       return url.endsWith('/start') ? new Response(null, { status: 302, headers: { location: './final#fragment' } }) : new Response('ok');
     });
     const client = new Fetcher({}, fetchImpl);

@@ -47,7 +47,9 @@ function run(command: string, args: string[], cwd = root) {
       cwd, encoding: 'utf8', timeout: 15_000, maxBuffer: 1024 * 1024,
       env: { ...process.env, NO_COLOR: '1' },
     }, (error, stdout, stderr) => {
-      if (error && (typeof error.code !== 'number' || error.killed)) reject(error);
+      if (error && (typeof error.code !== 'number' || error.killed)) {
+        reject(new Error(`${command} ${args.join(' ')} ${error.killed ? 'timed out' : 'failed'}\nstdout:\n${stdout}\nstderr:\n${stderr}`, { cause: error }));
+      }
       else resolveResult({ code: error?.code as number | undefined ?? 0, stdout, stderr });
     });
   });
@@ -203,7 +205,8 @@ describe('built CLI', () => {
 
   it('runs the declared entry point from the packed artifact outside the checkout', async () => {
     // npm test already built dist; suppress prepack to avoid a second compilation.
-    const packed = await run('npm', ['pack', '--ignore-scripts', '--offline', '--json', '--cache', join(temporary, 'npm-cache'), '--pack-destination', temporary]);
+    // npm's background update check can outlive an otherwise completed offline pack.
+    const packed = await run('npm', ['pack', '--ignore-scripts', '--offline', '--update-notifier=false', '--json', '--cache', join(temporary, 'npm-cache'), '--pack-destination', temporary]);
     expect(packed.code, packed.stderr).toBe(0);
     const [artifact] = JSON.parse(packed.stdout);
     expect(artifact.files.map((file: { path: string }) => file.path)).toContain('dist/cli.js');
@@ -216,6 +219,7 @@ describe('built CLI', () => {
     const entry = resolve(packageRoot, packaged.bin.sourcemapped);
     expect(dirname(entry)).toBe(join(packageRoot, 'dist'));
     expect(await readFile(entry, 'utf8')).toMatch(/^#!\/usr\/bin\/env node\n/);
+    expect(await run(process.execPath, [entry, '--version'], temporary)).toEqual({ code: 0, stdout: `${packaged.version}\n`, stderr: '' });
     const result = await run(process.execPath, [entry, `${origin}/app.js`, '--json'], temporary);
     expect(result.code, result.stderr).toBe(0);
     expect(result.stderr).toBe('');

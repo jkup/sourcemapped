@@ -11,8 +11,8 @@ function short(value: string, width = 95): string {
   return safe.length > width ? `${safe.slice(0, width - 1)}…` : safe;
 }
 
-function counted(count: number, noun: string): string {
-  return `${count} ${noun}${count === 1 ? '' : 's'}`;
+function counted(count: number, singular: string, plural = `${singular}s`): string {
+  return `${count.toLocaleString('en-US')} ${count === 1 ? singular : plural}`;
 }
 
 // Count attempts, not bundle/map relationships: shared maps are fetched once, and
@@ -46,13 +46,13 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   const cyan = (value: string) => options.color ? `\x1b[36m${value}\x1b[39m` : value;
   const lines = ['', `  ${bold('sourcemapped')}  ${short(report.finalUrl ?? report.target)}`, ''];
   if (report.error) lines.push(`  Could not inspect target: ${safeText(report.error)}`, '');
-  lines.push(`  ├─ JavaScript  ${s.discovered} ${report.scope === 'static-html' ? 'static references' : 'direct asset'}`);
+  lines.push(`  ├─ JavaScript  ${counted(s.discovered, report.scope === 'static-html' ? 'static reference' : 'direct asset')}`);
   lines.push(`  │  ${s.inspected} inspected · ${s.scriptFailures} failed · ${s.skipped} skipped`);
-  lines.push(`  ├─ Source maps  ${cyan(`${s.mapsChecked} analyzed`)} / ${s.discovered} discovered assets`);
+  lines.push(`  ├─ Source maps  ${cyan(`${s.mapsChecked} analyzed`)} / ${counted(s.discovered, 'discovered asset')}`);
   lines.push(`  │  ${s.noReference} no reference · ${s.mapsUnavailable} unavailable · ${s.mapsInvalid} invalid`);
   if (s.mapsUnsupported || s.mapsLimited) lines.push(`  │  ${s.mapsUnsupported} unsupported · ${s.mapsLimited} limited`);
   if (s.sourceEntries) {
-    lines.push(`  ├─ Original sources  ${s.sourceEntries.toLocaleString('en-US')} entries across analyzed bundle maps`);
+    lines.push(`  ├─ Original sources  ${counted(s.sourceEntries, 'entry', 'entries')} across analyzed bundle maps`);
     lines.push(`  │  ${s.embeddedSources.toLocaleString('en-US')} / ${s.sourceEntries.toLocaleString('en-US')} contain embedded content`);
     const languages = Object.entries(s.languages).sort((a, b) => b[1] - a[1]).map(([name, count]) => `${count} ${name}`);
     lines.push(`  │  ${languages.join(' · ')}`);
@@ -64,9 +64,8 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   const findings: string[] = [];
   if (!s.mapsChecked && !report.error) findings.push('No analyzable public maps found within this scan.');
   // Paused calls have no RequestEvidence entry unless an earlier redirect was attempted.
-  const pauseMessage = 'Origin paused after a rate-limit response';
-  const pausedScripts = report.bundles.filter(bundle => bundle.error === pauseMessage).length;
-  const pausedMaps = report.bundles.filter(bundle => bundle.map?.error === pauseMessage).length;
+  const pausedScripts = report.bundles.filter(bundle => bundle.errorCode === 'rate-limited' && bundle.httpStatus === undefined).length;
+  const pausedMaps = report.bundles.filter(bundle => bundle.map?.errorCode === 'rate-limited' && bundle.map.httpStatus === undefined).length;
   if (pausedScripts || pausedMaps) findings.push(`Origin pause blocked ${counted(pausedScripts, 'JavaScript asset')} and ${counted(pausedMaps, 'bundle/map relationship')}; see --verbose.`);
   if (s.skipped || s.mapsLimited) findings.push(`Scan limits: ${counted(s.skipped, 'JavaScript asset')} skipped · ${counted(s.mapsLimited, 'bundle/map relationship')} limited.`);
   if (s.noReference) findings.push('No map reference is normal; maps may be kept private.');
@@ -98,7 +97,7 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
         if (analysis) {
           lines.push(...analysis.errors.map(error => `    Error: ${safeText(error)}`), ...analysis.warnings.map(warning => `    Note: ${safeText(warning)}`));
           if (analysis.status === 'checked') {
-            lines.push(`    ${analysis.sourceEntries} entries · ${analysis.uniqueSourcePaths} distinct resolved paths in this map · ${analysis.mappingCount} mapping segments`);
+            lines.push(`    ${counted(analysis.sourceEntries, 'entry', 'entries')} · ${counted(analysis.uniqueSourcePaths, 'distinct resolved path')} in this map · ${counted(analysis.mappingCount, 'mapping segment')}`);
             lines.push(...analysis.pathSamples.map(path => `      ${safeText(path)}`));
             lines.push(...analysis.packages.map(entry => `    Package path: ${safeText(entry.name)} ← ${safeText(entry.examples[0] ?? '')}`));
           }

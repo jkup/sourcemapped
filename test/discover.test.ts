@@ -66,6 +66,11 @@ describe('HTML discovery', () => {
 
 describe('source-map references', () => {
   const discover = (source: string) => discoverMapReference(source, new Headers());
+  it('handles newline-heavy bundles without changing trailing-comment semantics', () => {
+    const trailing = '\r\n\u2028\u2029'.repeat(50_000);
+    expect(discover(`run();\n//# sourceMappingURL=app.map${trailing}`)).toEqual({ reference: 'app.map', kind: 'annotation' });
+    expect(discover(`run();${trailing}`)).toBeNull();
+  });
   it('prioritizes standard and legacy headers over annotations', () => {
     const source = '//# sourceMappingURL=inline.map';
     expect(discoverMapReference(source, new Headers({ SourceMap: 'standard.map', 'X-SourceMap': 'legacy.map' })))

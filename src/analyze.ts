@@ -154,7 +154,8 @@ export function analyzeMap(raw: string, mapUrl: string, generatedSource?: string
       const extension = /\.([a-z0-9]+)$/i.exec(path)?.[1]?.toLowerCase();
       const extensionLabel = extension ? `.${extension}` : '(none)';
       result.extensions[extensionLabel] = (result.extensions[extensionLabel] ?? 0) + 1;
-      const language = (extension && languageByExtension[extension]) || 'Other';
+      const language = extension && Object.hasOwn(languageByExtension, extension)
+        ? languageByExtension[extension]! : 'Other';
       result.languages[language] = (result.languages[language] ?? 0) + 1;
       // Use the innermost node_modules segment, including pnpm's nested layout.
       const evidence = /(?:^|\/)node_modules\//.test(path) ? source : (resolved ?? source);

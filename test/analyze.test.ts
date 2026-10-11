@@ -7,6 +7,13 @@ const analyze = (overrides: Record<string, unknown> = {}, generated?: string) =>
 }), url, generated);
 
 describe('analyzeMap', () => {
+  it('treats inherited object-property names as unknown filename extensions', () => {
+    const result = analyze({ sources: ['app.constructor', 'app.CONSTRUCTOR', 'app.toString', 'app.__proto__', 'app.ts'] });
+    expect(result.status).toBe('checked');
+    expect(result.languages).toEqual({ Other: 4, TypeScript: 1 });
+    expect(Object.values(result.languages).reduce((sum, count) => sum + count, 0)).toBe(result.sourceEntries);
+  });
+
   it('counts entries separately from resolved paths and includes empty embedded sources', () => {
     const result = analyze({ sources: ['../src/app.ts', '../src/./app.ts', null], sourcesContent: ['', null, 'unknown source'] });
     expect(result).toMatchObject({ status: 'checked', sourceEntries: 3, uniqueSourcePaths: 1, embeddedSources: 2, languages: { TypeScript: 2, Unknown: 1 }, mappingCount: 1 });

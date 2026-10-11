@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { parseArgs } from 'node:util';
 import { DEFAULT_LIMITS } from './network.js';
+import { VERSION } from './package.js';
 import { render, safeText } from './render.js';
 import { scan } from './scan.js';
 
@@ -9,12 +10,12 @@ const help = `sourcemapped — what's behind this website's production JavaScrip
 Usage: sourcemapped <website-or-javascript-url> [--json] [--verbose] [--max-assets N]
 
   --max-assets N  Select first N static script/preload references (default: ${DEFAULT_LIMITS.maxScripts})
-                  Decimal integer 1–9007199254740991; other budgets still apply
-  --json       Structured metadata and request evidence, no source contents
-  --verbose    Show bundle URLs, map references, paths, and diagnostics
-  --no-color   Disable terminal colors (also honors NO_COLOR)
-  --help       Show this help
-  --version    Show version
+                 Decimal integer 1–9007199254740991; other budgets still apply
+  --json         Structured metadata and request evidence, no source contents
+  --verbose      Show bundle URLs, map references, paths, and diagnostics
+  --no-color     Disable terminal colors (also honors NO_COLOR)
+  --help         Show this help
+  --version      Show version
 
 Inspects one HTML page or one direct JavaScript URL.
 The asset limit applies only to HTML; it does not guarantee more maps.
@@ -32,7 +33,7 @@ try {
     },
   });
   if (values.help) process.stdout.write(help);
-  else if (values.version) process.stdout.write('0.1.0\n');
+  else if (values.version) process.stdout.write(`${VERSION}\n`);
   else {
     if (positionals.length !== 1) throw new Error('Provide one website or JavaScript URL. Use --help for usage.');
     const rawMaxAssets = values['max-assets'];

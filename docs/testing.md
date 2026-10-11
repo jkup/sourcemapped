@@ -3,12 +3,23 @@
 Run `npm ci` once to install the committed dependencies. The test suite then requires no external network, credentials, environment files, or separately started services.
 
 ```sh
-npm run check                   # typecheck, build once, run all tests
+npm run check                   # typecheck, doc links, build once, run all tests
 npm test                        # build once, run all tests
 npm test -- test/cli.test.ts     # build once, run executable/package tests
 ```
 
-`pretest` builds before Vitest, so executable tests cannot silently consume stale `dist/` through these commands. `check` calls `npm test` after typechecking and does not build again. For iteration after a successful build, `npx --no-install vitest run test/cli.test.ts` reuses that build; rebuild first if runtime source changed. Normal `npm pack` still builds through `prepack`. The package test uses `npm pack --ignore-scripts --offline` because the test command has already built the artifact.
+`pretest` builds before Vitest, so executable tests cannot silently consume stale `dist/` through these commands. `check` checks local Markdown file links and calls `npm test` after typechecking and does not build again. For iteration after a successful build, `npx --no-install vitest run test/cli.test.ts` reuses that build; rebuild first if runtime source changed. Normal `npm pack` still builds through `prepack`. The package test uses `npm pack --ignore-scripts --offline --update-notifier=false` because the test command has already built the artifact.
+
+The update notifier is disabled explicitly: it is unrelated to the artifact and has kept npm child processes alive after offline packing completed. Child failures include captured stdout/stderr, and finite timeouts remain in place. Investigate a timeout before changing its duration; never treat output alone as successful process completion.
+
+`npm run check:docs` verifies local inline Markdown link targets in root/docs/research files without network access. It checks file existence, not remote URLs, heading fragments or claim accuracy; those remain review responsibilities.
+
+## Change-specific checks
+
+- For changed limits, verify invalid input makes no requests and other effective budgets stay fixed; cover useful extra results and exhaustion before the selected count.
+- For presentation, inspect actual output at relevant zero/one/many and truncation boundaries. Avoid assertions that freeze obvious wording errors.
+- For packaging/entry-point changes, inspect `npm pack --dry-run` contents and exercise a locally installed tarball. Distinguish reused dependencies from a clean install, and preserve the actual checks in the handoff. A small reversible negative control can establish that the intended failure is detected.
+- Injected fetch errors can be caught by the scanner and look like legitimate failures. Fixture guards also assert unexpected requests outside that catch boundary.
 
 ## Environment
 

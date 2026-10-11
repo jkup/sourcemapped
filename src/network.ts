@@ -1,3 +1,5 @@
+import { USER_AGENT } from './package.js';
+
 export const DEFAULT_LIMITS = {
   maxRequests: 60,
   maxScripts: 24,
@@ -72,7 +74,7 @@ export class Fetcher {
         const response = await this.fetchImpl(url, {
           signal,
           redirect: 'manual',
-          headers: { 'User-Agent': 'sourcemapped/0.1.0 (+https://github.com/jkup/sourcemapped)', Accept: '*/*' },
+          headers: { 'User-Agent': USER_AGENT, Accept: '*/*' },
           credentials: 'omit',
         });
         entry.status = response.status;

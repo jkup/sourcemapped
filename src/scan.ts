@@ -1,6 +1,6 @@
 import { analyzeMap, type MapAnalysis } from './analyze.js';
 import { discoverMapReference, discoverScripts, normalizeTarget } from './discover.js';
-import { decodeInlineMap, Fetcher, FetchFailure, type Limits, type Resource, type RequestEvidence } from './network.js';
+import { decodeInlineMap, Fetcher, FetchFailure, type FailureCode, type Limits, type Resource, type RequestEvidence } from './network.js';
 
 export interface MapResult {
   url: string;
@@ -10,6 +10,7 @@ export interface MapResult {
   finalUrl?: string;
   httpStatus?: number;
   error?: string;
+  errorCode?: FailureCode;
   analysis?: MapAnalysis;
 }
 
@@ -20,6 +21,8 @@ export interface BundleResult {
   finalUrl?: string;
   bytes?: number;
   error?: string;
+  errorCode?: FailureCode;
+  httpStatus?: number;
   map?: MapResult;
 }
 
@@ -73,9 +76,14 @@ export async function scan(target: string, options: { limits?: Partial<Limits>; 
       }
       bundle.finalUrl = resource.url;
       bundle.bytes = resource.bytes;
+      bundle.httpStatus = resource.status;
     } catch (error) {
       bundle.status = error instanceof FetchFailure && error.code === 'limit' ? 'skipped' : 'fetch-failed';
       bundle.error = message(error);
+      if (error instanceof FetchFailure) {
+        bundle.errorCode = error.code;
+        bundle.httpStatus = error.status;
+      }
       return;
     }
     const reference = discoverMapReference(resource.text, resource.headers);
@@ -92,12 +100,17 @@ export async function scan(target: string, options: { limits?: Partial<Limits>; 
         catch (error) {
           map.status = error instanceof FetchFailure ? 'limited' : 'invalid';
           map.error = message(error);
+          if (error instanceof FetchFailure) map.errorCode = error.code;
           return;
         }
       } else {
-        map.url = new URL(reference.reference, resource.url).href;
-        let pending = mapCache.get(map.url);
-        if (!pending) { pending = client.get(map.url); mapCache.set(map.url, pending); }
+        const mapUrl = new URL(reference.reference, resource.url);
+        map.url = mapUrl.href;
+        // Fragments remain reference evidence, but never identify distinct HTTP resources.
+        mapUrl.hash = '';
+        const cacheKey = mapUrl.href;
+        let pending = mapCache.get(cacheKey);
+        if (!pending) { pending = client.get(cacheKey); mapCache.set(cacheKey, pending); }
         const downloaded = await pending;
         map.finalUrl = downloaded.url;
         map.httpStatus = downloaded.status;
@@ -113,6 +126,7 @@ export async function scan(target: string, options: { limits?: Partial<Limits>; 
       map.status = error instanceof FetchFailure && error.code === 'limit' ? 'limited' : 'unavailable';
       map.httpStatus = error instanceof FetchFailure ? error.status : undefined;
       map.error = message(error);
+      if (error instanceof FetchFailure) map.errorCode = error.code;
     }
   }
 

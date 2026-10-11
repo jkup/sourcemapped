@@ -4,6 +4,8 @@
 
 # sourcemapped
 
+[![npm version](https://img.shields.io/npm/v/@jkup/sourcemapped)](https://www.npmjs.com/package/@jkup/sourcemapped)
+
 **Check the source maps you ship.**
 
 Source maps help debug production JavaScript, but they can also make your original source code public. Give sourcemapped a URL to see which bundles link to maps, whether those maps load, and whether they contain source code.

@@ -1,13 +1,24 @@
 {
-  "name": "sourcemapped",
+  "name": "@jkup/sourcemapped",
   "version": "0.1.0",
   "description": "Explore the public source maps behind a website's JavaScript.",
   "type": "module",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/jkup/sourcemapped.git" },
-  "bin": { "sourcemapped": "dist/cli.js" },
-  "files": ["dist", "README.md", "LICENSE"],
-  "engines": { "node": ">=22.12.0" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkup/sourcemapped.git"
+  },
+  "bin": {
+    "sourcemapped": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "build": "tsc",
     "demo": "npm run --silent build && node examples/demo/run.mjs",
@@ -28,5 +39,14 @@
     "esbuild": "^0.28.2",
     "typescript": "^7.0.2",
     "vitest": "^5.0.3"
+  },
+  "author": "Jon Kuperman",
+  "homepage": "https://github.com/jkup/sourcemapped",
+  "bugs": {
+    "url": "https://github.com/jkup/sourcemapped/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }

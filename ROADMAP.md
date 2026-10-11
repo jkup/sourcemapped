@@ -12,7 +12,7 @@ Current maintenance findings/checks are recorded once in [RM-12](docs/maintenanc
 
 ## Active work
 
-None. RM-14 improves terminal presentation and adds a mixed demo scenario; RM-01 still awaits evidence of a recurring owner need.
+None. RM-14 provides compact terminal reports and a single-scenario demo (--all opts into comparison); RM-01 still awaits evidence of a recurring owner need.
 
 ## Open queue
 

@@ -173,7 +173,7 @@ describe('built CLI', () => {
     const result = await cli([origin, '--no-color', ...args]);
     expect(result.code).toBe(0);
     expect(result.stderr).toBe('');
-    expect(result.stdout).toContain('Analyzed maps for 2 of 2 discovered assets');
+    expect(result.stdout).toContain(args.includes('--verbose') ? 'Analyzed maps for 2 of 2 discovered assets' : '2 assets mapped');
     expect(result.stdout).not.toContain('\x1b');
     expectMetadataOnly(result.stdout);
     if (args.includes('--verbose')) {

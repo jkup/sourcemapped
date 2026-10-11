@@ -12,6 +12,20 @@ beforeAll(async () => {
 });
 afterAll(async () => { await demo?.close(); });
 
+it.each([false, true])('keeps demo output compact (all=%s)', async all => {
+  const result = await promisify(execFile)(process.execPath, [
+    fileURLToPath(new URL('../examples/demo/run.mjs', import.meta.url)), ...(all ? ['--all'] : []),
+  ], { timeout: 15_000, maxBuffer: 1024 * 1024 });
+  expect(result.stderr).toBe('');
+  expect(result.stdout.match(/◇ sourcemapped/g)).toHaveLength(all ? 3 : 1);
+  expect(result.stdout).toContain('/mixed/');
+  expect(result.stdout).not.toContain('Expect ');
+  if (!all) {
+    expect(result.stdout.trim().split('\n')).toHaveLength(6);
+    expect(result.stdout).not.toContain('/mapped/');
+  }
+});
+
 it.each(['mapped', 'unmapped', 'mixed'])('scans the real %s build through the CLI', async mode => {
   if (!demo) throw new Error('Demo server did not start');
   demo.requests.length = 0;

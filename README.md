@@ -24,28 +24,22 @@ To use the command locally, run `npm link`, then `sourcemapped <url>`. The inten
 
 ## What you get
 
-For a repeatable local example, run `npm run demo` after `npm ci`. It builds and scans the same small TypeScript app with and without source maps, prints concise reports for mapped, unmapped and mixed pages, and exits. Use `npm run demo -- --serve` to keep the pages open for browser exploration. See the [demo guide](examples/demo/README.md).
+For a repeatable local example, run `npm run demo` after `npm ci`. It builds and scans the same small TypeScript app with and without source maps, prints one compact mixed-page report, and exits. Use `npm run --silent demo -- --serve` to keep the pages open for browser exploration. Add `--all` to compare all three scenarios. See the [demo guide](examples/demo/README.md).
 
 A default report leads with the result (example from the local mixed demo):
 
 ```text
-  sourcemapped  · explore the source behind the bundle
-  http://127.0.0.1:PORT/mixed/
+  ◇ sourcemapped  http://127.0.0.1:PORT/mixed/
 
-  ✓ Maps analyzed for 1 JavaScript asset
-  Analyzed maps for 1 of 2 discovered assets.
+  ✓ 1 asset mapped   ○ 1 asset without a map reference
+    2 TypeScript source entries · 2 with source text
 
-  2 source entries  2 TypeScript (by filename)
-  2 of 2 include original source text in the maps.
-  Source text is omitted from this report.
-
-  1 asset did not advertise a map. Maps may be private or unlinked.
-  Analyzed = basic structure and mapping checks passed, not full conformance.
+  Static scan · --verbose for details
 ```
 
-Result icons and color distinguish analyzed maps, incomplete scans and target failures; no advertised maps is a neutral observation. Zero-valued outcome counters and successful HTTP logs are omitted from the default view. Failed requests and limits remain visible. Byte totals use B/KiB/MiB and describe decoded responses, not wire transfer sizes.
+Result icons and color distinguish analyzed maps, incomplete scans and target failures; no advertised maps is a neutral observation. Zero-valued outcome counters and successful HTTP logs are omitted from the default view. Failed requests and limits remain visible. Verbose output includes explanations, paths, requests and B/KiB/MiB decoded byte totals. Compact “mapped” counts mean assets whose maps passed the implemented checks; they are not unique map counts or full-conformance claims.
 
-The complete report also shows scope, sampling limits, requests, and downloaded bytes. Colors are enabled only on a terminal; `NO_COLOR` and `--no-color` disable them. Progress uses stderr, keeping stdout clean.
+Failures and skipped/limited assets remain visible in compact output; `--verbose` adds full scope and validation caveats, requests, and downloaded bytes. Colors are enabled only on a terminal; `NO_COLOR` and `--no-color` disable them. Progress uses stderr, keeping stdout clean.
 
 ```sh
 sourcemapped <website-or-javascript-url>

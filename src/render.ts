@@ -53,20 +53,28 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     : incomplete ? '! Scan incomplete — map availability is unknown'
     : !s.discovered ? '○ No external JavaScript discovered'
     : '○ No source maps advertised';
-  const lines = ['', `  ${bold('sourcemapped')}  ${muted('· explore the source behind the bundle')}`,
-    `  ${short(report.finalUrl ?? report.target)}`, '',
-    `  ${paint(report.error ? 31 : incomplete || (!s.mapsChecked && advertised) ? 33 : s.mapsChecked ? 36 : 37, bold(headline))}`];
+  const mapped = `${incomplete ? '◐' : '✓'} ${counted(s.mapsChecked, 'asset')} mapped`;
+  const unmapped = `○ ${counted(s.noReference, 'asset')} without a map reference`;
+  const compactHeadline = report.error || (!s.mapsChecked && !s.noReference) ? headline
+    : [s.mapsChecked ? mapped : '', s.noReference ? unmapped : ''].filter(Boolean).join('   ');
+  const lines = ['', `  ${bold('◇ sourcemapped')}  ${short(report.finalUrl ?? report.target, 75)}`, '',
+    `  ${paint(report.error ? 31 : incomplete || (!s.mapsChecked && advertised) ? 33 : s.mapsChecked ? 36 : 37, bold(options.verbose ? headline : compactHeadline))}`];
   if (report.error) lines.push(`  ${safeText(report.error)}`);
-  if (s.mapsChecked) lines.push(`  Analyzed maps for ${s.mapsChecked} of ${counted(s.discovered, 'discovered asset')}.`);
+  if (options.verbose && s.mapsChecked) lines.push(`  Analyzed maps for ${s.mapsChecked} of ${counted(s.discovered, 'discovered asset')}.`);
   if (s.sourceEntries) {
     const languages = Object.entries(s.languages).sort((a, b) => b[1] - a[1]).map(([name, count]) => `${count} ${safeText(name)}`);
-    lines.push('', `  ${bold(counted(s.sourceEntries, 'source entry', 'source entries'))}  ${languages.join(' · ')} (by filename)`,
-      `  ${s.embeddedSources} of ${s.sourceEntries} include original source text in the maps.`,
-      muted('  Source text is omitted from this report.'));
-    if (s.mapsChecked > 1) lines.push(muted('  Entries can repeat across bundles; extensions describe filenames.'));
+    if (options.verbose) {
+      lines.push('', `  ${bold(counted(s.sourceEntries, 'source entry', 'source entries'))}  ${languages.join(' · ')} (by filename)`,
+        `  ${s.embeddedSources} of ${s.sourceEntries} include original source text in the maps.`,
+        muted('  Source text is omitted from this report.'));
+      if (s.mapsChecked > 1) lines.push(muted('  Entries can repeat across bundles; extensions describe filenames.'));
+    } else {
+      const language = Object.keys(s.languages).length === 1 ? `${safeText(Object.keys(s.languages)[0]!)} ` : '';
+      lines.push(`    ${counted(s.sourceEntries, `${language}source entry`, `${language}source entries`)} · ${s.embeddedSources} with source text`);
+    }
   }
   const findings: string[] = [];
-  if (s.noReference) findings.push(`${counted(s.noReference, 'asset')} did not advertise a map. Maps may be private or unlinked.`);
+  if (options.verbose && s.noReference) findings.push(`${counted(s.noReference, 'asset')} did not advertise a map. Maps may be private or unlinked.`);
   if (s.scriptFailures) findings.push(`${counted(s.scriptFailures, 'JavaScript asset')} could not be inspected.`);
   if (s.mapsUnavailable) findings.push(`${counted(s.mapsUnavailable, 'advertised map')} could not be retrieved; see --verbose for evidence.`);
   if (s.mapsInvalid) findings.push(`${counted(s.mapsInvalid, 'map')} failed basic validation.`);
@@ -81,13 +89,13 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     if (bundle.map?.analysis?.status !== 'checked') continue;
     for (const entry of bundle.map.analysis.packages) packageNames.add(entry.name);
   }
-  if (packageNames.size) findings.push(`Package paths mention ${[...packageNames].slice(0, 6).join(', ')}${packageNames.size > 6 ? ', …' : ''}.`);
+  if (options.verbose && packageNames.size) findings.push(`Package paths mention ${[...packageNames].slice(0, 6).join(', ')}${packageNames.size > 6 ? ', …' : ''}.`);
   const mapWarnings = new Set(report.bundles.flatMap(bundle => bundle.map?.analysis?.warnings ?? []));
   for (const warning of [...mapWarnings].slice(0, 4)) findings.push(warning);
   if (findings.length) lines.push('', ...findings.map(finding => `  ${short(finding, 120)}`));
   const outcomes = requestOutcomes(report.requests);
   if (outcomes.length) lines.push('', paint(33, '  ! Failed HTTP attempts by host (not affected bundles)'), ...outcomes);
-  if (s.mapsChecked) lines.push(muted('  Analyzed = basic structure and mapping checks passed, not full conformance.'));
+  if (options.verbose && s.mapsChecked) lines.push(muted('  Analyzed = basic structure and mapping checks passed, not full conformance.'));
 
   if (options.verbose) {
     lines.push('', '  Evidence');
@@ -114,13 +122,15 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     lines.push('', '  HTTP requests');
     for (const request of report.requests) lines.push(`  ${request.status ?? '—'} ${safeText(request.url)}${request.error ? ` · ${safeText(request.error)}` : ''}`);
   }
-  lines.push('', muted(`  ${counted(s.inspected, 'JavaScript asset')} inspected · ${counted(report.requests.length, 'request')} · ${formatBytes(s.downloadedBytes)} decoded`));
-  lines.push(muted(report.scope === 'static-html'
-    ? '  Scope: static page references only; imports, other routes and inline scripts excluded.'
-    : '  Scope: one JavaScript asset; imports and original source files are not fetched.'));
-  const warnings = options.verbose ? report.warnings : report.warnings.filter(warning => !warning.startsWith('Static HTML only:'));
-  lines.push(...warnings.map(warning => `  ${short(warning, 140)}`));
-  if (!options.verbose) lines.push(muted('  → Use --verbose for paths and request details, or --json for data.'));
+  if (options.verbose) {
+    lines.push('', muted(`  ${counted(s.inspected, 'JavaScript asset')} inspected · ${counted(report.requests.length, 'request')} · ${formatBytes(s.downloadedBytes)} decoded`));
+    lines.push(muted(report.scope === 'static-html'
+      ? '  Scope: static page references only; imports, other routes and inline scripts excluded.'
+      : '  Scope: one JavaScript asset; imports and original source files are not fetched.'));
+    lines.push(...report.warnings.map(warning => `  ${short(warning, 140)}`));
+  } else {
+    lines.push('', muted(`  ${report.scope === 'static-html' ? 'Static scan' : 'Single-asset scan'} · --verbose for details`));
+  }
   lines.push('');
   return `${lines.join('\n')}\n`;
 }

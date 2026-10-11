@@ -6,7 +6,7 @@ From the repository root, after `npm ci`:
 npm run demo
 ```
 
-This builds the scanner and bundles a tiny TypeScript counter with esbuild in two modes, starts a server on an OS-assigned `127.0.0.1` port, scans three scenarios using the real CLI, prints concise reports, and closes the server. No public website or external service is involved. Build artifacts are generated in memory and never committed.
+This builds the scanner and bundles a tiny TypeScript counter with esbuild in two modes, starts a server on an OS-assigned `127.0.0.1` port, scans the mixed page using the real CLI, prints one compact report, and closes the server. No public website or external service is involved. Build artifacts are generated in memory and never committed.
 
 | Page | Build | Expected report |
 | --- | --- | --- |
@@ -17,8 +17,10 @@ This builds the scanner and bundles a tiny TypeScript counter with esbuild in tw
 To keep the server open and try the counter in a browser:
 
 ```sh
-npm run demo -- --serve
+npm run --silent demo -- --serve
 ```
+
+The `--silent` npm option hides npm command banners, not build errors. Use `npm run --silent demo -- --all` to print all three reports, or combine `--all --serve`.
 
 Open the printed `/mixed/` URL and use the navigation to switch scenarios. Clicking the button increments the counter. You can also pass any scenario URL to `node dist/cli.js <url> --json` in another terminal. Ctrl+C stops the server. The port changes between runs; no fixed-port service, hosting or deployment is required.
 

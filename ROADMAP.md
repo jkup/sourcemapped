@@ -2,12 +2,12 @@
 
 ## First release
 
-In progress: prepare `@jkup/sourcemapped@0.1.0` for npm.
+`@jkup/sourcemapped@0.1.0` is available on [npm](https://www.npmjs.com/package/@jkup/sourcemapped).
 
 - [x] Simplify repository documentation.
 - [x] Set package identity and verify a clean installation.
 - [x] Add a logo and concise README with usage examples.
-- [ ] Publish, test the registry package, and tag the release.
+- [x] Publish, test the registry package, and tag the release.
 
 ## Next
 

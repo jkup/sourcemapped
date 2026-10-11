@@ -16,6 +16,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 | What do JSON fields and statuses mean? | [Report contract](report-contract.md) |
 | Why was this scope chosen? | [Decision records](decisions/README.md) |
 | Does the product idea hold up? | [Research](../RESEARCH.md) and [MVP evaluation](../EVALUATION.md) |
+| What has an owner-provided deployment shown? | [RM-01 exploratory observation](../research/jonkuperman-2026-10-10.md) |
 | How do sampling policies compare on controlled fixtures? | [RM-04a offline study](../research/sampling-2026-10-10.md) |
 | What can saved-report comparisons safely establish? | [RM-06a offline study and proposed semantics](../research/report-comparison-2026-10-10.md) |
 | Where is the supporting evidence? | [Baseline snapshot](../research/baseline.json) and [MVP snapshot](../research/mvp.json) |

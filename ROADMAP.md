@@ -12,7 +12,7 @@ Current maintenance findings/checks are recorded once in [RM-12](docs/maintenanc
 
 ## Active work
 
-None. RM-12 maintenance is complete; no next task is automatically authorized.
+None. The initial RM-01 owner-provided exploratory scan is recorded; further work awaits a concrete owner question or feedback.
 
 ## Open queue
 
@@ -30,6 +30,8 @@ None. RM-12 maintenance is complete; no next task is automatically authorized.
 ### RM-01 — Validate repeat usefulness
 
 Use owner-provided deployments/feedback, not unsolicited outreach or another generic site scan. Record dated feedback: task, decision improved, repeat use, limitations. Recommend continue/narrow/stop. Do not invent participant counts, adoption or popularity thresholds.
+
+[Initial owner observation](research/jonkuperman-2026-10-10.md): jonkuperman.com was scanned for exploration; the owner reports no recurring need yet. This does not meet repeat-use acceptance or justify a new feature.
 
 ### RM-06 — Saved-report comparison
 

@@ -32,6 +32,9 @@ describe('terminal report', () => {
     expect(output).not.toContain('HTTP requests');
     expect(output).not.toContain('PRIVATE_DEMO_TEXT');
     expect(output).toContain('\x1b[36m');
+    expect(output).toContain('\x1b[39m○ 1 asset without a map reference\x1b[0m');
+    expect(output).toContain('1 with embedded source');
+    expect(output.split('\n').find(line => line.includes('--verbose for details'))).toBe('  Static scan · --verbose for details');
     expect(render(report)).not.toContain('\x1b');
   });
 

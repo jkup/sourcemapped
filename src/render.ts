@@ -55,10 +55,11 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     : '○ No source maps advertised';
   const mapped = `${incomplete ? '◐' : '✓'} ${counted(s.mapsChecked, 'asset')} mapped`;
   const unmapped = `○ ${counted(s.noReference, 'asset')} without a map reference`;
-  const compactHeadline = report.error || (!s.mapsChecked && !s.noReference) ? headline
-    : [s.mapsChecked ? mapped : '', s.noReference ? unmapped : ''].filter(Boolean).join('   ');
+  const headlineColor = report.error ? 31 : incomplete || (!s.mapsChecked && advertised) ? 33 : s.mapsChecked ? 36 : 39;
+  const compactHeadline = report.error || (!s.mapsChecked && !s.noReference) ? paint(headlineColor, bold(headline))
+    : [s.mapsChecked ? paint(incomplete ? 33 : 36, bold(mapped)) : '', s.noReference ? paint(39, unmapped) : ''].filter(Boolean).join('   ');
   const lines = ['', `  ${bold('◇ sourcemapped')}  ${short(report.finalUrl ?? report.target, 75)}`, '',
-    `  ${paint(report.error ? 31 : incomplete || (!s.mapsChecked && advertised) ? 33 : s.mapsChecked ? 36 : 37, bold(options.verbose ? headline : compactHeadline))}`];
+    `  ${options.verbose ? paint(headlineColor, bold(headline)) : compactHeadline}`];
   if (report.error) lines.push(`  ${safeText(report.error)}`);
   if (options.verbose && s.mapsChecked) lines.push(`  Analyzed maps for ${s.mapsChecked} of ${counted(s.discovered, 'discovered asset')}.`);
   if (s.sourceEntries) {
@@ -70,7 +71,7 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
       if (s.mapsChecked > 1) lines.push(muted('  Entries can repeat across bundles; extensions describe filenames.'));
     } else {
       const language = Object.keys(s.languages).length === 1 ? `${safeText(Object.keys(s.languages)[0]!)} ` : '';
-      lines.push(`    ${counted(s.sourceEntries, `${language}source entry`, `${language}source entries`)} · ${s.embeddedSources} with source text`);
+      lines.push(`    ${counted(s.sourceEntries, `${language}source entry`, `${language}source entries`)} · ${s.embeddedSources} with embedded source`);
     }
   }
   const findings: string[] = [];
@@ -129,7 +130,7 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
       : '  Scope: one JavaScript asset; imports and original source files are not fetched.'));
     lines.push(...report.warnings.map(warning => `  ${short(warning, 140)}`));
   } else {
-    lines.push('', muted(`  ${report.scope === 'static-html' ? 'Static scan' : 'Single-asset scan'} · --verbose for details`));
+    lines.push('', `  ${report.scope === 'static-html' ? 'Static scan' : 'Single-asset scan'} · --verbose for details`);
   }
   lines.push('');
   return `${lines.join('\n')}\n`;

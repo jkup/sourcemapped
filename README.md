@@ -32,7 +32,7 @@ A default report leads with the result (example from the local mixed demo):
   ◇ sourcemapped  http://127.0.0.1:PORT/mixed/
 
   ✓ 1 asset mapped   ○ 1 asset without a map reference
-    2 TypeScript source entries · 2 with source text
+    2 TypeScript source entries · 2 with embedded source
 
   Static scan · --verbose for details
 ```

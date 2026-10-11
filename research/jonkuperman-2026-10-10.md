@@ -15,6 +15,16 @@ The supported finding is that neither inspected external script advertised a map
 
 ## Product implication and next evidence
 
+### Follow-up: daily.jonkuperman.com
+
+At the user's request, scanned `https://daily.jonkuperman.com/` at `2026-10-11T04:49:40.102Z` (October 10 locally), using revision `3b63a012815128ff15515f459826ffedb7a7e31d`, Node 26.10.0 and unchanged default budgets. Rebuilt, then ran `node dist/cli.js https://daily.jonkuperman.com/ --json`; exit status 0. [Original metadata report](daily-jonkuperman-2026-10-10.json).
+
+The homepage and both discovered external scripts returned HTTP 200. The external scripts were Google's analytics script and Cloudflare's analytics beacon; neither advertised a map. No first-party external JavaScript reference was discovered in this homepage response. One inline script was counted but not inspected. Zero assets failed or were skipped; no scan limit was reached. Total decoded response bytes: 532,873. Inspected verbose rendering of this same saved report without rescanning.
+
+This is another no-reference observation within static scope, not proof of absent maps across the site or of how the site was built. The owner supplied another URL for exploration; no recurring need or deployment decision has yet been reported.
+
+### Assessment
+
 The CLI completed a bounded diagnostic successfully, but this site provided no map metadata to explore. The owner has not yet reported a recurring task or a decision enabled by the result. RM-01 remains needs-evidence; no grade, repeat-use claim or feature demand follows from this run.
 
 Recommendation: retain the current narrow scope. If the owner later encounters a real debugging or publication question, use that question and an explicitly supplied deployment to test usefulness. Do not enable production maps, broaden discovery or build saved-report comparison merely to manufacture a richer demo. No reusable agent-guidance failure was observed, so AGENTS.md is unchanged.

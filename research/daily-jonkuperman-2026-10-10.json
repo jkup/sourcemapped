@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "target": "https://daily.jonkuperman.com/",
+  "scannedAt": "2026-10-11T04:49:40.102Z",
+  "scope": "static-html",
+  "limits": {
+    "maxRequests": 60,
+    "maxScripts": 24,
+    "concurrency": 3,
+    "timeoutMs": 8000,
+    "scanTimeoutMs": 90000,
+    "maxResponseBytes": 8388608,
+    "maxTotalBytes": 67108864,
+    "maxRedirects": 5
+  },
+  "warnings": [
+    "Static HTML only: imports, lazy chunks, workers, other routes, and inline scripts are not inspected. Preloads may never execute."
+  ],
+  "inlineScripts": 1,
+  "bundles": [
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-36ERW4KTTP",
+      "kind": "script",
+      "status": "no-reference",
+      "finalUrl": "https://www.googletagmanager.com/gtag/js?id=G-36ERW4KTTP",
+      "bytes": 471940,
+      "httpStatus": 200
+    },
+    {
+      "url": "https://static.cloudflareinsights.com/beacon.min.js",
+      "kind": "script",
+      "status": "no-reference",
+      "finalUrl": "https://static.cloudflareinsights.com/beacon.min.js",
+      "bytes": 31679,
+      "httpStatus": 200
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://daily.jonkuperman.com/",
+      "bytes": 29254,
+      "status": 200
+    },
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-36ERW4KTTP",
+      "bytes": 471940,
+      "status": 200
+    },
+    {
+      "url": "https://static.cloudflareinsights.com/beacon.min.js",
+      "bytes": 31679,
+      "status": 200
+    }
+  ],
+  "summary": {
+    "discovered": 2,
+    "inspected": 2,
+    "skipped": 0,
+    "scriptFailures": 0,
+    "noReference": 2,
+    "mapsRetrieved": 0,
+    "mapsChecked": 0,
+    "mapsInvalid": 0,
+    "mapsUnsupported": 0,
+    "mapsUnavailable": 0,
+    "mapsLimited": 0,
+    "sourceEntries": 0,
+    "embeddedSources": 0,
+    "languages": {},
+    "downloadedBytes": 532873
+  },
+  "finalUrl": "https://daily.jonkuperman.com/"
+}

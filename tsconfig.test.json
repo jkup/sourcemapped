@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": { "rootDir": ".", "noEmit": true },
-  "include": ["src/**/*.ts", "test/**/*.ts"]
+  "compilerOptions": { "rootDir": ".", "noEmit": true, "allowJs": true, "checkJs": true },
+  "include": ["src/**/*.ts", "test/**/*.ts", "examples/demo/**/*.ts", "examples/demo/**/*.mjs"]
 }

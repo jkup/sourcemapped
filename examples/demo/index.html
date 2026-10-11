@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sourcemapped demo</title>
+  <style>
+    body { max-width: 40rem; margin: 4rem auto; padding: 0 1rem; font: 18px/1.6 system-ui; color: #18303c; background: #f4f7f8; }
+    button { padding: .7rem 1.2rem; font: inherit; cursor: pointer; }
+    a { color: #075c9a; }
+  </style>
+  <h1>A tiny app, two builds</h1>
+  <p>The same TypeScript counter runs with embedded-source maps or without maps.</p>
+  <nav><a href="/mapped/">With maps</a> · <a href="/unmapped/">Without maps</a></nav>
+  <p><button id="counter" type="button">Loading counter…</button></p>
+  <script type="module" src="./app.js"></script>
+</html>

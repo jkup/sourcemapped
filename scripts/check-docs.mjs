@@ -18,6 +18,7 @@ const files = [
   ...await markdownFiles(root, false),
   ...await markdownFiles(join(root, 'docs')),
   ...await markdownFiles(join(root, 'research')),
+  ...await markdownFiles(join(root, 'examples')),
 ];
 let checked = 0;
 const failures = [];

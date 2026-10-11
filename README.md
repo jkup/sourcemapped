@@ -24,6 +24,8 @@ To use the command locally, run `npm link`, then `sourcemapped <url>`. The inten
 
 ## What you get
 
+For a repeatable local example, run `npm run demo` after `npm ci`. It builds and scans the same small TypeScript app with and without source maps, prints both reports, and exits. Use `npm run demo -- --serve` to keep the pages open for browser exploration. See the [demo guide](examples/demo/README.md).
+
 An excerpt from the real MDN scan on 2026-10-10 (sites change):
 
 ```text
@@ -103,7 +105,7 @@ npm pack         # build a publishable tarball; does not publish
 
 Production dependencies: `htmlparser2` for HTML and `@jridgewell/trace-mapping` for maps. Native Node APIs handle networking, arguments, and terminal output.
 
-[GitHub Actions CI](.github/workflows/ci.yml) runs `npm ci` and `npm run check` on pushes and pull requests for supported Node LTS versions. It needs no configured secrets and runs no public-site scans. See [CI maintenance](docs/ci.md) for version selection and [RM-02](ROADMAP.md#rm-02--continuous-integration) for verification evidence.
+[GitHub Actions CI](.github/workflows/ci.yml) runs `npm ci` and `npm run check` on pushes and pull requests for supported Node LTS versions. It needs no configured secrets and runs no public-site scans. See [CI maintenance](docs/ci.md) for version selection and [RM-02 evidence](docs/agent-runs/0001-ci.md).
 
 ```text
 src/discover.ts   HTML references, target URLs, map linkage

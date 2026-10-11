@@ -12,7 +12,7 @@ npm test -- test/cli.test.ts     # build once, run executable/package tests
 
 The update notifier is disabled explicitly: it is unrelated to the artifact and has kept npm child processes alive after offline packing completed. Child failures include captured stdout/stderr, and finite timeouts remain in place. Investigate a timeout before changing its duration; never treat output alone as successful process completion.
 
-`npm run check:docs` verifies local inline Markdown link targets in root/docs/research files without network access. It checks file existence, not remote URLs, heading fragments or claim accuracy; those remain review responsibilities.
+`npm run check:docs` verifies local inline Markdown link targets in root/docs/research/examples files without network access. It checks file existence, not remote URLs, heading fragments or claim accuracy; those remain review responsibilities.
 
 ## Change-specific checks
 
@@ -28,6 +28,8 @@ In addition to the [supported Node/npm setup](../README.md#try-it), executable t
 The suite closes its HTTP server and removes its temporary package/cache directory in teardown. Child processes have finite timeouts and bounded captured output. The fixture is served asynchronously so child fetches cannot deadlock the test process.
 
 ## Observable coverage and limits
+
+[Demo integration tests](../test/demo.test.ts) build the [committed demo](../examples/demo/README.md) using development-only esbuild, serve mapped/unmapped variants on loopback, and run the real CLI. They validate source/mapping metadata, embedded-source omission and exact request boundaries against fresh bundler output. Both cases run in the normal suite; demo source/tooling are included in strict typechecking. The interactive counter is available through `npm run demo -- --serve`; the automated scanner tests do not execute browser code.
 
 [CLI tests](../test/cli.test.ts) execute `dist/cli.js` in a separate Node process. They cover help/version (including short aliases and package-version agreement), invalid flags/arity/schemes, JSON parsing and stdout/stderr separation, default and verbose reports, target HTTP failure exit status, successful completion despite an unavailable advertised map, and omission of synthetic generated/original content, symbol names, and inline payloads. The successful JSON scan checks the exact fixture requests to guard against fetching original source URLs. Assertions avoid timestamps, chosen ports, byte totals, and concurrent request ordering.
 

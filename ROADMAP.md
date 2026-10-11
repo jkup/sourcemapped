@@ -12,7 +12,7 @@ Current maintenance findings/checks are recorded once in [RM-12](docs/maintenanc
 
 ## Active work
 
-None. The initial RM-01 owner-provided exploratory scan is recorded; further work awaits a concrete owner question or feedback.
+None. RM-13 adds a repeatable local demo; RM-01 still awaits evidence of a recurring owner need.
 
 ## Open queue
 
@@ -68,6 +68,7 @@ Blocked on package identity/ownership and publication authorization. When author
 | RM-06a | Conservative comparison investigation; no production comparator | [Study](research/report-comparison-2026-10-10.md), [review](docs/agent-runs/0006-report-comparison.md) |
 | RM-11 | Agent onboarding and project memory | [Documentation index](docs/README.md), `1464a47` |
 | RM-12 | Runtime/test fixes, installed-package verification and documentation consolidation; pushed with Node 22/24 CI passing | [Maintenance evidence](docs/maintenance/2026-10-10.md), `3674312`, `9d5bd32` |
+| RM-13 | Local real-bundler demo, mapped/unmapped builds and CLI regression checks | [Demo and verification](examples/demo/README.md), [ADR 0006](docs/decisions/0006-local-bundler-demo.md) |
 
 ## Deliberately deferred
 

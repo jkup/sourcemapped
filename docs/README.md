@@ -11,6 +11,7 @@ Start with [AGENTS.md](../AGENTS.md) for the working protocol and [ROADMAP.md](.
 | What changed in the maintenance pass? | [RM-12 maintenance evidence](maintenance/2026-10-10.md) |
 | Where does a behavior belong? | [Architecture](architecture.md) |
 | How do executable/package tests run locally? | [Test setup and coverage](testing.md) |
+| Can I try a repeatable app with real source maps? | [Local demo](../examples/demo/README.md) |
 | What does CI run and how are its versions maintained? | [CI maintenance](ci.md) |
 | How did observed agent tasks perform? | [Agent run reviews](agent-runs/README.md) |
 | What do JSON fields and statuses mean? | [Report contract](report-contract.md) |

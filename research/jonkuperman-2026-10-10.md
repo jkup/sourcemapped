@@ -23,7 +23,13 @@ The homepage and both discovered external scripts returned HTTP 200. The externa
 
 This is another no-reference observation within static scope, not proof of absent maps across the site or of how the site was built. The owner supplied another URL for exploration; no recurring need or deployment decision has yet been reported.
 
-### Assessment
+### Follow-up: rejected.us
+
+At the user's request, scanned `https://rejected.us/` at `2026-10-11T04:50:25.334Z` (October 10 locally), using revision `6bad7bebd48661a2ca88ec8bee78866b29974e21`, Node 26.10.0 and unchanged default budgets. Rebuilt, then ran `node dist/cli.js https://rejected.us/ --json`; exit status 0. [Original metadata report](rejected-2026-10-10.json). The user supplied this target for exploration; ownership of this domain was not separately stated.
+
+The homepage and both external scripts returned HTTP 200. The scripts were Google Analytics and a CloudFront-hosted `main.fe4fe43d.js` bundle. Neither advertised a map through supported discovery. One inline script was counted but not inspected; zero failures, skipped assets or exhausted limits. Total decoded response bytes: 557,600. Verbose rendering was inspected from the saved report without another scan. These observations do not establish absence of maps elsewhere or explain the deployment's build configuration.
+
+### Overall assessment
 
 The CLI completed a bounded diagnostic successfully, but this site provided no map metadata to explore. The owner has not yet reported a recurring task or a decision enabled by the result. RM-01 remains needs-evidence; no grade, repeat-use claim or feature demand follows from this run.
 

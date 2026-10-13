@@ -1,6 +1,6 @@
 {
   "name": "@jkup/sourcemapped",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Explore the public source maps behind a website's JavaScript.",
   "type": "module",
   "license": "MIT",

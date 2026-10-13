@@ -21,6 +21,23 @@ function js(body: string, headers: Record<string, string> = {}) {
 function html(body: string) { return new Response(body, { headers: { 'content-type': 'text/html' } }); }
 
 describe('scan integration', () => {
+  it('reports maplint failures as retrieved invalid maps without aggregating their sources', async () => {
+    const report = await scan('https://example.com/app.js', { fetchImpl: routes({
+      'https://example.com/app.js': () => js('//# sourceMappingURL=app.map'),
+      'https://example.com/app.map': () => new Response(JSON.stringify({
+        version: 3, sources: ['src/app.ts'], sourcesContent: ['PRIVATE_SOURCE'],
+        names: ['PRIVATE_NAME'], mappings: 'ACAA',
+      })),
+    }) });
+    expect(report.bundles[0]?.map).toMatchObject({
+      status: 'invalid', retrieved: true,
+      analysis: { status: 'invalid', errors: [expect.stringContaining('referencing "sources[1]"')] },
+    });
+    expect(report.summary).toMatchObject({ inspected: 1, mapsRetrieved: 1, mapsInvalid: 1, mapsChecked: 0, sourceEntries: 0, embeddedSources: 0 });
+    expect(report.requests).toHaveLength(2);
+    expect(JSON.stringify(report)).not.toContain('PRIVATE_');
+  });
+
   it.each([404, 429])('retains received HTTP %i separately from an origin pause', async status => {
     const report = await scan('example.com', { fetchImpl: routes({
       'https://example.com/': () => html('<script src="app.js"></script>'),

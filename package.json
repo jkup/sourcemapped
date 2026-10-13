@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "@jridgewell/trace-mapping": "^0.3.31",
-    "htmlparser2": "^12.0.0"
+    "htmlparser2": "^12.0.0",
+    "maplint": "0.8.2"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

@@ -31,6 +31,8 @@ The CLI's `--json` output is a single JSON document on stdout. The authoritative
 | `unavailable` | Advertised resource could not be retrieved, including unsupported network schemes. |
 | `limited` | Fetch/inline-decoding budget prevented analysis. |
 
+Validation errors may come from maplint’s in-memory validators; their human-readable wording is not a stable machine discriminator. The integration preserves statuses and count meanings; see [ADR 0007](decisions/0007-maplint-validators.md).
+
 `referenceKind` distinguishes `header`, `legacy-header`, and `annotation`. A map's `retrieved` flag means a network response body or decoded inline payload became available for analysis, not that it passed checks. A malformed inline payload can therefore be `invalid` with `retrieved: false`. Inline maps use the literal label `(inline data URL)` instead of exporting their payload. `httpStatus` is optional and is not applicable to inline maps; request evidence preserves per-hop network outcomes.
 
 Bundle/map observations may include `errorCode` from the existing network failure vocabulary: `http`, `network`, `timeout`, `limit`, `rate-limited`, or `url`. Bundles may also include `httpStatus`, as maps already do. Human `error` text is not a stable machine discriminator. Typed fetch failures preserve their code and associated status; successful JavaScript retrieval records its HTTP status. Untyped errors and historical reports can omit these fields.

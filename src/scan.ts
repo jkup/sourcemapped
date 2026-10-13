@@ -120,7 +120,7 @@ export async function scan(target: string, options: { limits?: Partial<Limits>; 
         if (raw.startsWith(")]}'")) raw = raw.replace(/^[^\r\n]*(?:\r\n|[\r\n])?/, '');
       }
       map.retrieved = true;
-      map.analysis = analyzeMap(raw, baseUrl, resource.text);
+      map.analysis = await analyzeMap(raw, baseUrl, resource.text);
       map.status = map.analysis.status;
     } catch (error) {
       map.status = error instanceof FetchFailure && error.code === 'limit' ? 'limited' : 'unavailable';

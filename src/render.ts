@@ -15,6 +15,26 @@ function counted(count: number, singular: string, plural = `${singular}s`): stri
   return `${count.toLocaleString('en-US')} ${count === 1 ? singular : plural}`;
 }
 
+function mapFailureLocations(report: Report): string[] {
+  const page = report.finalUrl ?? report.target;
+  const location = (value: string, base: string): string => {
+    try {
+      const url = new URL(value, base);
+      return url.origin === new URL(page).origin ? `${url.pathname}${url.search}${url.hash}` : url.href;
+    } catch { return value; }
+  };
+  const locations = new Set<string>();
+  for (const bundle of report.bundles) {
+    const map = bundle.map;
+    if (map?.status !== 'invalid') continue;
+    const script = bundle.finalUrl ?? bundle.url;
+    locations.add(map.url === '(inline data URL)' || /^data:/i.test(map.url)
+      ? `inline map in ${location(script, page)}`
+      : location(map.finalUrl ?? map.url, script));
+  }
+  return [...locations];
+}
+
 // Count attempts, not bundle/map relationships: shared maps are fetched once, and
 // redirect failures belong to the host that actually returned the response.
 function requestOutcomes(requests: RequestEvidence[]): string[] {
@@ -45,9 +65,11 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   const paint = (code: number, value: string) => options.color ? `\x1b[${code}m${value}\x1b[0m` : value;
   const bold = (value: string) => paint(1, value);
   const muted = (value: string) => paint(2, value);
+  const errorLine = (value: string) => paint(31, bold(`× ERROR: ${value}`));
+  const warningLine = (value: string) => paint(33, bold(`! WARNING: ${value}`));
   const incomplete = Boolean(s.scriptFailures || s.skipped || s.mapsLimited);
   const advertised = s.mapsChecked + s.mapsUnavailable + s.mapsInvalid + s.mapsUnsupported + s.mapsLimited;
-  const headline = report.error ? '× Could not inspect this target'
+  const headline = report.error ? '× ERROR: Could not inspect this target'
     : s.mapsChecked ? `${incomplete ? '◐' : '✓'} Maps analyzed for ${counted(s.mapsChecked, 'JavaScript asset')}`
     : advertised ? '! Map references found, none analyzed'
     : incomplete ? '! Scan incomplete — map availability is unknown'
@@ -58,7 +80,21 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   const headlineColor = report.error ? 31 : incomplete || (!s.mapsChecked && advertised) ? 33 : s.mapsChecked ? 36 : 39;
   const compactHeadline = report.error || (!s.mapsChecked && !s.noReference) ? paint(headlineColor, bold(headline))
     : [s.mapsChecked ? paint(incomplete ? 33 : 36, bold(mapped)) : '', s.noReference ? paint(39, unmapped) : ''].filter(Boolean).join('   ');
+  // Put actionable outcomes before successful-map metadata, even in mixed reports.
+  // Text labels carry the same hierarchy in redirected or NO_COLOR output.
+  const alerts: string[] = [];
+  if (s.mapsInvalid) {
+    alerts.push(errorLine(`${counted(s.mapsInvalid, 'map')} failed basic validation.`));
+    const locations = mapFailureLocations(report);
+    alerts.push(...locations.slice(0, 3).map(location => `  → ${short(location, 110)}`));
+    if (locations.length > 3) alerts.push(`  and ${locations.length - 3} more · --verbose for details`);
+  }
+  if (s.scriptFailures) alerts.push(errorLine(`${counted(s.scriptFailures, 'JavaScript asset')} could not be inspected.`));
+  if (s.mapsUnavailable) alerts.push(warningLine(`${counted(s.mapsUnavailable, 'advertised map')} could not be retrieved.`));
+  if (s.mapsUnsupported) alerts.push(warningLine(`${counted(s.mapsUnsupported, 'map')} could not be analyzed: unsupported format or analysis limit.`));
+  if (s.skipped || s.mapsLimited) alerts.push(warningLine(`Scan limits: ${counted(s.skipped, 'JavaScript asset')} skipped · ${counted(s.mapsLimited, 'bundle/map relationship')} limited.`));
   const lines = ['', `  ${bold('◇ sourcemapped')}  ${short(report.finalUrl ?? report.target, 75)}`, '',
+    ...alerts.map(alert => `  ${alert}`), ...(alerts.length ? [''] : []),
     `  ${options.verbose ? paint(headlineColor, bold(headline)) : compactHeadline}`];
   if (report.error) lines.push(`  ${safeText(report.error)}`);
   if (options.verbose && s.mapsChecked) lines.push(`  Analyzed maps for ${s.mapsChecked} of ${counted(s.discovered, 'discovered asset')}.`);
@@ -76,15 +112,10 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   }
   const findings: string[] = [];
   if (options.verbose && s.noReference) findings.push(`${counted(s.noReference, 'asset')} did not advertise a map. Maps may be private or unlinked.`);
-  if (s.scriptFailures) findings.push(`${counted(s.scriptFailures, 'JavaScript asset')} could not be inspected.`);
-  if (s.mapsUnavailable) findings.push(`${counted(s.mapsUnavailable, 'advertised map')} could not be retrieved; see --verbose for evidence.`);
-  if (s.mapsInvalid) findings.push(`${counted(s.mapsInvalid, 'map')} failed basic validation.`);
-  if (s.mapsUnsupported) findings.push(`${counted(s.mapsUnsupported, 'map')} could not be analyzed: unsupported format or analysis limit.`);
   // Paused calls have no RequestEvidence entry unless an earlier redirect was attempted.
   const pausedScripts = report.bundles.filter(bundle => bundle.errorCode === 'rate-limited' && bundle.httpStatus === undefined).length;
   const pausedMaps = report.bundles.filter(bundle => bundle.map?.errorCode === 'rate-limited' && bundle.map.httpStatus === undefined).length;
-  if (pausedScripts || pausedMaps) findings.push(`Origin pause blocked ${counted(pausedScripts, 'JavaScript asset')} and ${counted(pausedMaps, 'bundle/map relationship')}; see --verbose.`);
-  if (s.skipped || s.mapsLimited) findings.push(`Scan limits: ${counted(s.skipped, 'JavaScript asset')} skipped · ${counted(s.mapsLimited, 'bundle/map relationship')} limited.`);
+  if (pausedScripts || pausedMaps) lines.push('', `  ${warningLine(`Origin pause blocked ${counted(pausedScripts, 'JavaScript asset')} and ${counted(pausedMaps, 'bundle/map relationship')}; see --verbose.`)}`);
   const packageNames = new Set<string>();
   for (const bundle of report.bundles) {
     if (bundle.map?.analysis?.status !== 'checked') continue;
@@ -92,7 +123,7 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
   }
   if (options.verbose && packageNames.size) findings.push(`Package paths mention ${[...packageNames].slice(0, 6).join(', ')}${packageNames.size > 6 ? ', …' : ''}.`);
   const mapWarnings = new Set(report.bundles.flatMap(bundle => bundle.map?.analysis?.warnings ?? []));
-  for (const warning of [...mapWarnings].slice(0, 4)) findings.push(warning);
+  for (const warning of [...mapWarnings].slice(0, 4)) lines.push(`  ${warningLine(short(warning, 120))}`);
   if (findings.length) lines.push('', ...findings.map(finding => `  ${short(finding, 120)}`));
   const outcomes = requestOutcomes(report.requests);
   if (outcomes.length) lines.push('', paint(33, '  ! Failed HTTP attempts by host (not affected bundles)'), ...outcomes);
@@ -103,15 +134,15 @@ export function render(report: Report, options: { verbose?: boolean; color?: boo
     for (const bundle of report.bundles) {
       lines.push(`  • ${safeText(bundle.url)}`, `    ${bundle.kind} · ${bundle.status}${bundle.bytes !== undefined ? ` · ${bundle.bytes} decoded response bytes` : ''}`);
       if (bundle.finalUrl && bundle.finalUrl !== bundle.url) lines.push(`    redirected to ${safeText(bundle.finalUrl)}`);
-      if (bundle.error) lines.push(`    ${safeText(bundle.error)}`);
+      if (bundle.error) lines.push(`    ${errorLine(safeText(bundle.error))}`);
       const map = bundle.map;
       if (map) {
         lines.push(`    ${map.referenceKind} → ${safeText(map.url)} · ${map.status}${map.httpStatus ? ` · HTTP ${map.httpStatus}` : ''}`);
         if (map.finalUrl && map.finalUrl !== map.url) lines.push(`    map redirected to ${safeText(map.finalUrl)}`);
-        if (map.error) lines.push(`    ${safeText(map.error)}`);
+        if (map.error) lines.push(`    ${warningLine(safeText(map.error))}`);
         const analysis = map.analysis;
         if (analysis) {
-          lines.push(...analysis.errors.map(error => `    Error: ${safeText(error)}`), ...analysis.warnings.map(warning => `    Note: ${safeText(warning)}`));
+          lines.push(...analysis.errors.map(error => `    ${errorLine(safeText(error))}`), ...analysis.warnings.map(warning => `    ${warningLine(safeText(warning))}`));
           if (analysis.status === 'checked') {
             lines.push(`    ${counted(analysis.sourceEntries, 'entry', 'entries')} · ${counted(analysis.uniqueSourcePaths, 'distinct resolved path')} in this map · ${counted(analysis.mappingCount, 'mapping segment')}`);
             lines.push(...analysis.pathSamples.map(path => `      ${safeText(path)}`));

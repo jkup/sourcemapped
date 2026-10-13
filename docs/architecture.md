@@ -7,7 +7,7 @@ The CLI is a local pipeline: normalize input, retrieve a resource, discover stat
 ```text
 cli.ts → scan.ts → discover.ts
                 → network.ts
-                → analyze.ts → @jridgewell/trace-mapping
+                → analyze.ts → maplint + @jridgewell/trace-mapping
        ← Report
        → render.ts (terminal) or JSON.stringify (JSON)
 ```
@@ -21,6 +21,8 @@ cli.ts → scan.ts → discover.ts
 | [render.ts](../src/render.ts) | Report presentation, bounded default display, verbose evidence, terminal sanitization | Fetching or recomputing analysis conclusions |
 | [package.ts](../src/package.ts) | Manifest-derived CLI version and HTTP identity | Separate version literals or cwd-dependent lookup |
 | [cli.ts](../src/cli.ts) | Arguments, progress, output mode, exit status | Analysis or discovery rules |
+
+The analyzer uses maplint’s pure mapping and ignore-list validators after defensive input guards, then trace-mapping for metadata decoding and path resolution. It never invokes maplint’s CLI or filesystem validators. See [ADR 0007](decisions/0007-maplint-validators.md) for dependency and compatibility tradeoffs.
 
 The TypeScript sources use ESM with `.js` import specifiers. `tsc` emits JavaScript and declarations into ignored `dist/`; `package.json` points the executable there. The production CLI has no bundler or runtime service. The local demo uses development-only esbuild; no generated code is checked into Git.
 

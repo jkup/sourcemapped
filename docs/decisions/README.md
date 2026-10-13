@@ -10,6 +10,7 @@ ADRs record consequential choices and the evidence behind them. They describe ac
 | [0004](0004-opt-in-asset-limit.md) | Accepted | Opt-in asset selection limit with unchanged shared budgets and report semantics |
 | [0005](0005-structured-retrieval-evidence.md) | Accepted | Additive typed retrieval evidence; display text is not machine state |
 | [0006](0006-local-bundler-demo.md) | Accepted | Development-only real-bundler demo with local CLI integration checks |
+| [0007](0007-maplint-validators.md) | Accepted | In-memory maplint validators behind existing defensive guards |
 
 Use [template.md](template.md) for a new decision. Assign the next unused four-digit ID and a descriptive filename. Include context, alternatives, consequences, evidence, and what would justify reconsideration. A short record is enough; ordinary fixes need no ADR.
 

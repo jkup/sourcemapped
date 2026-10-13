@@ -30,6 +30,29 @@ export async function buildDemo() {
     type: 'text/html',
   });
   files.set('/mixed/extra.js', { body: '/* A small additional asset without an advertised map. */', type: 'application/javascript' });
+  const extra = await build({
+    absWorkingDir: root, entryPoints: ['src/format.ts'], outfile: 'dist/validation/extra.js',
+    bundle: true, minify: true, platform: 'browser', format: 'esm', target: 'es2022',
+    sourcemap: 'linked', sourcesContent: true, write: false,
+  });
+  for (const output of extra.outputFiles) {
+    const isMap = output.path.endsWith('.map');
+    files.set(`/validation/extra.js${isMap ? '.map' : ''}`, {
+      body: output.text, type: isMap ? 'application/json' : 'application/javascript',
+    });
+    // The extra build has one source: ACAA references source index 1 (out of range).
+    // Keep valid JSON/VLQ so the failure exercises maplint's mapping validator.
+    files.set(`/validation/bad.js${isMap ? '.map' : ''}`, {
+      body: isMap ? JSON.stringify({ ...JSON.parse(output.text), file: 'bad.js', mappings: 'ACAA' })
+        : output.text.replace('sourceMappingURL=extra.js.map', 'sourceMappingURL=bad.js.map'),
+      type: isMap ? 'application/json' : 'application/javascript',
+    });
+  }
+  files.set('/validation/', {
+    body: html.replace('./app.js', '/mapped/app.js').replace('</html>',
+      '<script type="module" src="./extra.js"></script>\n<script type="module" src="./bad.js"></script>\n</html>'),
+    type: 'text/html',
+  });
   return files;
 }
 

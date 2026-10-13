@@ -6,7 +6,7 @@ import { buildDemo, serveDemo } from './fixture.mjs';
 const { values } = parseArgs({ options: { serve: { type: 'boolean' }, all: { type: 'boolean' } } });
 const demo = await serveDemo(await buildDemo());
 try {
-  const scenarios = values.all ? ['mapped', 'unmapped', 'mixed'] : ['mixed'];
+  const scenarios = values.all ? ['mapped', 'unmapped', 'mixed', 'validation'] : ['mixed'];
   for (const mode of scenarios) {
     const url = `${demo.origin}/${mode}/`;
     // Inherit the real terminal so CLI color/progress and NO_COLOR behave normally.

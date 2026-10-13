@@ -1,4 +1,5 @@
 import { TraceMap, decodedMappings } from '@jridgewell/trace-mapping';
+import { ignoreListValidator, mappingsValidator, SEVERITY_ERROR, type SourceMapFile } from 'maplint';
 
 export interface MapAnalysis {
   /** checked means passes implemented checks, not complete ECMA-426 conformance. */
@@ -60,7 +61,7 @@ function checkFraming(mappings: string): string | undefined {
 }
 
 /** Analyze metadata without retrieving original source files or retaining source contents. */
-export function analyzeMap(raw: string, mapUrl: string, generatedSource?: string): MapAnalysis {
+export async function analyzeMap(raw: string, mapUrl: string, generatedSource?: string): Promise<MapAnalysis> {
   const result: MapAnalysis = {
     status: 'invalid', errors: [], warnings: [], sourceEntries: 0, uniqueSourcePaths: 0,
     embeddedSources: 0, languages: {}, extensions: {}, packages: [], pathSamples: [], extensionFields: [], mappingCount: 0,
@@ -76,7 +77,8 @@ export function analyzeMap(raw: string, mapUrl: string, generatedSource?: string
   if ('sections' in parsed) {
     return unsupported('Indexed source maps are not analyzed by this version.');
   }
-  for (const key of ['sources', 'names', 'sourcesContent']) {
+  // Cap arrays before validators can allocate a diagnostic for every entry.
+  for (const key of ['sources', 'names', 'sourcesContent', 'ignoreList']) {
     if (Array.isArray(parsed[key]) && parsed[key].length > 100_000) {
       return unsupported(`${key} exceeds the analysis limit of 100,000 entries.`);
     }
@@ -108,10 +110,11 @@ export function analyzeMap(raw: string, mapUrl: string, generatedSource?: string
     return fail('sourcesContent must be an array of strings or null when present.');
   }
   const sources = parsed.sources as Array<string | null>;
-  for (const key of ['ignoreList', 'x_google_ignoreList']) {
-    if (key in parsed && (!Array.isArray(parsed[key]) || !parsed[key].every(value => Number.isSafeInteger(value) && value >= 0 && value < sources.length))) {
-      return fail(`${key} must contain valid source indexes.`);
-    }
+  if ('ignoreList' in parsed && (!Array.isArray(parsed.ignoreList) || !parsed.ignoreList.every(value => typeof value === 'number'))) {
+    return fail('ignoreList must be an array of numbers.');
+  }
+  if ('x_google_ignoreList' in parsed && (!Array.isArray(parsed.x_google_ignoreList) || !parsed.x_google_ignoreList.every(value => Number.isSafeInteger(value) && value >= 0 && value < sources.length))) {
+    return fail('x_google_ignoreList must contain valid source indexes.');
   }
   const framingError = checkFraming(parsed.mappings);
   if (framingError) return fail(framingError);
@@ -121,6 +124,21 @@ export function analyzeMap(raw: string, mapUrl: string, generatedSource?: string
     result.warnings.push('sourcesContent length differs from sources; only matching source slots are counted.');
   }
   try {
+    // Only pure validators: downloaded source paths must never be checked on disk.
+    // Schema, allocation and VLQ framing guards above run before maplint decodes.
+    const input: SourceMapFile = {
+      path: mapUrl,
+      map: {
+        version: 3, sources, names, mappings: parsed.mappings,
+        ...('ignoreList' in parsed ? { ignoreList: parsed.ignoreList as number[] } : {}),
+      },
+    };
+    for (const validator of [ignoreListValidator, mappingsValidator]) {
+      const messages = await validator(input);
+      const error = messages.find(message => message.severity === SEVERITY_ERROR);
+      if (error) return fail(error.message);
+      for (const message of messages.slice(0, 8)) result.warnings.push(message.message);
+    }
     const map = new TraceMap({
       version: 3, sources, names, mappings: parsed.mappings,
       ...(typeof parsed.sourceRoot === 'string' ? { sourceRoot: parsed.sourceRoot } : {}),
@@ -131,8 +149,6 @@ export function analyzeMap(raw: string, mapUrl: string, generatedSource?: string
       for (const segment of line) {
         result.mappingCount++;
         if (!segment.every(value => Number.isSafeInteger(value) && value >= 0)) return fail('Mappings contain negative or unsafe positions or indexes.');
-        if (segment.length !== 1 && segment[1] >= sources.length) return fail('Mapping source index is outside sources.');
-        if (segment.length === 5 && segment[4] >= names.length) return fail('Mapping name index is outside names.');
         if (generatedLines && (generatedLines[lineIndex] === undefined || segment[0] > generatedLines[lineIndex]!.length)) outsideGenerated = true;
       }
     }

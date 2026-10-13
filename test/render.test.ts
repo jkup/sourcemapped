@@ -87,14 +87,78 @@ describe('terminal report', () => {
     expect(output).not.toContain('No analyzable public maps found');
   });
 
-  it('sanitizes remote terminal, line-break and bidi controls in all evidence fields', () => {
+  it.each([false, true])('puts failures before successes with clear labels (verbose=%s)', verbose => {
+    const report = emptyReport();
+    Object.assign(report.summary, { discovered: 3, inspected: 3, mapsChecked: 2, mapsInvalid: 1, sourceEntries: 3, embeddedSources: 3, languages: { TypeScript: 3 } });
+    const before = JSON.stringify(report);
+    const output = render(report, { verbose });
+    const error = '× ERROR: 1 map failed basic validation.';
+    expect(output).toContain(error);
+    expect(output.indexOf(error)).toBeLessThan(output.indexOf('✓'));
+    expect(output.match(/failed basic validation/g)).toHaveLength(1);
+    expect(output).not.toContain('\x1b');
+    expect(render(report, { verbose, color: true })).toContain(`\x1b[31m\x1b[1m${error}`);
+    expect(JSON.stringify(report)).toBe(before);
+  });
+
+  it('distinguishes warning outcomes from validation errors and neutral missing references', () => {
+    const report = emptyReport();
+    Object.assign(report.summary, { mapsInvalid: 2, mapsUnavailable: 1, mapsUnsupported: 1, skipped: 1 });
+    const output = render(report, { color: true });
+    expect(output).toContain('\x1b[31m\x1b[1m× ERROR: 2 maps failed basic validation.');
+    expect(output).toContain('\x1b[33m\x1b[1m! WARNING: 1 advertised map could not be retrieved.');
+    expect(output).toContain('! WARNING: 1 map could not be analyzed: unsupported');
+    expect(output).toContain('! WARNING: Scan limits:');
+    const neutral = emptyReport();
+    Object.assign(neutral.summary, { discovered: 1, inspected: 1, noReference: 1 });
+    expect(render(neutral)).not.toMatch(/ERROR|WARNING/);
+  });
+
+  it('identifies same-origin, external and inline invalid maps under the error summary', async () => {
+    const report = await scanFixture(['https://page.example/a.js', 'https://page.example/b.js', 'https://page.example/c.js'], {
+      'https://page.example/a.js': script('/maps/bad.map?build=1'),
+      'https://page.example/maps/bad.map?build=1': () => new Response('{}'),
+      'https://page.example/b.js': script('https://cdn.example/bad.map'),
+      'https://cdn.example/bad.map': () => new Response('{}'),
+      'https://page.example/c.js': script('data:application/json,%7B%7D'),
+    });
+    const before = JSON.stringify(report);
+    const output = render(report);
+    expect(output).toContain('× ERROR: 3 maps failed basic validation.\n    → /maps/bad.map?build=1\n    → https://cdn.example/bad.map\n    → inline map in /c.js');
+    expect(output).not.toContain('data:application');
+    expect(output).not.toContain('and 0 more');
+    expect(JSON.stringify(report)).toBe(before);
+  });
+
+  it('bounds distinct map locations, uses redirects and keeps hostile text safe', () => {
+    const report = emptyReport();
+    report.finalUrl = 'https://redirect.example/';
+    report.summary.mapsInvalid = 6;
+    report.bundles = Array.from({ length: 6 }, (_, index) => ({
+      url: `https://example.com/${index}.js`, kind: 'script', status: 'map-found',
+      map: { url: '/old.map', finalUrl: `https://redirect.example/${Math.min(index, 4)}.map`, status: 'invalid', referenceKind: 'annotation', retrieved: true },
+    }));
+    const output = render(report);
+    expect(output.match(/→ /g)).toHaveLength(3);
+    expect(output).toContain('→ /0.map');
+    expect(output).not.toContain('/3.map');
+    expect(output).toContain('and 2 more · --verbose for details');
+    const map = report.bundles[0]!.map!;
+    map.finalUrl = 'http://[invalid\n\x1b[31m' + 'x'.repeat(200);
+    const hostile = render(report);
+    expect(hostile).not.toContain('\x1b');
+    expect(hostile).not.toContain('x'.repeat(110));
+    expect(hostile).toContain('http://[invalid��[31m');
+  });
+
+  it('sanitizes remote terminal, line-break and bidi controls in all evidence fields', async () => {
     const hostile = '\x1b]0;owned\x07\n\r\u009b\u2028\u2029\u202e\u2066';
     const report = emptyReport();
     report.target += hostile;
     report.error = hostile;
     report.warnings.push(hostile);
     report.requests.push({ url: `https://example.com/${hostile}`, bytes: 1, error: hostile });
-    const analysis = analyzeMap(JSON.stringify({
+    const analysis = await analyzeMap(JSON.stringify({
       version: 3, sources: [`webpack:///node_modules/pkg${hostile}/index.ts`], names: [], mappings: 'AAAA', sourcesContent: ['private source sentinel'],
     }), 'https://example.com/a.map');
     analysis.errors.push(hostile);
